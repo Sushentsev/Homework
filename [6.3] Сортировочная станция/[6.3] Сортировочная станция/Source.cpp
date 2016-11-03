@@ -2,7 +2,7 @@
 #include "Stack.h"
 #include <string>
 
-int direction(const std::string element)
+int direction(char element)
 {
 	int status = -1;
 
@@ -14,7 +14,26 @@ int fromInfixFormToPostFix(Stack *stack, const std::string &infixForm, std::stri
 	int status = -1;
 	for (int i = 0; i < infixForm.length(); ++i)
 	{
-
+		if (infixForm[i] != ' ')
+		{
+			status = direction(infixForm[i]);
+			switch (status)
+			{
+			case 1:
+				push(stack, )
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	return status;
 }
