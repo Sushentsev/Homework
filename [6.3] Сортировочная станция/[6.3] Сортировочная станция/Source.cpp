@@ -16,22 +16,29 @@ int fromInfixFormToPostFix(Stack *stack, const std::string &infixForm, std::stri
 	{
 		if (infixForm[i] != ' ')
 		{
-			status = direction(infixForm[i]);
-			switch (status)
+			while (status != 1)
 			{
-			case 1:
-				push(stack, )
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			default:
-				break;
+				status = direction(infixForm[i]);
+				switch (status)
+				{
+				case 1:
+					push(stack, infixForm[i]);
+					break;
+				case 2:
+					postfixForm += pop(stack);
+					break;
+				case 3:
+					pop(stack);
+					break;
+				case 4:
+					return status;
+					break;
+				case 5:
+					return status;
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
@@ -47,7 +54,7 @@ void main()
 	std::string postfixForm = "";
 	std::cout << "¬ведите выражение в инфиксной форме:" << std::endl;
 	std::getline(std::cin, infixForm);
-	infixForm = infixForm + "|";
+	infixForm += "|";
 	status = fromInfixFormToPostFix(stack, infixForm, postfixForm);
 	if (status == 4)
 	{
