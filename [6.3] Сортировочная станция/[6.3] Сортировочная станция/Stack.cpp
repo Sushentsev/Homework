@@ -1,7 +1,7 @@
 #include "Stack.h"
 #include <string>
 
-	struct StackElement
+struct StackElement
 {
 	char value;
 	StackElement *next;

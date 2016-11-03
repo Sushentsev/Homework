@@ -7,6 +7,27 @@ int direction(Stack *stack, char element)
 	int status = -1;
 	if (isEmpty(stack))
 	{ 
+		if (element == '|')
+		{
+			status = 4;
+		}
+		else if (element == ')')
+		{
+			status = 5;
+		}
+		else
+		{
+			status = 1;
+		}
+	}
+	else
+	{
+		char c = pop(stack);
+		push(stack, c);
+		if (element == '|' && c == '(')
+		{
+			status = 5;
+		}
 	}
 	return status;
 }
