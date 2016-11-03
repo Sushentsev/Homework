@@ -35,7 +35,7 @@ void push(Stack *stack, char value)
 	++stack->length;
 }
 
-int pop(Stack *stack)
+char pop(Stack *stack)
 {
 	if (isEmpty(stack))
 	{

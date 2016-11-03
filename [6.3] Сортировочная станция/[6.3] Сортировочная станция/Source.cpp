@@ -28,6 +28,19 @@ int direction(Stack *stack, char element)
 		{
 			status = 5;
 		}
+		if (element == ')' && c == '(')
+		{
+			status = 3;
+		}
+		if (((c == '+' || c == '-' || c == '*' || c == '/') && (element == '|' || element == '+' || element == '-' || element == ')')) 
+			|| ((c == '*' || c == '/') && (element == '*' || element == '/')))
+		{
+			status = 2;
+		}
+		else
+		{
+			status = 1;
+		}
 	}
 	return status;
 }
@@ -41,14 +54,14 @@ int fromInfixFormToPostFix(Stack *stack, const std::string &infixForm, std::stri
 		{
 			if (isdigit(infixForm[i]))
 			{
-				postfixForm += infixForm[i] + ' ';
+				postfixForm = postfixForm + infixForm[i] + ' ';
 			}
 			else
 			{
 				status = direction(stack, infixForm[i]);
 				while (status == 2)
 				{
-					postfixForm += pop(stack) + ' ';
+					postfixForm = postfixForm + pop(stack) + ' ';
 					status = direction(stack, infixForm[i]);
 				}
 				switch (status)
