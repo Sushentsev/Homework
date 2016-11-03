@@ -2,10 +2,12 @@
 #include "Stack.h"
 #include <string>
 
-int direction(char element)
+int direction(Stack *stack, char element)
 {
 	int status = -1;
-
+	if (isEmpty(stack))
+	{ 
+	}
 	return status;
 }
 
@@ -16,16 +18,22 @@ int fromInfixFormToPostFix(Stack *stack, const std::string &infixForm, std::stri
 	{
 		if (infixForm[i] != ' ')
 		{
-			while (status != 1)
+			if (isdigit(infixForm[i]))
 			{
-				status = direction(infixForm[i]);
+				postfixForm += infixForm[i] + ' ';
+			}
+			else
+			{
+				status = direction(stack, infixForm[i]);
+				while (status == 2)
+				{
+					postfixForm += pop(stack) + ' ';
+					status = direction(stack, infixForm[i]);
+				}
 				switch (status)
 				{
 				case 1:
 					push(stack, infixForm[i]);
-					break;
-				case 2:
-					postfixForm += pop(stack);
 					break;
 				case 3:
 					pop(stack);
