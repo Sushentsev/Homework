@@ -87,6 +87,45 @@ int fromInfixFormToPostFix(Stack *stack, const std::string &infixForm, std::stri
 	return status;
 }
 
+bool test1()
+{
+	Stack *stack = createStack();
+	int status = 0;
+	std::string infixForm = "(1+2)*4|";
+	std::string postfixForm = "";
+	status = fromInfixFormToPostFix(stack, infixForm, postfixForm);
+	deleteStack(stack);
+	delete stack;
+	stack = nullptr;
+	return (status == 4 && postfixForm == "1 2 + 4 * ");
+}
+
+bool test2()
+{
+	Stack *stack = createStack();
+	int status = 0;
+	std::string infixForm = "(8+2* 5)/(1+ 3 *2-4)|";
+	std::string postfixForm = "";
+	status = fromInfixFormToPostFix(stack, infixForm, postfixForm);
+	deleteStack(stack);
+	delete stack;
+	stack = nullptr;
+	return (status == 4 && postfixForm == "8 2 5 * + 1 3 2 * + 4 - / ");
+}
+
+bool test3()
+{
+	Stack *stack = createStack();
+	int status = 0;
+	std::string infixForm = "((7 +  5)|";
+	std::string postfixForm = "";
+	status = fromInfixFormToPostFix(stack, infixForm, postfixForm);
+	deleteStack(stack);
+	delete stack;
+	stack = nullptr;
+	return (status == 5);
+}
+
 void main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -94,6 +133,9 @@ void main()
 	int status = 0;
 	std::string infixForm = "";
 	std::string postfixForm = "";
+	std::cout << "Test 1: " << test1() << std::endl;
+	std::cout << "Test 2: " << test2() << std::endl;
+	std::cout << "Test 3: " << test3() << std::endl;
 	std::cout << "Введите выражение в инфиксной форме:" << std::endl;
 	std::getline(std::cin, infixForm);
 	infixForm = infixForm + "|";
@@ -102,7 +144,7 @@ void main()
 	{
 		std::cout << "Постфиксная форма выражения: " << postfixForm << std::endl;
 	}
-	else if (status == 5)
+	else
 	{
 		std::cout << "Произошла ошибка при переводе" << std::endl;
 	}
