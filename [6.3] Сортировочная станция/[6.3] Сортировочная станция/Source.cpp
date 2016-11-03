@@ -28,12 +28,12 @@ int direction(Stack *stack, char element)
 		{
 			status = 5;
 		}
-		if (element == ')' && c == '(')
+		else if (element == ')' && c == '(')
 		{
 			status = 3;
 		}
-		if (((c == '+' || c == '-' || c == '*' || c == '/') && (element == '|' || element == '+' || element == '-' || element == ')')) 
-			|| ((c == '*' || c == '/') && (element == '*' || element == '/')))
+		else if (((c == '+' || c == '-' || c == '*' || c == '/') && (element == '|' || element == '+' || element == '-' || element == ')')) 
+			|| ((c == '*' || c == '/') && (element == '*' || element == '/' || element == ')')))
 		{
 			status = 2;
 		}
@@ -96,13 +96,13 @@ void main()
 	std::string postfixForm = "";
 	std::cout << "Введите выражение в инфиксной форме:" << std::endl;
 	std::getline(std::cin, infixForm);
-	infixForm += "|";
+	infixForm = infixForm + "|";
 	status = fromInfixFormToPostFix(stack, infixForm, postfixForm);
 	if (status == 4)
 	{
 		std::cout << "Постфиксная форма выражения: " << postfixForm << std::endl;
 	}
-	else
+	else if (status == 5)
 	{
 		std::cout << "Произошла ошибка при переводе" << std::endl;
 	}
