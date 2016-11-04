@@ -23,7 +23,38 @@ Tree* plantTree()
 
 void addElement(Tree *tree, int value)
 {
-
+	TreeElement *newElement = new TreeElement;
+	newElement->value = value;
+	newElement->parent = nullptr;
+	newElement->leftChild = nullptr;
+	newElement->rightChild = nullptr;
+	TreeElement *current = tree->root;
+	if (tree->root == nullptr)
+	{
+		tree->root = newElement;
+	}
+	else while (value != current->value)
+	{
+		if (value < current->value)
+		{
+			if (current->leftChild == nullptr)
+			{
+				current->leftChild = newElement;
+				newElement->parent = current;
+				return;
+			}
+			current = current->leftChild;
+		}
+		if (value > current->value)
+		{
+			if (current->rightChild == nullptr)
+			{
+				current->rightChild = newElement;
+				newElement->parent = current;
+				return;
+			}
+			current = current->rightChild;
+	}
 }
 
 void deleteElement(Tree *tree, int value)
