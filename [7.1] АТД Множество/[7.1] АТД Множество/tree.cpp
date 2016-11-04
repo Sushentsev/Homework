@@ -54,11 +54,40 @@ void addElement(Tree *tree, int value)
 				return;
 			}
 			current = current->rightChild;
+		}
 	}
 }
 
 void deleteElement(Tree *tree, int value)
 {
+	TreeElement *&current = tree->root;
+	if (tree->root == nullptr)
+	{
+		return;
+	} 
+	else while (value != current->value)
+	{
+		if (value < current->value)
+		{
+			current = current->leftChild;
+		}
+		else if (value > current->value)
+		{
+			current = current->rightChild;
+		}
+	}	
+	if ((current->leftChild == nullptr) && (current->rightChild == nullptr))
+	{
+		delete current;
+		current = nullptr;
+	}
+	else if ((current->leftChild != nullptr) && (current->rightChild == nullptr))
+	{
+		TreeElement *toDelete = current;
+		current = current->leftChild;
+		delete toDelete;
+
+	}
 
 }
 
