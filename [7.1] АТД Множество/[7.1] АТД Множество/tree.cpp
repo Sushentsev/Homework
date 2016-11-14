@@ -1,127 +1,160 @@
 #include <iostream>
 #include "tree.h"
 
-struct TreeElement
+struct TreeNode
 {
 	int value;
-	TreeElement *parent;
-	TreeElement *leftChild;
-	TreeElement *rightChild;
+	TreeNode *leftChild;
+	TreeNode *rightChild;
 };
 
 struct Tree
 {
-	TreeElement *root;
+	TreeNode *root;
 };
 
-Tree* plantTree()
+Tree *plantTree()
 {
 	Tree *tree = new Tree;
 	tree->root = nullptr;
 	return tree;
 }
 
-void addElement(Tree *tree, int value)
+TreeNode *createNewElement(TreeNode *leftChild, TreeNode *rightChild, int value)
 {
-	TreeElement *newElement = new TreeElement;
-	newElement->value = value;
-	newElement->parent = nullptr;
-	newElement->leftChild = nullptr;
-	newElement->rightChild = nullptr;
-	TreeElement *current = tree->root;
-	if (tree->root == nullptr)
+	TreeNode *newNode = new TreeNode;
+	newNode->leftChild = leftChild;
+	newNode->rightChild = rightChild;
+	newNode->value = value;
+	return newNode;
+}
+
+bool addNode(TreeNode *&node, int value)
+{
+	if (node == nullptr)
 	{
-		tree->root = newElement;
+		node = createNewElement(nullptr, nullptr, value);
+		return true;
 	}
-	else while (value != current->value)
+	else if (node->value == value)
 	{
-		if (value < current->value)
-		{
-			if (current->leftChild == nullptr)
-			{
-				current->leftChild = newElement;
-				newElement->parent = current;
-				return;
-			}
-			current = current->leftChild;
-		}
-		if (value > current->value)
-		{
-			if (current->rightChild == nullptr)
-			{
-				current->rightChild = newElement;
-				newElement->parent = current;
-				return;
-			}
-			current = current->rightChild;
-		}
+		return false;
+	}
+	else if (node->value > value)
+	{
+		return addNode(node->leftChild, value);
+	}
+	else
+	{
+		return addNode(node->rightChild, value);
 	}
 }
 
-void deleteElement(Tree *tree, int value)
+bool addNode(Tree *tree, int value)
 {
-	TreeElement *&current = tree->root;
-	if (tree->root == nullptr)
+	return addNode(tree->root, value);
+}
+
+bool removeNode(TreeNode *&node, int value)
+{
+	if (node == nullptr)
 	{
-		return;
+		return false;
+	}
+	if (node->value == value)
+	{
+		if (node->leftChild == nullptr && node->rightChild == nullptr)
+		{
+			delete node;
+			node = nullptr;
+		}
+		else if (node->leftChild != nullptr && node->leftChild != nullptr)
+		{
+
+		}
+		else if (node->leftChild != nullptr)
+		{
+			TreeNode *toDelete = node;
+			node = node->leftChild;
+			delete toDelete;
+		}
+		else if (node->rightChild != nullptr)
+		{
+			TreeNode *toDelete = node;
+			node = node->rightChild;
+			delete toDelete;
+		}
+		return true;
+	}
+
+	if (value > node->value)
+	{
+		return removeNode(node->rightChild, value);
+	}
+	else
+	{
+		return removeNode(node->leftChild, value);
+	}
+}
+
+bool removeNode(Tree *tree, int value)
+{
+	return removeNode(tree->root, value);
+}
+
+bool isContained(TreeNode *node, int value)
+{
+	if (node == nullptr)
+	{
+		return false;
 	} 
-	else while (value != current->value)
+	else if (node->value == value)
 	{
-		if (value < current->value)
-		{
-			current = current->leftChild;
-		}
-		else if (value > current->value)
-		{
-			current = current->rightChild;
-		}
-	}	
-	if ((current->leftChild == nullptr) && (current->rightChild == nullptr))
-	{
-		delete current;
-		current = nullptr;
+		return true;
 	}
-	else if ((current->leftChild != nullptr) && (current->rightChild == nullptr))
+	else if (node->value < value)
 	{
-		TreeElement *toDelete = current;
-		current = current->leftChild;
-		delete toDelete;
-
+		return isContained(node->rightChild, value);
 	}
-
+	else
+	{
+		return isContained(node->leftChild, value);
+	}
 }
 
 bool isContained(Tree *tree, int value)
 {
-	TreeElement *current = tree->root;
-	if (tree->root == nullptr)
+	return isContained(tree->root, value);
+}
+
+void printAscendingOrder(TreeNode *node)
+{
+	if (node == nullptr)
 	{
-		return 0;
+		return;
 	}
-	else while (current != nullptr)
-	{
-		if (value == current->value)
-		{
-			return 1;
-		}
-		else if (value < current->value)
-		{
-			current = current->leftChild;
-		}
-		else if (value > current->value)
-		{
-			current = current->rightChild;
-		}
-	}
-	return 0;
+	printAscendingOrder(node->leftChild);
+	std::cout << node->value << " ";
+	printAscendingOrder(node->rightChild);
 }
 
 void printAscendingOrder(Tree *tree)
 {
+	printAscendingOrder(tree->root);
+}
 
+void printDescendingOrder(TreeNode *node)
+{
+	if (node == nullptr)
+	{
+		return;
+	}
+	printAscendingOrder(node->rightChild);
+	std::cout << node->value << " ";
+	printAscendingOrder(node->leftChild);
 }
 
 void printDescendingOrder(Tree *tree)
 {
-
+	printDescendingOrder(tree->root);
 }
