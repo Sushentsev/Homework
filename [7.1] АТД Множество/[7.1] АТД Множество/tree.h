@@ -2,7 +2,7 @@
 
 struct TreeNode;
 struct Tree;
-Tree *plantTree();
+
 bool addNode(Tree *tree, int value);
 bool removeNode(Tree *tree, int value);
 bool isContained(Tree *tree, int value);
