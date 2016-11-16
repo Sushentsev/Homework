@@ -4,7 +4,7 @@
 void addNode(Tree *tree)
 {
 	int value = 0;
-	std::cout << "Введите значение добавляемого элемента" << std::endl;
+	std::cout << "Введите значение добавляемого элемента:" << std::endl;
 	std::cin >> value;
 	if (addNode(tree, value))
 	{
@@ -12,7 +12,7 @@ void addNode(Tree *tree)
 	}
 	else
 	{
-		std::cout << "Произошла ошибка при добавлении" << std::endl;
+		std::cout << "Произошла ошибка при добавлении!" << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -20,7 +20,7 @@ void addNode(Tree *tree)
 void removeNode(Tree *tree)
 {
 	int value = 0;
-	std::cout << "Введите значение удалемого элемента" << std::endl;
+	std::cout << "Введите значение удалемого элемента:" << std::endl;
 	std::cin >> value;
 	if (removeNode(tree, value))
 	{
@@ -28,7 +28,7 @@ void removeNode(Tree *tree)
 	}
 	else
 	{
-		std::cout << "Произошла ошибка при удалении" << std::endl;
+		std::cout << "Произошла ошибка при удалении!" << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -36,15 +36,15 @@ void removeNode(Tree *tree)
 void isContained(Tree *tree)
 {
 	int value = 0;
-	std::cout << "Введите значение элемента для поиска" << std::endl;
+	std::cout << "Введите значение элемента для поиска:" << std::endl;
 	std::cin >> value;
 	if (removeNode(tree, value))
 	{
-		std::cout << "Данное значение существует в множестве" << std::endl;
+		std::cout << "Данное значение существует в множестве!" << std::endl;
 	}
 	else
 	{
-		std::cout << "Такого значения нет" << std::endl;
+		std::cout << "Такого значения нет!" << std::endl;
 	}
 	std::cout << std::endl;
 }
@@ -72,12 +72,12 @@ void main()
 	while (selection)
 	{
 		std::cout << "Выберете необоходимую команду:" << std::endl;
-		std::cout << "0 - Выход" << std::endl;
-		std::cout << "1 - Добавить значение" << std::endl;
-		std::cout << "2 - Удалить значение" << std::endl;
-		std::cout << "3 - Принадлежит ли значение множеству" << std::endl;
-		std::cout << "4 - Печать элементов в возрастающем порядке" << std::endl;
-		std::cout << "5 - Печать элементов в убывающем порядке" << std::endl;
+		std::cout << "0 - Выход;" << std::endl;
+		std::cout << "1 - Добавить значение;" << std::endl;
+		std::cout << "2 - Удалить значение;" << std::endl;
+		std::cout << "3 - Принадлежит ли значение множеству;" << std::endl;
+		std::cout << "4 - Печать элементов в возрастающем порядке;" << std::endl;
+		std::cout << "5 - Печать элементов в убывающем порядке;" << std::endl;
 		std::cout << std::endl;
 		std::cin >> selection;
 
