@@ -30,22 +30,10 @@ bool isEmpty(List *list)
 	return (list->head == nullptr);
 }
 
-void addElement(ListElement *&element, std::string word, int value)
+void addElement(ListElement *head, std::string word, int value)
 {
-	if (element == nullptr)
-	{
-		element = createListElement(value, nullptr);
-		return;
-	}
-	else
-	{
-		addElement(element->next, word, value);
-	}
-}
-
-void addElement(List *list, std::string word, int value)
-{
-	addElement(list->head, word, value);
+	ListElement *newElement = createListElement(word, value, head);
+	head = newElement;
 }
 
 void removeElement(ListElement *&element, int value)
@@ -57,7 +45,7 @@ void removeElement(ListElement *&element, int value)
 	if (element->value == value)
 	{
 		ListElement *toDelete = element;
-		element = nullptr;
+		element = element->next;
 		delete toDelete;
 	}
 	else
@@ -86,6 +74,20 @@ void deleteList(List *list)
 	deleteList(list->head);
 	delete list;
 }
+
+bool increaseIfFound(ListElement *listElement, std::string word)
+{
+	while (listElement != nullptr)
+	{
+		if (listElement->word == word)
+		{
+			++listElement->value;
+			return true;
+		}
+	}
+	return false;
+}
+
 
 void printList(ListElement *element)
 {
