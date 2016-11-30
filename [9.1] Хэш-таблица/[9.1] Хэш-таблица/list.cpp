@@ -83,6 +83,15 @@ void increaseIfFoundAddOtherwise(ListElement *head, std::string word)
 	}
 }
 
+void printList(ListElement *head)
+{
+	ListElement *cursor = head;
+	while (cursor != nullptr)
+	{
+		
+	}
+}
+
 void deleteList(ListElement *head)
 {
 	ListElement *toDelete = head;
@@ -90,9 +99,11 @@ void deleteList(ListElement *head)
 	{
 		head = head->next;
 		delete toDelete;
-		toDelete = head
+		toDelete = head;
 	}
 }
+
+
 
 
 

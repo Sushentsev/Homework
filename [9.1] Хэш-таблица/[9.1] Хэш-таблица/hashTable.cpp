@@ -41,10 +41,7 @@ float occupancyOfHashTable(HashTable *hashTable)
 	int count = 0;
 	for (int i = 0; i < sizeOfHashTable; ++i)
 	{
-		if (!isEmpty(hashTable->head[i]))
-		{
 			count += amountOfElements(hashTable->head[i]);
-		}
 	}
 	return count / sizeOfHashTable;
 }
@@ -75,4 +72,26 @@ float averageLengthOfList(HashTable *hashTable)
 		}
 	}
 	return count / amountOfList;
+}
+
+void printHashTable(HashTable *hashTable)
+{
+	for (int i = 0; i < sizeOfHashTable; ++i)
+	{
+		if (!isEmpty(hashTable->head[i]))
+		{
+			ListElement *cursor = hashTable->head[i];
+			while (cursor != nullptr)
+			{
+			}
+		}
+	}
+}
+
+void deleteHashTable(HashTable *hashTable)
+{
+	for (int i = 0; i < sizeOfHashTable; ++i)
+	{
+		deleteList(hashTable->head[i]);
+	}
 }
