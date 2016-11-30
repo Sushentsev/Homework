@@ -15,91 +15,72 @@ struct List
 
 List *createList()
 {
-	List *list = new List{ nullptr };
+	List *list = new List;
+	list->head = nullptr;
 	return list;
 }
 
 ListElement *createListElement(std::string word, int value, ListElement *next)
 {
-	ListElement *newElement = new ListElement{ word, value, nullptr };
+	ListElement *newElement = new ListElement;
+	newElement->next = next;
+	newElement->value = value;
+	newElement->word = word;
 	return newElement;
 }
 
 bool isEmpty(List *list)
 {
-	return (list->head == nullptr);
+	return list->head == nullptr;
 }
 
-void addElement(ListElement *head, std::string word, int value)
+bool isContained(List *list, std::string word)
 {
-	ListElement *newElement = createListElement(word, value, head);
-	head = newElement;
-}
-
-void removeElement(ListElement *&element, int value)
-{
-	if (element == nullptr)
+	ListElement *cursor = list->head;
+	while (cursor != nullptr)
 	{
-		return;
+		if (cursor->word == word)
+		{
+			return true;
+		}
+		cursor = cursor->next;
 	}
-	if (element->value == value)
+	return false;
+}
+
+void addElement(List *list, std::string word, int value)
+{
+	ListElement *newElement = createListElement(word, value, list->head);
+	list->head = newElement;
+}
+
+void increaseIfFoundAddOtherwise(List *list, std::string word)
+{
+	ListElement *cursor = list->head;
+	if (isContained(list, word))
 	{
-		ListElement *toDelete = element;
-		element = element->next;
-		delete toDelete;
+		while (cursor->word != word)
+		{
+			cursor = cursor->next;
+		}
+		++cursor->value;
 	}
 	else
 	{
-		removeElement(element->next, value);
-	}
-}
-
-void removeElement(List *list, int value)
-{
-	removeElement(list->head, value);
-}
-
-void deleteList(ListElement *&element)
-{
-	while (element != nullptr)
-	{
-		ListElement *toDelete = element;
-		element = element->next;
-		delete toDelete;
+		addElement(list, word, 1);
 	}
 }
 
 void deleteList(List *list)
 {
-	deleteList(list->head);
-	delete list;
-}
-
-bool increaseIfFound(ListElement *listElement, std::string word)
-{
-	while (listElement != nullptr)
+	ListElement *toDelete = list->head;
+	while (toDelete != nullptr)
 	{
-		if (listElement->word == word)
-		{
-			++listElement->value;
-			return true;
-		}
-	}
-	return false;
-}
-
-
-void printList(ListElement *element)
-{
-	while (element != nullptr)
-	{
-		std::cout << element->value << " ";
-		element = element->next;
+		list->head = list->head->next;
+		delete toDelete;
+		toDelete = list->head
 	}
 }
 
-void printList(List *list)
-{
-	printList(list->head);
-}
+
 
