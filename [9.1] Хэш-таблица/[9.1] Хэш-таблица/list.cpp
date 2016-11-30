@@ -35,6 +35,23 @@ void addElement(ListElement *head, std::string word, int value)
 	head = newElement;
 }
 
+bool isEmpty(ListElement *head)
+{
+	return head == nullptr;
+}
+
+int amountOfElements(ListElement *head)
+{
+	int count = 0;
+	ListElement *cursor = head;
+	while (cursor != nullptr)
+	{
+		++count;
+		cursor = cursor->next;
+	}
+	return count;
+}
+
 bool isContained(ListElement *head, std::string word)
 {
 	ListElement *cursor = head;
