@@ -29,14 +29,15 @@ ListElement *createListElement(std::string word, int value, ListElement *next)
 	return newElement;
 }
 
-bool isEmpty(List *list)
+void addElement(ListElement *head, std::string word, int value)
 {
-	return list->head == nullptr;
+	ListElement *newElement = createListElement(word, value, head);
+	head = newElement;
 }
 
-bool isContained(List *list, std::string word)
+bool isContained(ListElement *head, std::string word)
 {
-	ListElement *cursor = list->head;
+	ListElement *cursor = head;
 	while (cursor != nullptr)
 	{
 		if (cursor->word == word)
@@ -48,16 +49,10 @@ bool isContained(List *list, std::string word)
 	return false;
 }
 
-void addElement(List *list, std::string word, int value)
+void increaseIfFoundAddOtherwise(ListElement *head, std::string word)
 {
-	ListElement *newElement = createListElement(word, value, list->head);
-	list->head = newElement;
-}
-
-void increaseIfFoundAddOtherwise(List *list, std::string word)
-{
-	ListElement *cursor = list->head;
-	if (isContained(list, word))
+	ListElement *cursor = head;
+	if (isContained(head, word))
 	{
 		while (cursor->word != word)
 		{
@@ -67,18 +62,18 @@ void increaseIfFoundAddOtherwise(List *list, std::string word)
 	}
 	else
 	{
-		addElement(list, word, 1);
+		addElement(head, word, 1);
 	}
 }
 
-void deleteList(List *list)
+void deleteList(ListElement *head)
 {
-	ListElement *toDelete = list->head;
+	ListElement *toDelete = head;
 	while (toDelete != nullptr)
 	{
-		list->head = list->head->next;
+		head = head->next;
 		delete toDelete;
-		toDelete = list->head
+		toDelete = head
 	}
 }
 
