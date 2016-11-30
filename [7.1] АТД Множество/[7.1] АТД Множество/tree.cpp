@@ -40,11 +40,11 @@ bool addNode(TreeNode *&node, int value)
 	{
 		return false;
 	}
-	else if (node->value > value)
+	else if (value < node->value)
 	{
 		return addNode(node->leftChild, value);
 	}
-	else if (node->value < value)
+	else if (value > node->value)
 	{
 		return addNode(node->rightChild, value);
 	}
@@ -55,14 +55,14 @@ bool addNode(Tree *tree, int value)
 	return addNode(tree->root, value);
 }
 
-TreeNode *findMinNode(TreeNode *&node)
+TreeNode *findMinNode(TreeNode *node)
 {
-	TreeNode *toDelete = node->rightChild;
-	while (node->leftChild != nullptr)
+	TreeNode *minNode = node->rightChild;
+	while (minNode->leftChild != nullptr)
 	{
-		toDelete = toDelete->leftChild;
+		minNode = minNode->leftChild;
 	}
-	return toDelete;
+	return minNode;
 }
 
 bool removeNode(TreeNode *&node, int value)
@@ -71,7 +71,7 @@ bool removeNode(TreeNode *&node, int value)
 	{
 		return false;
 	}
-	if (node->value == value)
+	else if (node->value == value)
 	{
 		if (node->leftChild == nullptr && node->rightChild == nullptr)
 		{
@@ -98,8 +98,7 @@ bool removeNode(TreeNode *&node, int value)
 		}
 		return true;
 	}
-
-	if (value > node->value)
+	else if (value > node->value)
 	{
 		return removeNode(node->rightChild, value);
 	}
@@ -124,11 +123,11 @@ bool isContained(TreeNode *node, int value)
 	{
 		return true;
 	}
-	else if (node->value < value)
+	else if (value > node->value)
 	{
 		return isContained(node->rightChild, value);
 	}
-	else
+	else if (value < node->value)
 	{
 		return isContained(node->leftChild, value);
 	}
@@ -161,12 +160,35 @@ void printDescendingOrder(TreeNode *node)
 	{
 		return;
 	}
-	printAscendingOrder(node->rightChild);
+	printDescendingOrder(node->rightChild);
 	std::cout << node->value << " ";
-	printAscendingOrder(node->leftChild);
+	printDescendingOrder(node->leftChild);
 }
 
 void printDescendingOrder(Tree *tree)
 {
 	printDescendingOrder(tree->root);
+}
+
+void removeTree(TreeNode *&node)
+{
+	if (node == nullptr)
+	{
+		return;
+	}
+	if (node->leftChild != nullptr)
+	{
+		removeTree(node->leftChild);
+	}
+	if (node->rightChild != nullptr)
+	{
+		removeTree(node->rightChild);
+	}
+	delete node;
+	node = nullptr;
+}
+
+void removeTree(Tree *tree)
+{
+	removeTree(tree->root);
 }

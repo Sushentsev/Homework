@@ -8,3 +8,4 @@ bool removeNode(Tree *tree, int value);
 bool isContained(Tree *tree, int value);
 void printAscendingOrder(Tree *tree);
 void printDescendingOrder(Tree *tree);
+void removeTree(Tree *tree);

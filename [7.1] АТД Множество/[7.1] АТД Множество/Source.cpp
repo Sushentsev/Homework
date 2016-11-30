@@ -102,4 +102,6 @@ void main()
 			break;
 		}
 	}
+	removeTree(tree);
+	delete tree;
 }
