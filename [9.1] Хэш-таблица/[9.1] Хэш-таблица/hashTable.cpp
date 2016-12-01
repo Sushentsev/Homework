@@ -33,7 +33,7 @@ int getHash(const std::string &key)
 void add(HashTable *hashTable, std::string word)
 {
 	int hash = getHash(word);
-	increaseIfFoundAddOtherwise(hashTable->head[hash]);
+	increaseIfFoundAddOtherwise(hashTable->head[hash], word);
 }
 
 float occupancyOfHashTable(HashTable *hashTable)
@@ -80,10 +80,7 @@ void printHashTable(HashTable *hashTable)
 	{
 		if (!isEmpty(hashTable->head[i]))
 		{
-			ListElement *cursor = hashTable->head[i];
-			while (cursor != nullptr)
-			{
-			}
+			printList(hashTable->head[i]);
 		}
 	}
 }

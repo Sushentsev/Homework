@@ -1,5 +1,6 @@
 #include <iostream>
 #include "list.h"
+#include <string>
 
 struct ListElement
 {
@@ -17,6 +18,7 @@ List *createList()
 {
 	List *list = new List;
 	list->head = nullptr;
+	list->size = 0;
 	return list;
 }
 
@@ -40,6 +42,7 @@ bool isEmpty(ListElement *head)
 	return head == nullptr;
 }
 
+
 int amountOfElements(ListElement *head)
 {
 	int count = 0;
@@ -51,6 +54,7 @@ int amountOfElements(ListElement *head)
 	}
 	return count;
 }
+
 
 bool isContained(ListElement *head, std::string word)
 {
@@ -88,7 +92,7 @@ void printList(ListElement *head)
 	ListElement *cursor = head;
 	while (cursor != nullptr)
 	{
-		
+		std::cout << " ' " << cursor->word << " ' (" << cursor->value << ") ";
 	}
 }
 
