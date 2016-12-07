@@ -30,7 +30,7 @@ int getHash(const std::string &key)
 	return value;
 }
 
-void add(HashTable *hashTable, std::string word)
+void add(HashTable *hashTable, const std::string &word)
 {
 	int hash = getHash(word);
 	increaseIfFoundAddOtherwise(hashTable->head[hash], word);

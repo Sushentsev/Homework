@@ -1,6 +1,6 @@
 #include <iostream>
-#include "list.h"
 #include <string>
+#include "list.h"
 
 struct ListElement
 {
@@ -9,20 +9,7 @@ struct ListElement
 	ListElement *next;
 };
 
-struct List
-{
-	ListElement *head;
-};
-
-List *createList()
-{
-	List *list = new List;
-	list->head = nullptr;
-	list->size = 0;
-	return list;
-}
-
-ListElement *createListElement(std::string word, int value, ListElement *next)
+ListElement *createListElement(const std::string &word, int value, ListElement *next)
 {
 	ListElement *newElement = new ListElement;
 	newElement->next = next;
@@ -31,17 +18,10 @@ ListElement *createListElement(std::string word, int value, ListElement *next)
 	return newElement;
 }
 
-void addElement(ListElement *head, std::string word, int value)
-{
-	ListElement *newElement = createListElement(word, value, head);
-	head = newElement;
-}
-
 bool isEmpty(ListElement *head)
 {
-	return head == nullptr;
+	return (head == nullptr);
 }
-
 
 int amountOfElements(ListElement *head)
 {
@@ -55,8 +35,7 @@ int amountOfElements(ListElement *head)
 	return count;
 }
 
-
-bool isContained(ListElement *head, std::string word)
+bool isContained(ListElement *head, const std::string &word)
 {
 	ListElement *cursor = head;
 	while (cursor != nullptr)
@@ -70,7 +49,7 @@ bool isContained(ListElement *head, std::string word)
 	return false;
 }
 
-void increaseIfFoundAddOtherwise(ListElement *head, std::string word)
+void increaseIfFoundAddOtherwise(ListElement *head, const std::string &word)
 {
 	ListElement *cursor = head;
 	if (isContained(head, word))
@@ -83,7 +62,8 @@ void increaseIfFoundAddOtherwise(ListElement *head, std::string word)
 	}
 	else
 	{
-		addElement(head, word, 1);
+		ListElement *newElement = createListElement(word, 1, head);
+		head = newElement;
 	}
 }
 
@@ -93,6 +73,7 @@ void printList(ListElement *head)
 	while (cursor != nullptr)
 	{
 		std::cout << " ' " << cursor->word << " ' (" << cursor->value << ") ";
+		cursor = cursor->next;
 	}
 }
 
