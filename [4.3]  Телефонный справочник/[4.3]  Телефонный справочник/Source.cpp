@@ -69,6 +69,18 @@ void saveToFile(int initialNumberOfRecords, int currentNumberOfRecords, phoneBoo
 	file.close();
 }
 
+void printInformation()
+{
+	std::cout << "Выберете необходимую операцию:" << std::endl;
+	std::cout << "0 - выйти" << std::endl;
+	std::cout << "1 - добавить запись(имя и телефон)" << std::endl;
+	std::cout << "2 - распечатать все имеющиеся записи" << std::endl;
+	std::cout << "3 - найти телефон по имени" << std::endl;
+	std::cout << "4 - найти имя по телефону" << std::endl;
+	std::cout << "5 - сохранить текущие данные в файл" << std::endl;
+	std::cout << std::endl;
+}
+
 void main()
 {
 	setlocale(LC_ALL, "Russian");
@@ -98,14 +110,7 @@ void main()
 
 	while (selection != 0)
 	{
-		std::cout << "Выберете необходимую операцию:" << std::endl;
-		std::cout << "0 - выйти" << std::endl;
-		std::cout << "1 - добавить запись(имя и телефон)" << std::endl;
-		std::cout << "2 - распечатать все имеющиеся записи" << std::endl;
-		std::cout << "3 - найти телефон по имени" << std::endl;
-		std::cout << "4 - найти имя по телефону" << std::endl;
-		std::cout << "5 - сохранить текущие данные в файл" << std::endl;
-		std::cout << std::endl;
+		printInformation();
 		std::cin >> selection;
 		std::cout << std::endl;
 		switch (selection)
@@ -117,9 +122,7 @@ void main()
 				++currentNumberOfRecords;
 			}
 			else
-			{
 				std::cout << "База полностью заполнена!" << std::endl;
-			}
 			break;
 		case 2:
 			printRecords(currentNumberOfRecords, book);
@@ -138,5 +141,4 @@ void main()
 			break;
 		}
 	}
-
 }
