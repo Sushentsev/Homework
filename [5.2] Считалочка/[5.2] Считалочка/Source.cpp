@@ -8,17 +8,15 @@ struct ListElement
 
 struct List
 {
-	int length = 0;
 	ListElement *head;
-	ListElement *tale;
+	int length = 0;
 };
 
 List *createList()
 {
 	List *list = new List;
-	list->length = 0;
 	list->head = nullptr;
-	list->tale = nullptr;
+	list->length = 0;
 	return list;
 }
 
@@ -32,37 +30,32 @@ ListElement *createListELement(int value, ListElement *next)
 
 void createSquard(List *list, int n)
 {
-	if (n >= 1)
+	list->head = createListELement(1, list->head);
+	++list->length;
+	ListElement *lastElement = list->head;
+	for (int i = 2; i <= n; ++i)
 	{
-		ListElement *temp = createListELement(1, nullptr);
-		list->head = temp;
-		list->tale = temp;
+		ListElement *newElement = createListELement(i, list->head);
+		lastElement->next = newElement;
+		lastElement = newElement;
 		++list->length;
-	}
-	if (n >= 2)
-	{
-		ListElement *temp = createListELement(2, list->head);
-		list->head->next = temp;
-		list->tale = temp;
-		++list->length;
-	}
-	if (n >= 3)
-	{
-		for (int i = 3; i <= n; ++i)
-		{
-			ListElement *temp = createListELement(i, list->head);
-			list->tale->next = temp;
-			list->tale = temp;
-			++list->length;
-		}
 	}
 }
 
 int survivor(List *list, int m)
 {
-	if (m >= 1)
+	while (list->length != 1)
 	{
-		while (list->length != 1)
+		if (m == 1)
+		{
+			ListElement *cursor = list->head;
+			while (cursor->next != list->head)
+			{
+				cursor = cursor->next;
+			}
+			return cursor->value;
+		}
+		else
 		{
 			ListElement *toDelete = list->head;
 			for (int i = 1; i < m - 1; ++i)
@@ -74,28 +67,90 @@ int survivor(List *list, int m)
 			list->head->next = list->head->next->next;
 			list->head = list->head->next;
 			delete toDelete;
+			toDelete = nullptr;
 			--list->length;
 		}
+	
 	}
 	return list->head->value;
 }
 
 void deleteList(List *list)
 {
-	delete list->head;
-	list->head = nullptr;
+	while (list->head != nullptr)
+	{
+		ListElement *toDelete = list->head;
+		list->head = list->head->next;
+		delete toDelete;
+		toDelete = nullptr;
+	}
+}
+
+bool test1()
+{
+	const int n = 10;
+	const int m = 3; 
+
+	List *list = createList();
+	createSquard(list, n);
+	int result = survivor(list, m);
+	delete list;
+	list = nullptr;
+
+	return result == 4;
+}
+
+bool test2()
+{
+	const int n = 6;
+	const int m = 1;
+
+	List *list = createList();
+	createSquard(list, n);
+	int result = survivor(list, m);
+	delete list;
+	list = nullptr;
+
+	return result == 6;
+}
+
+bool test3()
+{
+	const int n = 2;
+	const int m = 2;
+
+	List *list = createList();
+	createSquard(list, n);
+	int result = survivor(list, m);
+	delete list;
+	list = nullptr;
+
+	return result == 1;
 }
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
+	std::cout << "Test 1: " << test1() << std::endl;
+	std::cout << "Test 2: " << test2() << std::endl;
+	std::cout << "Test 3: " << test3() << std::endl;
+
 	int n = 0;
 	int m = 0;
 	List *list = createList();
 	std::cout << "Введите количество войнов (n) и номер человека, которого убивают (m)" << std::endl;
 	std::cin >> n >> m;
-	createSquard(list, n);
-	std::cout << "Выживший имеет номер " << survivor(list, m) << std::endl;
-	deleteList(list);
-	delete list;
+	if (n > 1 && m > 0)
+	{
+		createSquard(list, n);
+		std::cout << "Выживший имеет номер " << survivor(list, m) << std::endl;
+		deleteList(list);
+		delete list;
+		list = nullptr;
+	}
+	else
+	{
+		std::cout << "Неверные входные данные!" << std::endl;
+	}
+
 }
