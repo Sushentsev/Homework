@@ -3,6 +3,12 @@
 #include <string>
 #include "stack.h"
 
+struct SuffixTable
+{
+	char suffix;
+	int value;
+};
+
 void loadFromFile(std::string &haystack)
 {
 	std::ifstream file("input.txt");
@@ -57,6 +63,7 @@ int prefixFunction(const std::string &needle)
 		}
 		break;
 	}
+	return prefixFunction;
 }
 
 void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::string &haystack)
@@ -91,6 +98,11 @@ void main()
 
 	std::cout << "¬ведите образец" << std::endl;
 	getline(std::cin, needle);
+	const int needleLength = needle.length();
 	loadFromFile(haystack);
 	inputStopSymbols(stopSymbols, needle, haystack);
+	SuffixTable *suffixTable = new SuffixTable[needleLength + 1];
+
+	delete suffixTable[];
+	suffixTable = nullptr;
 }
