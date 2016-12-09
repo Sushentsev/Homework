@@ -7,7 +7,6 @@ void main()
 {
 	setlocale(LC_ALL, "Russian");
 
-	const int sizeOfText = 10000;
 	HashTable *hashTable = createHashTable();
 	std::string word = "";
 
@@ -31,5 +30,4 @@ void main()
 	printHashTable(hashTable);
 	
 	deleteHashTable(hashTable);
-	delete hashTable;
 }

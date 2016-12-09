@@ -20,7 +20,7 @@ ListElement *createListElement(const std::string &word, int value, ListElement *
 
 bool isEmpty(ListElement *head)
 {
-	return (head == nullptr);
+	return head == nullptr;
 }
 
 int amountOfElements(ListElement *head)
@@ -49,22 +49,19 @@ bool isContained(ListElement *head, const std::string &word)
 	return false;
 }
 
-void increaseIfFoundAddOtherwise(ListElement *head, const std::string &word)
+void addElement(ListElement *head, const std::string &word)
+{
+	head = createListElement(word, 1, head);
+}
+
+void increaseNumber(ListElement *head, const std::string &word)
 {
 	ListElement *cursor = head;
-	if (isContained(head, word))
+	while (cursor->word != word)
 	{
-		while (cursor->word != word)
-		{
-			cursor = cursor->next;
-		}
-		++cursor->value;
+		cursor = cursor->next;
 	}
-	else
-	{
-		ListElement *newElement = createListElement(word, 1, head);
-		head = newElement;
-	}
+	++cursor->value;
 }
 
 void printList(ListElement *head)
@@ -80,11 +77,11 @@ void printList(ListElement *head)
 void deleteList(ListElement *head)
 {
 	ListElement *toDelete = head;
-	while (toDelete != nullptr)
+	while (head != nullptr)
 	{
 		head = head->next;
 		delete toDelete;
-		toDelete = head;
+		toDelete = nullptr;
 	}
 }
 
