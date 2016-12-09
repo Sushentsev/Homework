@@ -44,6 +44,21 @@ void pushOrChange(Stack *stopSymbols, char symbol, int value)
 	}
 }
 
+int prefixFunction(const std::string &needle)
+{
+	int prefixFunction = 0;
+	const int needleLength = needle.length();
+
+	for (int i = 0; i < needleLength / 2; ++i)
+	{
+		if (needle[i] == needle[needleLength - i + 1])
+		{
+			++prefixFunction;
+		}
+		break;
+	}
+}
+
 void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::string &haystack)
 {
 	const int haystackLength = haystack.length();
