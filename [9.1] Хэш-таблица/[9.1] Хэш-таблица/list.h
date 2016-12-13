@@ -13,13 +13,13 @@ int amountOfElements(ListElement *head);
 bool isContained(ListElement *head, const std::string &word);
 
 /* Добавление элемента в список */
-void addElement(ListElement *head, const std::string &word);
+void addElement(ListElement *&head, const std::string &word);
 
 /* Увеличение значения (количество встречаемости в тексте) элемента */
-void increaseNumber(ListElement *head, const std::string &word);
+void increaseNumber(ListElement *&head, const std::string &word);
 
 /* Вывод списка на экран */
 void printList(ListElement *head);
 
 /* Полное удаление списка */
-void deleteList(ListElement *head);
+void deleteList(ListElement *&head);

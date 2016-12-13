@@ -9,7 +9,7 @@ struct ListElement
 	ListElement *next;
 };
 
-ListElement *createListElement(const std::string &word, int value, ListElement *next)
+ListElement *createListElement(const std::string &word, int value, ListElement *&next)
 {
 	ListElement *newElement = new ListElement;
 	newElement->next = next;
@@ -49,12 +49,12 @@ bool isContained(ListElement *head, const std::string &word)
 	return false;
 }
 
-void addElement(ListElement *head, const std::string &word)
+void addElement(ListElement *&head, const std::string &word)
 {
 	head = createListElement(word, 1, head);
 }
 
-void increaseNumber(ListElement *head, const std::string &word)
+void increaseNumber(ListElement *&head, const std::string &word)
 {
 	ListElement *cursor = head;
 	while (cursor->word != word)
@@ -69,12 +69,12 @@ void printList(ListElement *head)
 	ListElement *cursor = head;
 	while (cursor != nullptr)
 	{
-		std::cout << " ' " << cursor->word << " ' (" << cursor->value << ") ";
+		std::cout << " ' " << cursor->word << " ' (" << cursor->value << "), " << std::endl;
 		cursor = cursor->next;
 	}
 }
 
-void deleteList(ListElement *head)
+void deleteList(ListElement *&head)
 {
 	ListElement *toDelete = head;
 	while (head != nullptr)

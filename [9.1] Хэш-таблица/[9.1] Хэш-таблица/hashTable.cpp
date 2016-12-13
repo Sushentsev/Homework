@@ -23,14 +23,16 @@ HashTable *createHashTable()
 int getHash(const std::string &key)
 {
 	int value = 0;
-	for (int i = 0; i < key.length(); ++i)
+	int keyLength = key.length();
+	for (int i = 0; i < keyLength; ++i)
 	{
-		value = (value + static_cast<int>(key[i])) % (sizeOfHashTable);
+		value = (value + static_cast<int>(key[i])) % sizeOfHashTable;
 	}
+	//value = value % sizeOfHashTable;
 	return value;
 }
 
-void add(HashTable *hashTable, const std::string &word)
+void add(HashTable *&hashTable, const std::string &word)
 {
 	int hash = getHash(word);
 	if (isContained(hashTable->head[hash], word))
@@ -50,7 +52,7 @@ int occupancyOfHashTable(HashTable *hashTable)
 	{
 			count += amountOfElements(hashTable->head[i]);
 	}
-	return (int)(count * 100 / sizeOfHashTable);
+	return (count * 100 / sizeOfHashTable);
 }
 
 int maxLengthOfList(HashTable *hashTable)
@@ -78,7 +80,7 @@ int averageLengthOfList(HashTable *hashTable)
 			++amountOfList;
 		}
 	}
-	return (int)(count / amountOfList);
+	return (count / amountOfList);
 }
 
 void printHashTable(HashTable *hashTable)
@@ -92,7 +94,7 @@ void printHashTable(HashTable *hashTable)
 	}
 }
 
-void deleteHashTable(HashTable *hashTable)
+void deleteHashTable(HashTable *&hashTable)
 {
 	for (int i = 0; i < sizeOfHashTable; ++i)
 	{

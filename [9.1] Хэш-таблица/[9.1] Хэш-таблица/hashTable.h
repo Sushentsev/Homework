@@ -8,7 +8,7 @@ struct HashTable;
 HashTable *createHashTable();
 
 /* Добавление слова в хеш-таблицу */
-void add(HashTable *hashTable, const std::string &word);
+void add(HashTable *&hashTable, const std::string &word);
 
 /* Примерная заполняемость хеш-таблицы в процентах*/
 int occupancyOfHashTable(HashTable *hashTable);
@@ -23,4 +23,4 @@ int averageLengthOfList(HashTable *hashTable);
 void printHashTable(HashTable *hashTable);
 
 /* Удаление хеш-таблицы */
-void deleteHashTable(HashTable *hashTable);
+void deleteHashTable(HashTable *&hashTable);
