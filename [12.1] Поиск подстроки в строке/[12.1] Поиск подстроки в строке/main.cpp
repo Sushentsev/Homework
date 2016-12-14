@@ -51,11 +51,58 @@ void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::
 	{
 			pushOrChange(stopSymbols, haystack[i], i + 1);
 	}
-
-	if (!isContained(needle, haystack[haystackLength - 1]))
+	
+	if (!isContained(stopSymbols, haystack[haystackLength - 1]))
 	{
 		push(stopSymbols, haystack[haystackLength - 1], 0);
 	}
+}
+
+int firstPosition(Stack *stopSymbols, const std::string &needle, const std::string &haystack)
+{
+	const int haystackLength = haystack.length();
+	const int needleLength = needle.length();
+	int position = needleLength;
+	while (position < haystackLength)
+	{
+		if (haystack[position - 1] != needle[needleLength - 1])
+		{
+			position += returnValue(stopSymbols, haystack[position - 1]);
+		}
+		else
+		{
+			int count = 0;
+			int needlePosition = needleLength - 1;
+			int haystackPosition = position;
+
+			while ((haystack[haystackPosition] == needle[needlePosition]) && (haystackPosition >= 0) && (needlePosition >= 0))
+			{
+				++count;
+				--needlePosition;
+				--haystackPosition;
+			}
+
+			if (needleLength == count)
+			{
+				break;
+			}
+			else
+			{
+				++position;
+			}
+		}
+	}
+	
+	if (position >= haystackLength)
+	{
+		position = -1;
+	}
+	else
+	{
+		position -= needleLength;
+	}
+
+	return position;
 }
 
 void test1()
@@ -92,6 +139,6 @@ void main()
 
 	loadFromFile(haystack);
 	inputStopSymbols(stopSymbols, needle, haystack);
-	printStack(stopSymbols);
-	deleteStack(stopSymbols);
+	std::cout << "Первая позиция: " << firstPosition(stopSymbols, needle, haystack) << std::endl;
+ 	deleteStack(stopSymbols);
 }
