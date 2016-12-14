@@ -3,11 +3,6 @@
 #include <string>
 #include "stack.h"
 
-struct SuffixTable
-{
-	char suffix;
-	int value;
-};
 
 void loadFromFile(std::string &haystack)
 {
@@ -21,21 +16,19 @@ void loadFromFile(std::string &haystack)
 	{
 		std::cout << "ќшибка при открытии файла" << std::endl;
 	}
-
 }
 
 bool isContained(const std::string &needle, char symbol)
 {
 	const int needleLength = needle.length();
-	bool result = 0;
 	for (int i = 0; i < needleLength; ++i)
 	{
 		if (needle[i] == symbol)
 		{
-			result = 1;
+			return true;
 		}
 	}
-	return result;
+	return false;
 }
 
 void pushOrChange(Stack *stopSymbols, char symbol, int value)
@@ -50,36 +43,13 @@ void pushOrChange(Stack *stopSymbols, char symbol, int value)
 	}
 }
 
-int prefixFunction(const std::string &needle)
-{
-	int prefixFunction = 0;
-	const int needleLength = needle.length();
-
-	for (int i = 0; i < needleLength / 2; ++i)
-	{
-		if (needle[i] == needle[needleLength - i + 1])
-		{
-			++prefixFunction;
-		}
-		break;
-	}
-	return prefixFunction;
-}
-
 void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::string &haystack)
 {
 	const int haystackLength = haystack.length();
 
 	for (int i = 0; i < haystackLength - 1; ++i)
 	{
-		if (isContained(needle, haystack[i]))
-		{
 			pushOrChange(stopSymbols, haystack[i], i + 1);
-		}
-		else
-		{
-			pushOrChange(stopSymbols, haystack[i], 0);
-		}
 	}
 
 	if (!isContained(needle, haystack[haystackLength - 1]))
@@ -88,21 +58,40 @@ void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::
 	}
 }
 
+void test1()
+{
+	Stack *stack = createStack();
+	push(stack, 'a', 1);
+	push(stack, 'b', 2);
+	push(stack, 'd', 3);
+	std::cout << "Is empty: " << isEmpty(stack) << std::endl;
+	std::cout << "Is contained (a): " << isContained(stack, 'a') << std::endl;
+	std::cout << "Is contained (c): " << isContained(stack, 'c') << std::endl;
+	std::cout << "Value (b): " << returnValue(stack, 'b') << std::endl;
+	changeValue(stack, 'b', 10);
+	std::cout << "Value (b): " << returnValue(stack, 'b') << std::endl;
+	printStack(stack);
+	pop(stack);
+	printStack(stack);
+	deleteStack(stack);
+	std::cout << std::endl << std::endl;
+}
+
 void main()
 {
+
 	setlocale(LC_ALL, "Russian");
-	short numberOfUniqueSymbols = 0;
+	Stack *stopSymbols = createStack();
 	std::string haystack = "";
 	std::string needle = "";
-	Stack *stopSymbols = createStack();
 
-	std::cout << "¬ведите образец" << std::endl;
+	std::cout << "¬ведите образец:" << std::endl;
 	getline(std::cin, needle);
+
 	const int needleLength = needle.length();
+
 	loadFromFile(haystack);
 	inputStopSymbols(stopSymbols, needle, haystack);
-	SuffixTable *suffixTable = new SuffixTable[needleLength + 1];
-
-	delete suffixTable[];
-	suffixTable = nullptr;
+	printStack(stopSymbols);
+	deleteStack(stopSymbols);
 }
