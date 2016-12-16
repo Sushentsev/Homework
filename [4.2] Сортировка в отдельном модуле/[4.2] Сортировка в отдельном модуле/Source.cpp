@@ -4,20 +4,32 @@
 #include <fstream>
 #include "qSort.h"
 
+using namespace std;
+
 void printArray(int *array, int lengthArray)
 {
 	for (int i = 0; i < lengthArray; ++i)
 	{
-		std::cout << array[i] << " ";
+		cout << array[i] << " ";
 	}
 }
 
-void inputArray(int *array, int lengthArray, int maxValue)
+void loadFromFile(int *array, int lengthArray)
 {
-	std::srand(time(nullptr));
-	for (int i = 0; i < lengthArray; ++i)
+	int index = 0;
+	ifstream file("input.txt", ios_base::in);
+	if (file.is_open())
 	{
-		array[i] = rand() % (maxValue + 1);
+		while (!file.eof())
+		{
+			file >> array[index];
+			++index;
+		}
+		file.close();
+	}
+	else
+	{
+		cout << "Произошла ошибка при открытии файла" << endl;
 	}
 }
 
@@ -102,35 +114,26 @@ void main()
 	setlocale(LC_ALL, "Russian");
 	const int maxValue = 100;
 	int lengthArray = 0;
-	std::cout << "Test 1: " << test1() << std::endl;
-	std::cout << "Test 2: " << test2() << std::endl;
-	std::cout << "Test 3: " << test3() << std::endl;
-	std::cout << "Test 4: " << test4() << std::endl;
-	std::cout << "Test 5: " << test5() << std::endl;
-	std::cout << std::endl;
-	std::ifstream file("length.txt", std::ios_base::in);
-	if (file.is_open())
-	{
-		while (!file.eof())
-		{
-			file >> lengthArray;
-		}
-		file.close();
-	}
-	else
-	{
-		std::cout << "Произошла ошибка при открытии файла" << std::endl;
-	}
+
+	cout << "Test 1: " << test1() << endl;
+	cout << "Test 2: " << test2() << endl;
+	cout << "Test 3: " << test3() << endl;
+	cout << "Test 4: " << test4() << endl;
+	cout << "Test 5: " << test5() << endl;
+	cout << endl;
+
+	cout << "Введите длину массива: " << endl;
+	cin >> lengthArray;
 	int *array = new int[lengthArray] {};
-	std::cout << "Array of " << lengthArray << " elements:" << std::endl;
-	inputArray(array, lengthArray, maxValue);
+	cout << "Массив из " << lengthArray << " элементов:" << endl;
+	loadFromFile(array, lengthArray);
 	printArray(array, lengthArray);
-	std::cout << std::endl;
-	std::cout << "Sorted array:" << std::endl;
+	cout << endl;
+	cout << "Отсортированный массив:" << endl;
 	qSort(array, 0, lengthArray - 1);
 	printArray(array, lengthArray);
-	std::cout << std::endl;
-	std::cout << "Answer: " << frequentElement(array, lengthArray) << std::endl;
+	cout << endl;
+	cout << "Ответ: " << frequentElement(array, lengthArray) << endl;
 	delete[] array;
 	array = nullptr;
 }
