@@ -3,7 +3,6 @@
 #include <string>
 #include "stack.h"
 
-
 void loadFromFile(std::string &haystack)
 {
 	std::ifstream file("input.txt");
@@ -31,16 +30,19 @@ bool isContained(const std::string &needle, char symbol)
 	return false;
 }
 
-void pushOrChange(Stack *stopSymbols, char symbol, int value)
+int lastPosition(const std::string &needle, char symbol)
 {
-	if (isContained(stopSymbols, symbol))
+	const int needleLength = needle.length();
+	int lastPosition = 0;
+	for (int i = 0; i < needleLength - 1; ++i)
 	{
-		changeValue(stopSymbols, symbol, value);
+		if (needle[i] == symbol)
+		{
+			lastPosition = i + 1;
+		}
 	}
-	else
-	{
-		push(stopSymbols, symbol, value);
-	}
+
+	return lastPosition;
 }
 
 void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::string &haystack)
@@ -49,7 +51,10 @@ void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::
 
 	for (int i = 0; i < haystackLength - 1; ++i)
 	{
-			pushOrChange(stopSymbols, haystack[i], i + 1);
+		if (!isContained(stopSymbols, haystack[i]))
+		{
+			push(stopSymbols, haystack[i], lastPosition(needle, haystack[i]));
+		}
 	}
 	
 	if (!isContained(stopSymbols, haystack[haystackLength - 1]))
@@ -58,52 +63,10 @@ void inputStopSymbols(Stack *stopSymbols, const std::string &needle, const std::
 	}
 }
 
-int firstPosition(Stack *stopSymbols, const std::string &needle, const std::string &haystack)
-{
-	const int haystackLength = haystack.length();
-	const int needleLength = needle.length();
-	int position = needleLength;
-	while (position < haystackLength)
-	{
-		if (haystack[position - 1] != needle[needleLength - 1])
-		{
-			position += returnValue(stopSymbols, haystack[position - 1]);
-		}
-		else
-		{
-			int count = 0;
-			int needlePosition = needleLength - 1;
-			int haystackPosition = position;
+int prefixFunction(const std::string &str)
+[
 
-			while ((haystack[haystackPosition] == needle[needlePosition]) && (haystackPosition >= 0) && (needlePosition >= 0))
-			{
-				++count;
-				--needlePosition;
-				--haystackPosition;
-			}
-
-			if (needleLength == count)
-			{
-				break;
-			}
-			else
-			{
-				++position;
-			}
-		}
-	}
-	
-	if (position >= haystackLength)
-	{
-		position = -1;
-	}
-	else
-	{
-		position -= needleLength;
-	}
-
-	return position;
-}
+]
 
 void test1()
 {
@@ -115,7 +78,6 @@ void test1()
 	std::cout << "Is contained (a): " << isContained(stack, 'a') << std::endl;
 	std::cout << "Is contained (c): " << isContained(stack, 'c') << std::endl;
 	std::cout << "Value (b): " << returnValue(stack, 'b') << std::endl;
-	changeValue(stack, 'b', 10);
 	std::cout << "Value (b): " << returnValue(stack, 'b') << std::endl;
 	printStack(stack);
 	pop(stack);
@@ -135,10 +97,8 @@ void main()
 	std::cout << "Введите образец:" << std::endl;
 	getline(std::cin, needle);
 
-	const int needleLength = needle.length();
-
 	loadFromFile(haystack);
 	inputStopSymbols(stopSymbols, needle, haystack);
-	std::cout << "Первая позиция: " << firstPosition(stopSymbols, needle, haystack) << std::endl;
+	printStack(stopSymbols);
  	deleteStack(stopSymbols);
 }

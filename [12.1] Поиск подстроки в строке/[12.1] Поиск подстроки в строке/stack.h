@@ -13,13 +13,10 @@ bool isEmpty(Stack *stack);
 bool isContained(Stack *stack, char symbol);
 
 /* Добавление элемента в голову стека */
-void push(Stack *stack, char symbol, int value);
+void push(Stack *stack, const char symbol, int value);
 
 /* Удаление элемента из головы стека */
 void pop(Stack *stack);
-
-/* Изменение значения элемента */
-void changeValue(Stack *stack, char symbol, int value);
 
 /* Возвращает значение элемента */
 int returnValue(Stack *stack, char symbol);

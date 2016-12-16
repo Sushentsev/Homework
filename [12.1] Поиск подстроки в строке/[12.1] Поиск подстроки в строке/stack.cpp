@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "stack.h"
 
 struct StackElement
@@ -65,20 +66,6 @@ void pop(Stack *stack)
 		stack->head = stack->head->next;
 		delete toDelete;
 		toDelete = nullptr;
-	}
-}
-
-void changeValue(Stack *stack, char symbol, int value)
-{
-	StackElement *cursor = stack->head;
-	while (cursor != nullptr)
-	{
-		if (cursor->symbol == symbol)
-		{
-			cursor->value = value;
-			return;
-		}
-		cursor = cursor->next;
 	}
 }
 
