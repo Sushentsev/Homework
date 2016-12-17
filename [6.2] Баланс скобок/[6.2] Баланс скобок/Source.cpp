@@ -2,7 +2,9 @@
 #include <string>
 #include "Stack.h"
 
-int result(Stack *stack, std::string s)
+using namespace std;
+
+int result(Stack *stack, const string &s)
 {
 	bool result = 1;
 	for (int i = 0; i < s.length(); ++i)
@@ -32,21 +34,21 @@ int result(Stack *stack, std::string s)
 bool test1()
 {
 	Stack *stack = createStack();
-	std::string s = "([hello])";
+	string s = "([hello])";
 	return result(stack, s) == 1;
 }
 
 bool test2()
 {
 	Stack *stack = createStack();
-	std::string s = "([hello)";
+	string s = "([hello)";
 	return result(stack, s) == 0;
 }
 
 bool test3()
 {
 	Stack *stack = createStack();
-	std::string s = "()[()]{()()[]}";
+	string s = "()[()]{()()[]}";
 	return result(stack, s) == 1;
 }
 
@@ -54,14 +56,12 @@ void main()
 {
 	setlocale(LC_ALL, "Russian");
 	Stack *stack = createStack();
-	std::string s = "";
-	std::cout << "Test 1: " << test1() << std::endl;
-	std::cout << "Test 2: " << test2() << std::endl;
-	std::cout << "Test 3: " << test3() << std::endl;
-	std::cout << "Введите строку:" << std::endl;
-	std::getline(std::cin, s);
-	std::cout << "Совпадение скобок: " << result(stack, s) << std::endl;
+	string s = "";
+	cout << "Test 1: " << test1() << endl;
+	cout << "Test 2: " << test2() << endl;
+	cout << "Test 3: " << test3() << endl;
+	cout << "Введите строку:" << endl;
+	getline(cin, s);
+	cout << "Совпадение скобок: " << result(stack, s) << endl;
 	deleteStack(stack);
-	delete stack;
-	stack = nullptr;
 }
