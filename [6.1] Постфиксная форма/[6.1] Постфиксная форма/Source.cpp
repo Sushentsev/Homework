@@ -2,7 +2,9 @@
 #include <string>
 #include "Stack.h"
 
-int result(Stack *stack, std::string s)
+using namespace std;
+
+int result(Stack *stack, const string &s)
 {
 	for (int i = 0; i < s.length(); ++i)
 	{
@@ -45,7 +47,7 @@ int result(Stack *stack, std::string s)
 bool test()
 {
 	Stack *stack = createStack();
-	std::string s = "9 6 - 1 2 + *";
+	string s = "9 6 - 1 2 + *";
 	return result(stack, s) == 9;
 }
 
@@ -53,12 +55,10 @@ void main()
 {
 	setlocale(LC_ALL, "Russian");
 	Stack *stack = createStack();
-	std::string s = "";
-	std::cout << "Test: " << test() << std::endl;
-	std::cout << "¬ведите выражение в постфиксной записи:" << std::endl;
-	std::getline(std::cin, s);
-	std::cout << "«начение примера равно: " << result(stack, s) << std::endl;
+	string s = "";
+	cout << "Test: " << test() << endl;
+	cout << "¬ведите выражение в постфиксной записи:" << endl;
+	getline(cin, s);
+	cout << "«начение примера равно: " << result(stack, s) << endl;
 	deleteStack(stack);
-	delete stack;
-	stack = nullptr;
 }
