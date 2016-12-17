@@ -1,86 +1,111 @@
 #include <iostream>
 #include "tree.h"
 
+using namespace std;
+
 void addNode(Tree *tree)
 {
 	int value = 0;
-	std::cout << "Введите значение добавляемого элемента:" << std::endl;
-	std::cin >> value;
+	cout << "Введите значение добавляемого элемента:" << endl;
+	cin >> value;
 	if (addNode(tree, value))
 	{
-		std::cout << "Значение успешно добавено!" << std::endl;
+		cout << "Значение успешно добавено!" << endl;
 	}
 	else
 	{
-		std::cout << "Произошла ошибка при добавлении!" << std::endl;
+		cout << "Произошла ошибка при добавлении!" << endl;
 	}
-	std::cout << std::endl;
+	cout << endl;
 }
 
 void removeNode(Tree *tree)
 {
 	int value = 0;
-	std::cout << "Введите значение удалемого элемента:" << std::endl;
-	std::cin >> value;
+	cout << "Введите значение удалемого элемента:" << endl;
+	cin >> value;
 	if (removeNode(tree, value))
 	{
-		std::cout << "Значение успешно удалено!" << std::endl;
+		cout << "Значение успешно удалено!" << endl;
 	}
 	else
 	{
-		std::cout << "Произошла ошибка при удалении!" << std::endl;
+		cout << "Произошла ошибка при удалении!" << endl;
 	}
-	std::cout << std::endl;
+	cout << endl;
 }
 
 void isContained(Tree *tree)
 {
 	int value = 0;
-	std::cout << "Введите значение элемента для поиска:" << std::endl;
-	std::cin >> value;
+	cout << "Введите значение элемента для поиска:" << endl;
+	cin >> value;
 	if (removeNode(tree, value))
 	{
-		std::cout << "Данное значение существует в множестве!" << std::endl;
+		cout << "Данное значение существует в множестве!" << endl;
 	}
 	else
 	{
-		std::cout << "Такого значения нет!" << std::endl;
+		cout << "Такого значения нет!" << endl;
 	}
-	std::cout << std::endl;
+	cout << endl;
 }
 
 void AscendingOrder(Tree *tree)
 {
-	std::cout << "Элементы в порядке возрастания:" << std::endl;
+	cout << "Элементы в порядке возрастания:" << endl;
 	printAscendingOrder(tree);
-	std::cout << std::endl << std::endl;
+	cout << endl << endl;
 }
 
 void DescendingOrder(Tree *tree)
 {
-	std::cout << "Элементы в порядке убывания:" << std::endl;
+	cout << "Элементы в порядке убывания:" << endl;
 	printDescendingOrder(tree);
-	std::cout << std::endl << std::endl;
+	cout << endl << endl;
+}
+
+void printInformation()
+{
+	cout << "Выберете необоходимую команду:" << endl;
+	cout << "0 - Выход;" << endl;
+	cout << "1 - Добавить значение;" << endl;
+	cout << "2 - Удалить значение;" << endl;
+	cout << "3 - Принадлежит ли значение множеству;" << endl;
+	cout << "4 - Печать элементов в возрастающем порядке;" << endl;
+	cout << "5 - Печать элементов в убывающем порядке;" << endl;
+	cout << endl;
+}
+
+bool test()
+{
+	bool flag = 1;
+	Tree *tree = plantTree();
+	addNode(tree, 5);
+	addNode(tree, 8);
+	addNode(tree, 10);
+	addNode(tree, 7);
+	addNode(tree, -5);
+	addNode(tree, -3);
+	flag = flag && (isContained(tree, 8) == 1) && (isContained(tree, -5) == 1) && (isContained(tree, -10) == 0);
+	removeNode(tree, 10);
+	removeNode(tree, -5);
+	flag = flag && (isContained(tree, 10) == 0) && (isContained(tree, -3) == 1);
+	removeTree(tree);
+	return flag;
 }
 
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-	Tree *tree = plantTree();
+	cout << "Test: " << test() << endl;
+ 	Tree *tree = plantTree();
 	int selection = -1;
 
 	while (selection)
 	{
-		std::cout << "Выберете необоходимую команду:" << std::endl;
-		std::cout << "0 - Выход;" << std::endl;
-		std::cout << "1 - Добавить значение;" << std::endl;
-		std::cout << "2 - Удалить значение;" << std::endl;
-		std::cout << "3 - Принадлежит ли значение множеству;" << std::endl;
-		std::cout << "4 - Печать элементов в возрастающем порядке;" << std::endl;
-		std::cout << "5 - Печать элементов в убывающем порядке;" << std::endl;
-		std::cout << std::endl;
-		std::cin >> selection;
-
+		printInformation();
+		cin >> selection;
 		switch (selection)
 		{
 		case 1:
@@ -103,5 +128,4 @@ void main()
 		}
 	}
 	removeTree(tree);
-	delete tree;
 }

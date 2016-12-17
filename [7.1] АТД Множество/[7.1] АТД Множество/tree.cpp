@@ -1,6 +1,8 @@
 #include <iostream>
 #include "tree.h"
 
+using namespace std;
+
 struct TreeNode
 {
 	int value;
@@ -145,7 +147,7 @@ void printAscendingOrder(TreeNode *node)
 		return;
 	}
 	printAscendingOrder(node->leftChild);
-	std::cout << node->value << " ";
+	cout << node->value << " ";
 	printAscendingOrder(node->rightChild);
 }
 
@@ -161,7 +163,7 @@ void printDescendingOrder(TreeNode *node)
 		return;
 	}
 	printDescendingOrder(node->rightChild);
-	std::cout << node->value << " ";
+	cout << node->value << " ";
 	printDescendingOrder(node->leftChild);
 }
 
@@ -191,4 +193,6 @@ void removeTree(TreeNode *&node)
 void removeTree(Tree *tree)
 {
 	removeTree(tree->root);
+	delete tree;
+	tree = nullptr;
 }
