@@ -22,4 +22,4 @@ int getValue(List *list, int number);
 void printList(List *list);
 
 /* Удаление списка */
-void deleteList(List *list);
+void deleteList(List *&list);

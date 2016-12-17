@@ -127,7 +127,7 @@ void printList(List *list)
 	}
 }
 
-void deleteList(List *list)
+void deleteList(List *&list)
 {
 	if (list->size == 0)
 	{
