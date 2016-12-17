@@ -1,6 +1,8 @@
 #include <iostream>
 #include "list.h"
 
+using namespace std;
+
 struct ListElement
 {
 	int value;
@@ -21,11 +23,11 @@ List* createList()
 	return list;
 }
 
-ListElement* createListElement(int value, ListElement *next)
+ListElement* createListElement(ListElement *next, int value)
 {
 	ListElement *newElement = new ListElement;
-	newElement->value = value;
 	newElement->next = next;
+	newElement->value = value;
 	return newElement;
 }
 
@@ -33,15 +35,16 @@ void addElement(List *list, int value)
 {
 	if (list->size == 0)
 	{
-		list->head = createListElement(value, nullptr);
+		list->head = createListElement(nullptr, value);
 		++list->size;
 		return;
 	}
+
 	ListElement *cursor = list->head;
 
 	if (value < cursor->value)
 	{
-		list->head = createListElement(value, cursor);
+		list->head = createListElement(list->head, value);
 		return;
 	}
 
@@ -49,7 +52,7 @@ void addElement(List *list, int value)
 	{
 		cursor = cursor->next;
 	}
-	cursor->next = createListElement(value, cursor->next);
+	cursor->next = createListElement(cursor->next, value);
 	++list->size;
 }
 
@@ -98,18 +101,28 @@ bool removeElement(List *list, int value)
 	}
 }
 
+int getValue(List *list, int number)
+{
+	ListElement *cursor = list->head;
+	for (int i = 1; i < number; ++i)
+	{
+		cursor = cursor->next;
+	}
+	return cursor->value;
+}
+
 void printList(List *list)
 {
 	if (list->size == 0)
 	{
-		std::cout << "Список пуст!" << std::endl;
+		cout << "Список пуст!" << endl;
 		return;
 	}
 
 	ListElement *temp = list->head;
 	while (temp != nullptr)
 	{
-		std::cout << temp->value << " ";
+		cout << temp->value << " ";
 		temp = temp->next;
 	}
 }
