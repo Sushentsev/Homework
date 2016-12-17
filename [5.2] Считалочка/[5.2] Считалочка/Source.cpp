@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 struct ListElement
 {
 	int value;
@@ -131,26 +133,26 @@ bool test3()
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-	std::cout << "Test 1: " << test1() << std::endl;
-	std::cout << "Test 2: " << test2() << std::endl;
-	std::cout << "Test 3: " << test3() << std::endl;
+	cout << "Test 1: " << test1() << endl;
+	cout << "Test 2: " << test2() << endl;
+	cout << "Test 3: " << test3() << endl;
 
 	int n = 0;
 	int m = 0;
 	List *list = createList();
-	std::cout << "Введите количество войнов (n) и номер человека, которого убивают (m)" << std::endl;
-	std::cin >> n >> m;
+	cout << "Введите количество войнов (n) и номер человека, которого убивают (m)" << endl;
+	cin >> n >> m;
 	if (n > 1 && m > 0)
 	{
 		createSquard(list, n);
-		std::cout << "Выживший имеет номер " << survivor(list, m) << std::endl;
+		cout << "Выживший имеет номер " << survivor(list, m) << endl;
 		deleteList(list);
 		delete list;
 		list = nullptr;
 	}
 	else
 	{
-		std::cout << "Неверные входные данные!" << std::endl;
+		cout << "Неверные входные данные!" << endl;
 	}
 
 }
