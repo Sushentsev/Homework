@@ -59,4 +59,6 @@ void deleteStack(Stack *stack)
 		delete toDelete;
 		toDelete = nullptr;
 	}
+	delete stack;
+	stack = nullptr;
 }
