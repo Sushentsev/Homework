@@ -33,23 +33,29 @@ int result(Stack *stack, const string &s)
 
 bool test1()
 {
-	Stack *stack = createStack();
+	auto stack = createStack();
 	string s = "([hello])";
-	return result(stack, s) == 1;
+	int res = result(stack, s);
+	deleteStack(stack);
+	return res == 1;
 }
 
 bool test2()
 {
-	Stack *stack = createStack();
+	auto stack = createStack();
 	string s = "([hello)";
-	return result(stack, s) == 0;
+	int res = result(stack, s);
+	deleteStack(stack);
+	return res == 0;
 }
 
 bool test3()
 {
-	Stack *stack = createStack();
+	auto stack = createStack();
 	string s = "()[()]{()()[]}";
-	return result(stack, s) == 1;
+	int res = result(stack, s);
+	deleteStack(stack);
+	return res == 1;
 }
 
 void main()
