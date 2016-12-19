@@ -50,6 +50,42 @@ void printList(List *list)
 	}
 }
 
+int getNumberByName(List *list, const string &name)
+{
+	int number = 0;
+	auto cursor = list->head;
+	while (cursor != nullptr)
+	{
+		if (cursor->name == name)
+		{
+			return number;
+		}
+
+		cursor = cursor->next;
+		++number;
+	}
+
+	return -1;
+}
+
+int getNumberByPhone(List *list, const string &phone)
+{
+	int number = 0;
+	auto cursor = list->head;
+	while (cursor != nullptr)
+	{
+		if (cursor->phone == phone)
+		{
+			return number;
+		}
+
+		cursor = cursor->next;
+		++number;
+	}
+
+	return -1;
+}
+
 void removeList(List *&list)
 {
 	while (list->head != nullptr)

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "list.h"
+#include "mergeSort.h"
 
 using namespace std;
 
@@ -30,7 +31,12 @@ void main()
 {
 	setlocale(LC_ALL, "Russian");
 	auto book = createList();
+	bool sortType = 0;
+
 	loadFromFile(book);
-	printList(book);
+	//cout << "Выберите тип сортировки (по имени - 0, по номеру телефона - 1):" << endl;
+	//cin >> sortType;
+
+	//printList(book);
 	removeList(book);
 }
