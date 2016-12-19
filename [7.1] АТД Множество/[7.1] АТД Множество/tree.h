@@ -25,4 +25,4 @@ void printAscendingOrder(Tree *tree);
 void printDescendingOrder(Tree *tree);
 
 /* Удаление дерева */
-void removeTree(Tree *tree);
+void removeTree(Tree *&tree);

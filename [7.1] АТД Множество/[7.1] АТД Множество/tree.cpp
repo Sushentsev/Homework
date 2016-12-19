@@ -17,17 +17,13 @@ struct Tree
 
 Tree *plantTree()
 {
-	Tree *tree = new Tree;
-	tree->root = nullptr;
+	auto tree = new Tree{ nullptr };
 	return tree;
 }
 
 TreeNode *createNewElement(TreeNode *leftChild, TreeNode *rightChild, int value)
 {
-	TreeNode *newNode = new TreeNode;
-	newNode->leftChild = leftChild;
-	newNode->rightChild = rightChild;
-	newNode->value = value;
+	auto newNode = new TreeNode{ value, leftChild, rightChild };
 	return newNode;
 }
 
@@ -59,7 +55,7 @@ bool addNode(Tree *tree, int value)
 
 TreeNode *findMinNode(TreeNode *node)
 {
-	TreeNode *minNode = node->rightChild;
+	auto minNode = node->rightChild;
 	while (minNode->leftChild != nullptr)
 	{
 		minNode = minNode->leftChild;
@@ -82,19 +78,19 @@ bool removeNode(TreeNode *&node, int value)
 		}
 		else if (node->leftChild != nullptr && node->leftChild != nullptr)
 		{
-			TreeNode *minNode = findMinNode(node); 
+			auto minNode = findMinNode(node); 
 			node->value = minNode->value;
 			return removeNode(minNode, node->value);
 		}
 		else if (node->leftChild != nullptr)
 		{
-			TreeNode *toDelete = node;
+			auto toDelete = node;
 			node = node->leftChild;
 			delete toDelete;
 		}
 		else if (node->rightChild != nullptr)
 		{
-			TreeNode *toDelete = node;
+			auto toDelete = node;
 			node = node->rightChild;
 			delete toDelete;
 		}
@@ -190,7 +186,7 @@ void removeTree(TreeNode *&node)
 	node = nullptr;
 }
 
-void removeTree(Tree *tree)
+void removeTree(Tree *&tree)
 {
 	removeTree(tree->root);
 	delete tree;

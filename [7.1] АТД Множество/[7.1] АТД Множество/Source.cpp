@@ -10,13 +10,12 @@ void addNode(Tree *tree)
 	cin >> value;
 	if (addNode(tree, value))
 	{
-		cout << "Значение успешно добавено!" << endl;
+		cout << "Значение успешно добавено!" << endl << endl;
 	}
 	else
 	{
-		cout << "Произошла ошибка при добавлении!" << endl;
+		cout << "Произошла ошибка при добавлении!" << endl << endl;
 	}
-	cout << endl;
 }
 
 void removeNode(Tree *tree)
@@ -26,13 +25,12 @@ void removeNode(Tree *tree)
 	cin >> value;
 	if (removeNode(tree, value))
 	{
-		cout << "Значение успешно удалено!" << endl;
+		cout << "Значение успешно удалено!" << endl << endl;
 	}
 	else
 	{
-		cout << "Произошла ошибка при удалении!" << endl;
+		cout << "Произошла ошибка при удалении!" << endl << endl;
 	}
-	cout << endl;
 }
 
 void isContained(Tree *tree)
@@ -42,13 +40,12 @@ void isContained(Tree *tree)
 	cin >> value;
 	if (removeNode(tree, value))
 	{
-		cout << "Данное значение существует в множестве!" << endl;
+		cout << "Данное значение существует в множестве!" << endl << endl;
 	}
 	else
 	{
-		cout << "Такого значения нет!" << endl;
+		cout << "Такого значения нет!" << endl << endl;
 	}
-	cout << endl;
 }
 
 void AscendingOrder(Tree *tree)
@@ -99,7 +96,7 @@ void main()
 {
 	setlocale(LC_ALL, "Russian");
 	cout << "Test: " << test() << endl;
- 	Tree *tree = plantTree();
+ 	auto tree = plantTree();
 	int selection = -1;
 
 	while (selection)
