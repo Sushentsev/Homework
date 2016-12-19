@@ -19,18 +19,13 @@ struct List
 
 List* createList()
 {
-	List *list = new List;
-	list->length = 0;
-	list->head = nullptr;
+	auto list = new List{ 0, nullptr };
 	return list;
 }
 
 ListElement* createListElement(ListElement *next, const string &name, const string &phone)
 {
-	ListElement *newListElement = new ListElement;
-	newListElement->name = name;
-	newListElement->phone = phone;
-	newListElement->next = next;
+	auto newListElement = new ListElement{ name, phone, next };
 	return newListElement;
 }
 
@@ -45,16 +40,24 @@ bool isEmpty(List *list)
 	return list->length	 == 0;
 }
 
-void removeList(List *list)
+void printList(List *list)
+{
+	auto cursor = list->head;
+	while (cursor != nullptr)
+	{
+		cout << "Имя: " << cursor->name << " Телефон: " << cursor->phone << endl;
+		cursor = cursor->next;
+	}
+}
+
+void removeList(List *&list)
 {
 	while (list->head != nullptr)
 	{
-		ListElement *toDelete = list->head;
+		auto toDelete = list->head;
 		list->head = list->head->next;
 		delete toDelete;
-		toDelete = nullptr;
 	}
-
 	delete list;
 	list = nullptr;
 }
