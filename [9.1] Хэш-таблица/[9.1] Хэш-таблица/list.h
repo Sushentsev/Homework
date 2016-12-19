@@ -1,4 +1,7 @@
 #pragma once
+#include <string>
+
+using namespace std;
 
 /* Описание структуры элемента */
 struct ListElement;
@@ -10,13 +13,13 @@ bool isEmpty(ListElement *head);
 int amountOfElements(ListElement *head);
 
 /* Проверка, присутсвует ли элимент в списке */
-bool isContained(ListElement *head, const std::string &word);
+bool isContained(ListElement *head, const string &word);
 
 /* Добавление элемента в список */
-void addElement(ListElement *&head, const std::string &word);
+void addElement(ListElement *&head, const string &word);
 
 /* Увеличение значения (количество встречаемости в тексте) элемента */
-void increaseNumber(ListElement *&head, const std::string &word);
+void increaseNumber(ListElement *&head, const string &word);
 
 /* Вывод списка на экран */
 void printList(ListElement *head);

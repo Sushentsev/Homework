@@ -8,7 +8,7 @@ struct HashTable;
 HashTable *createHashTable();
 
 /* Добавление слова в хеш-таблицу */
-void add(HashTable *&hashTable, const std::string &word);
+void add(HashTable *&hashTable, const string &word);
 
 /* Примерная заполняемость хеш-таблицы в процентах*/
 int occupancyOfHashTable(HashTable *hashTable);

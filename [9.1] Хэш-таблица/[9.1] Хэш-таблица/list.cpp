@@ -2,19 +2,18 @@
 #include <string>
 #include "list.h"
 
+using namespace std;
+
 struct ListElement
 {
-	std::string word;
+	string word;
 	int value;
 	ListElement *next;
 };
 
-ListElement *createListElement(const std::string &word, int value, ListElement *&next)
+ListElement *createListElement(const string &word, int value, ListElement *&next)
 {
-	ListElement *newElement = new ListElement;
-	newElement->next = next;
-	newElement->value = value;
-	newElement->word = word;
+	auto newElement = new ListElement{ word, value, next };
 	return newElement;
 }
 
@@ -26,18 +25,18 @@ bool isEmpty(ListElement *head)
 int amountOfElements(ListElement *head)
 {
 	int count = 0;
-	ListElement *cursor = head;
+	auto cursor = head;
 	while (cursor != nullptr)
 	{
-		++count;
 		cursor = cursor->next;
+		++count;
 	}
 	return count;
 }
 
-bool isContained(ListElement *head, const std::string &word)
+bool isContained(ListElement *head, const string &word)
 {
-	ListElement *cursor = head;
+	auto cursor = head;
 	while (cursor != nullptr)
 	{
 		if (cursor->word == word)
@@ -49,14 +48,14 @@ bool isContained(ListElement *head, const std::string &word)
 	return false;
 }
 
-void addElement(ListElement *&head, const std::string &word)
+void addElement(ListElement *&head, const string &word)
 {
 	head = createListElement(word, 1, head);
 }
 
-void increaseNumber(ListElement *&head, const std::string &word)
+void increaseNumber(ListElement *&head, const string &word)
 {
-	ListElement *cursor = head;
+	auto cursor = head;
 	while (cursor->word != word)
 	{
 		cursor = cursor->next;
@@ -66,22 +65,21 @@ void increaseNumber(ListElement *&head, const std::string &word)
 
 void printList(ListElement *head)
 {
-	ListElement *cursor = head;
+	auto cursor = head;
 	while (cursor != nullptr)
 	{
-		std::cout << " ' " << cursor->word << " ' (" << cursor->value << "), " << std::endl;
+		cout << " ' " << cursor->word << " ' (" << cursor->value << "), " << endl;
 		cursor = cursor->next;
 	}
 }
 
 void deleteList(ListElement *&head)
 {
-	ListElement *toDelete = head;
 	while (head != nullptr)
 	{
+		auto toDelete = head;
 		head = head->next;
 		delete toDelete;
-		toDelete = nullptr;
 	}
 }
 

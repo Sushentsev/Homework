@@ -3,10 +3,12 @@
 #include <string>
 #include "hashTable.h"
 
-void loadFromFile(HashTable *hashTable, const std::string &fileName)
+using namespace std;
+
+void loadFromFile(HashTable *hashTable, const string &fileName)
 {
-	std::string word = "";
-	std::ifstream file(fileName);
+	string word = "";
+	ifstream file(fileName);
 	if (file.is_open())
 	{
 		while (!file.eof())
@@ -18,7 +20,7 @@ void loadFromFile(HashTable *hashTable, const std::string &fileName)
 	}
 	else
 	{
-		std::cout << "Ошибка при открытии файла!" << std::endl;
+		cout << "Ошибка при открытии файла!" << endl;
 		return;
 	}
 }
@@ -33,20 +35,19 @@ bool test()
 	return flag;
 }
 
-
 void main()
 {
 	setlocale(LC_ALL, "Russian");
 
-	std::cout << "Test: " << test() << std::endl;
-	std::cout << "________________" << std::endl;
-	HashTable *hashTable = createHashTable();
+	cout << "Test: " << test() << endl << endl;
+	auto hashTable = createHashTable();
 	loadFromFile(hashTable, "text.txt");
-	std::cout << "Частота встречаемости:" << std::endl;
+
+	cout << "Частота встречаемости:" << endl;
 	printHashTable(hashTable);
-	std::cout << "Коэффициент заполнения хеш-таблицы: " << occupancyOfHashTable(hashTable) << "%" << std::endl;
-	std::cout << "Максимальная длина списка: " << maxLengthOfList(hashTable) << std::endl;
-	std::cout << "Средняя длина списка: " << averageLengthOfList(hashTable) << std::endl;
+	cout << "Коэффициент заполнения хеш-таблицы: " << occupancyOfHashTable(hashTable) << "%" << endl;
+	cout << "Максимальная длина списка: " << maxLengthOfList(hashTable) << endl;
+	cout << "Средняя длина списка: " << averageLengthOfList(hashTable) << endl;
 	
 	deleteHashTable(hashTable);
 }

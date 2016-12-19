@@ -12,7 +12,7 @@ struct HashTable
 
 HashTable *createHashTable()
 {
-	HashTable *hashTable = new HashTable;
+	auto hashTable = new HashTable;
 	for (int i = 0; i < sizeOfHashTable; ++i)
 	{
 		hashTable->head[i] = nullptr;
@@ -20,7 +20,7 @@ HashTable *createHashTable()
 	return hashTable;
 }
 
-int getHash(const std::string &key)
+int getHash(const string &key)
 {
 	int value = 0;
 	int keyLength = key.length();
@@ -28,11 +28,10 @@ int getHash(const std::string &key)
 	{
 		value = (value + static_cast<int>(key[i])) % sizeOfHashTable;
 	}
-	//value = value % sizeOfHashTable;
 	return value;
 }
 
-void add(HashTable *&hashTable, const std::string &word)
+void add(HashTable *&hashTable, const string &word)
 {
 	int hash = getHash(word);
 	if (isContained(hashTable->head[hash], word))
