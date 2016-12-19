@@ -15,39 +15,41 @@ struct List
 	int size;
 };
 
-List* createList()
+List *createList()
 {
-	List *list = new List;
-	list->head = nullptr;
-	list->size = 0;
+	auto list = new List{ nullptr, 0 };
 	return list;
 }
 
-ListElement* createListElement(ListElement *next, int value)
+ListElement *createListElement(ListElement *next, int value)
 {
-	ListElement *newElement = new ListElement;
-	newElement->next = next;
-	newElement->value = value;
+	auto newElement = new ListElement{ value, next };
 	return newElement;
+}
+
+bool isEmpty(List *list)
+{
+	return list->size == 0;
 }
 
 void addElement(List *list, int value)
 {
-	if (list->size == 0)
+	if (isEmpty(list))
 	{
 		list->head = createListElement(nullptr, value);
 		++list->size;
 		return;
 	}
 
-	ListElement *cursor = list->head;
+	auto cursor = list->head;
 	if (value < cursor->value)
 	{
 		list->head = createListElement(list->head, value);
+		++list->size;
 		return;
 	}
 
-	while (cursor->next != nullptr && cursor->next->value < value)
+	while (cursor->next != nullptr && value > cursor->next->value)
 	{
 		cursor = cursor->next;
 	}
@@ -57,25 +59,24 @@ void addElement(List *list, int value)
 
 bool removeElement(List *list, int value)
 {
-	if (list->size == 0)
+	if (isEmpty(list))
 	{
 		return false;
 	}
 
-	ListElement *cursor = list->head;
+	auto cursor = list->head;
 	if (cursor->value == value && cursor->next == nullptr)
 	{
 		list->head = nullptr;
 		delete cursor;
-		cursor = nullptr;
 		--list->size;
 		return true;
 	}
+
 	if (cursor->value == value)
 	{
 		list->head = list->head->next;
 		delete cursor;
-		cursor = nullptr;
 		--list->size;
 		return true;
 	}
@@ -91,8 +92,8 @@ bool removeElement(List *list, int value)
 	}
 	else
 	{
-		ListElement *toDelete = cursor->next;
-		cursor = cursor->next->next;
+		auto toDelete = cursor->next;
+		cursor->next = cursor->next->next;
 		delete toDelete;
 		--list->size;
 		return true;
@@ -101,7 +102,7 @@ bool removeElement(List *list, int value)
 
 int getValue(List *list, int number)
 {
-	ListElement *cursor = list->head;
+	auto cursor = list->head;
 	for (int i = 1; i < number; ++i)
 	{
 		cursor = cursor->next;
@@ -122,7 +123,8 @@ void printList(List *list)
 		cout << list->head->value << " ";
 		return;
 	}
-	ListElement *temp = list->head;
+
+	auto temp = list->head;
 	while (temp != nullptr)
 	{
 		cout << temp->value << " ";
@@ -139,10 +141,9 @@ void deleteList(List *&list)
 
 	while (list->head != nullptr)
 	{
-		ListElement *toDelete = list->head;
+		auto toDelete = list->head;
 		list->head = list->head->next;
 		delete toDelete;
-		toDelete = nullptr;
 	}
 	delete list;
 	list = nullptr;

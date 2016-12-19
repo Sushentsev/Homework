@@ -7,7 +7,7 @@ struct List;
 struct ListElement;
 
 /* Создание списка */
-List* createList();
+List *createList();
 
 /* Добавление нового элемента в сортированный список */
 void addElement(List *list, int value);
