@@ -91,7 +91,7 @@ int fromInfixFormToPostFix(Stack *stack, const string &infixForm, string &postfi
 
 bool test1()
 {
-	Stack *stack = createStack();
+	auto stack = createStack();
 	int status = 0;
 	string infixForm = "(1+2)*4|";
 	string postfixForm = "";
@@ -102,7 +102,7 @@ bool test1()
 
 bool test2()
 {
-	Stack *stack = createStack();
+	auto stack = createStack();
 	int status = 0;
 	string infixForm = "(8+2* 5)/(1+ 3 *2-4)|";
 	string postfixForm = "";
@@ -113,7 +113,7 @@ bool test2()
 
 bool test3()
 {
-	Stack *stack = createStack();
+	auto stack = createStack();
 	int status = 0;
 	string infixForm = "((7 +  5)|";
 	string postfixForm = "";
@@ -125,7 +125,7 @@ bool test3()
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-	Stack *stack = createStack();
+	auto stack = createStack();
 	int status = 0;
 	string infixForm = "";
 	string postfixForm = "";

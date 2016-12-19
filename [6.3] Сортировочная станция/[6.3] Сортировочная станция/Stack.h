@@ -19,4 +19,4 @@ void push(Stack *stack, char value);
 char pop(Stack *stack);
 
 /* Удаление стека */
-void deleteStack(Stack *stack);
+void deleteStack(Stack *&stack);
