@@ -31,7 +31,7 @@ bool isEmpty(List *list)
 	return list->length == 0;
 }
 
-void createSquad(List *list, int n)
+void createSquad(List *&list, int n)
 {
 	list->head = createListELement(1, list->head);
 	auto lastElement = list->head;
@@ -56,7 +56,7 @@ void removeElement(ListElement *&head, ListElement *&previousElement)
 	delete toDelete;
 }
 
-int survivor(List *list, int m)
+int survivor(List *&list, int m)
 {
 	auto cursor = list->head;
 
@@ -87,15 +87,14 @@ int survivor(List *list, int m)
 	return list->head->value;
 }
 
-void deleteList(List *&list)
+void removeList(List *&list)
 {
-	while (list->head->next != nullptr)
+	while (list->head != nullptr)
 	{
 		auto toDelete = list->head;
 		list->head = list->head->next;
 		delete toDelete;
 	}
-	//delete list->head;
 	delete list;
 	list = nullptr;
 }
@@ -108,7 +107,7 @@ bool test1()
 	auto list = createList();
 	createSquad(list, n);
 	int result = survivor(list, m);
-	deleteList(list);
+	removeList(list);
 
 	return result == 4;
 }
@@ -121,7 +120,7 @@ bool test2()
 	auto list = createList();
 	createSquad(list, n);
 	int result = survivor(list, m);
-	deleteList(list);
+	removeList(list);
 
 	return result == 6;
 }
@@ -134,7 +133,7 @@ bool test3()
 	auto list = createList();
 	createSquad(list, n);
 	int result = survivor(list, m);
-	deleteList(list);
+	removeList(list);
 
 	return result == 1;
 }
@@ -155,7 +154,7 @@ void main()
 	{
 		createSquad(list, n);
 		cout << "Выживший имеет номер " << survivor(list, m) << endl;
-		deleteList(list);
+		removeList(list);
 	}
 	else
 	{
