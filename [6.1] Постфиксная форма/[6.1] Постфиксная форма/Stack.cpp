@@ -14,9 +14,7 @@ struct Stack
 
 Stack* createStack()
 {
-	Stack *stack = new Stack;
-	stack->head = nullptr;
-	stack->length = 0;
+	auto stack = new Stack{ nullptr, 0 };
 	return stack;
 }
 
@@ -27,9 +25,7 @@ bool isEmpty(Stack *stack)
 
 void push(Stack *stack, int value)
 {
-	StackElement *newElement = new StackElement;
-	newElement->value = value;
-	newElement->next = stack->head;
+	auto newElement = new StackElement{ value, stack->head };
 	stack->head = newElement;
 	++stack->length;
 }
@@ -40,23 +36,22 @@ int pop(Stack *stack)
 	{
 		return -1;
 	}
+
 	int value = stack->head->value;
-	StackElement *toDelete = stack->head;
+	auto toDelete = stack->head;
 	stack->head = stack->head->next;
 	delete toDelete;
-	toDelete = nullptr;
 	--stack->length;
 	return value;
 }
 
-void deleteStack(Stack *stack)
+void deleteStack(Stack *&stack)
 {
 	while (stack->head != nullptr)
 	{
-		StackElement *toDelete = stack->head;
+		auto toDelete = stack->head;
 		stack->head = stack->head->next;
 		delete toDelete;
-		toDelete = nullptr;
 	}
 	delete stack;
 	stack = nullptr;

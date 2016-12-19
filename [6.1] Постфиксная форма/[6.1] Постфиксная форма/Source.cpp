@@ -46,7 +46,7 @@ int result(Stack *stack, const string &s)
 
 bool test()
 {
-	Stack *stack = createStack();
+	auto stack = createStack();
 	string s = "9 6 - 1 2 + *";
 	return result(stack, s) == 9;
 }
@@ -54,7 +54,7 @@ bool test()
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-	Stack *stack = createStack();
+	auto stack = createStack();
 	string s = "";
 	cout << "Test: " << test() << endl;
 	cout << "¬ведите выражение в постфиксной записи:" << endl;
