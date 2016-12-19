@@ -29,9 +29,13 @@ void removeElement(List *list)
 	cout << "Введите значение удаляемого элемента:" << endl;
 	cin >> value;
 	if (removeElement(list, value))
+	{
 		cout << "Удаление элемента прошло успешно!" << endl;
+	}
 	else
+	{
 		cout << "Ошибка при удалении!" << endl;
+	}
 }
 
 bool test()
@@ -50,7 +54,6 @@ bool test()
 
 void main()
 {
-
 	setlocale(LC_ALL, "Russian");
 	cout << "Test: " << test() << endl;
 

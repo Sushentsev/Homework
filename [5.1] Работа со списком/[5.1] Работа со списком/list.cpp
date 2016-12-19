@@ -41,7 +41,6 @@ void addElement(List *list, int value)
 	}
 
 	ListElement *cursor = list->head;
-
 	if (value < cursor->value)
 	{
 		list->head = createListElement(list->head, value);
@@ -64,23 +63,22 @@ bool removeElement(List *list, int value)
 	}
 
 	ListElement *cursor = list->head;
-
-	if (cursor->value == value)
+	if (cursor->value == value && cursor->next == nullptr)
 	{
-		if (cursor->next == nullptr)
-		{
-			list->head = nullptr;
-		}
-		else
-		{
-			list->head = list->head->next;
-		}
+		list->head = nullptr;
 		delete cursor;
 		cursor = nullptr;
 		--list->size;
 		return true;
 	}
-
+	if (cursor->value == value)
+	{
+		list->head = list->head->next;
+		delete cursor;
+		cursor = nullptr;
+		--list->size;
+		return true;
+	}
 
 	while (cursor->next != nullptr && cursor->next->value != value)
 	{
@@ -119,6 +117,11 @@ void printList(List *list)
 		return;
 	}
 
+	if (list->size == 1)
+	{
+		cout << list->head->value << " ";
+		return;
+	}
 	ListElement *temp = list->head;
 	while (temp != nullptr)
 	{
