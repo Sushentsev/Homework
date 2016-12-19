@@ -11,46 +11,60 @@ struct ListElement
 struct List
 {
 	ListElement *head;
-	int length = 0;
+	int length;
 };
 
 List *createList()
 {
-	List *list = new List;
-	list->head = nullptr;
-	list->length = 0;
+	auto list = new List{ nullptr, 0 };
 	return list;
 }
 
 ListElement *createListELement(int value, ListElement *next)
 {
-	ListElement *newListElement = new ListElement;
-	newListElement->value = value;
-	newListElement->next = next;
+	auto newListElement = new ListElement{ value, next };
 	return newListElement;
 }
 
-void createSquard(List *list, int n)
+bool isEmpty(List *list)
+{
+	return list->length == 0;
+}
+
+void createSquad(List *list, int n)
 {
 	list->head = createListELement(1, list->head);
+	auto lastElement = list->head;
 	++list->length;
-	ListElement *lastElement = list->head;
+
 	for (int i = 2; i <= n; ++i)
 	{
-		ListElement *newElement = createListELement(i, list->head);
-		lastElement->next = newElement;
-		lastElement = newElement;
+		lastElement->next = createListELement(i, list->head);
+		lastElement = lastElement->next;
 		++list->length;
 	}
 }
 
+void removeElement(ListElement *&head, ListElement *&previousElement)
+{
+	auto toDelete = previousElement->next;
+	previousElement->next = previousElement->next->next;
+	if (toDelete == head)
+	{
+		head = previousElement->next;
+	}
+	delete toDelete;
+}
+
 int survivor(List *list, int m)
 {
-	while (list->length != 1)
+	auto cursor = list->head;
+
+	while (list->length > 1)
 	{
 		if (m == 1)
 		{
-			ListElement *cursor = list->head;
+			auto cursor = list->head;
 			while (cursor->next != list->head)
 			{
 				cursor = cursor->next;
@@ -59,45 +73,42 @@ int survivor(List *list, int m)
 		}
 		else
 		{
-			ListElement *toDelete = list->head;
 			for (int i = 1; i < m - 1; ++i)
 			{
-				toDelete = toDelete->next;
+				cursor = cursor->next;
 			}
-			list->head = toDelete;
-			toDelete = toDelete->next;
-			list->head->next = list->head->next->next;
-			list->head = list->head->next;
-			delete toDelete;
-			toDelete = nullptr;
+
+			removeElement(list->head, cursor);
+			cursor = cursor->next;
 			--list->length;
 		}
-	
 	}
+
 	return list->head->value;
 }
 
-void deleteList(List *list)
+void deleteList(List *&list)
 {
-	while (list->head != nullptr)
+	while (list->head->next != nullptr)
 	{
-		ListElement *toDelete = list->head;
+		auto toDelete = list->head;
 		list->head = list->head->next;
 		delete toDelete;
-		toDelete = nullptr;
 	}
+	//delete list->head;
+	delete list;
+	list = nullptr;
 }
 
 bool test1()
 {
 	const int n = 10;
-	const int m = 3; 
+	const int m = 3;
 
-	List *list = createList();
-	createSquard(list, n);
+	auto list = createList();
+	createSquad(list, n);
 	int result = survivor(list, m);
-	delete list;
-	list = nullptr;
+	deleteList(list);
 
 	return result == 4;
 }
@@ -107,11 +118,10 @@ bool test2()
 	const int n = 6;
 	const int m = 1;
 
-	List *list = createList();
-	createSquard(list, n);
+	auto list = createList();
+	createSquad(list, n);
 	int result = survivor(list, m);
-	delete list;
-	list = nullptr;
+	deleteList(list);
 
 	return result == 6;
 }
@@ -121,11 +131,10 @@ bool test3()
 	const int n = 2;
 	const int m = 2;
 
-	List *list = createList();
-	createSquard(list, n);
+	auto list = createList();
+	createSquad(list, n);
 	int result = survivor(list, m);
-	delete list;
-	list = nullptr;
+	deleteList(list);
 
 	return result == 1;
 }
@@ -139,16 +148,14 @@ void main()
 
 	int n = 0;
 	int m = 0;
-	List *list = createList();
+	auto list = createList();
 	cout << "Введите количество войнов (n) и номер человека, которого убивают (m)" << endl;
 	cin >> n >> m;
 	if (n > 1 && m > 0)
 	{
-		createSquard(list, n);
+		createSquad(list, n);
 		cout << "Выживший имеет номер " << survivor(list, m) << endl;
 		deleteList(list);
-		delete list;
-		list = nullptr;
 	}
 	else
 	{
