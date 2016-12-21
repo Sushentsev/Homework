@@ -4,53 +4,18 @@
 
 using namespace std;
 
-bool isNumber(const char &symbol)
-{
-	return (symbol >= '0' && symbol <= '9');
-}
-
-bool isRealNumber(const string &str)
-{
-	bool state = 0;
-	char symbol = '0';
-	for (int i = 0; i < str.length(); ++i)
-	{
-		symbol = str[i];
-		switch (state)
-		{
-			case 0:
-			{
-
-			}
-			case 1:
-			{
-
-			}
-			case 2:
-			{
-
-			}
-			case 3:
-			{
-
-			}
-			case 4:
-			{
-
-			}
-			case 5:
-			{
-
-			}
-		}
-	}
-
-	return state;
-}
-
 bool test()
 {
-	return 1;
+	string s1 = "1.2345";
+	string s2 = "12454.";
+	string s3 = "1n.43";
+	string s4 = "123.E78";
+	string s5 = "123.45E++45";
+	string s6 = "13.5E-142";
+	string s7 = "ggtr";
+	string s8 = "12.456E45";
+	return (isRealNumber(s1) && !isRealNumber(s2) && !isRealNumber(s3) && !isRealNumber(s4) && !isRealNumber(s5) && isRealNumber(s6) && !isRealNumber(s7) 
+		&& isRealNumber(s8));
 }
 
 void main()
@@ -59,8 +24,7 @@ void main()
 	string str = "";
 
 	cout << "Test: " << test() << endl;
-
-	cout << "¬ведите иискомую строку:" << endl;
+	cout << "¬ведите искомую строку:" << endl;
 	getline(cin, str);
 
 	if (isRealNumber(str))
