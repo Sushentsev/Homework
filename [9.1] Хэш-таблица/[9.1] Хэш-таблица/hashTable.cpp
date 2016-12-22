@@ -23,7 +23,7 @@ HashTable *createHashTable()
 int getHash(const string &key)
 {
 	int value = 0;
-	int keyLength = key.length();
+	const int keyLength = key.length();
 	for (int i = 0; i < keyLength; ++i)
 	{
 		value = (value + static_cast<int>(key[i])) % sizeOfHashTable;
@@ -33,7 +33,7 @@ int getHash(const string &key)
 
 void add(HashTable *&hashTable, const string &word)
 {
-	int hash = getHash(word);
+	const int hash = getHash(word);
 	if (isContained(hashTable->head[hash], word))
 	{
 		increaseNumber(hashTable->head[hash], word);
@@ -44,14 +44,14 @@ void add(HashTable *&hashTable, const string &word)
 	}
 }
 
-int occupancyOfHashTable(HashTable *hashTable)
+double occupancyOfHashTable(HashTable *hashTable)
 {
-	int count = 0;
+	double count = 0.0;
 	for (int i = 0; i < sizeOfHashTable; ++i)
 	{
 			count += amountOfElements(hashTable->head[i]);
 	}
-	return (count * 100 / sizeOfHashTable);
+	return count / sizeOfHashTable;
 }
 
 int maxLengthOfList(HashTable *hashTable)
@@ -67,9 +67,9 @@ int maxLengthOfList(HashTable *hashTable)
 	return count;
 }
 
-int averageLengthOfList(HashTable *hashTable)
+double averageLengthOfList(HashTable *hashTable)
 {
-	int count = 0;
+	double count = 0.0;
 	int amountOfList = 0;
 	for (int i = 0; i < sizeOfHashTable; ++i)
 	{
@@ -79,7 +79,7 @@ int averageLengthOfList(HashTable *hashTable)
 			++amountOfList;
 		}
 	}
-	return (count / amountOfList);
+	return count / amountOfList;
 }
 
 void printHashTable(HashTable *hashTable)

@@ -21,16 +21,15 @@ void loadFromFile(HashTable *hashTable, const string &fileName)
 	else
 	{
 		cout << "Ошибка при открытии файла!" << endl;
-		return;
 	}
 }
 
 bool test()
 {
 	bool flag = true;
-	HashTable *hashTable = createHashTable();
+	auto hashTable = createHashTable();
 	loadFromFile(hashTable, "test.txt");
-	flag = ((occupancyOfHashTable(hashTable) == 6) && (maxLengthOfList(hashTable) == 2));
+	flag = ((occupancyOfHashTable(hashTable) == 0.06) && (maxLengthOfList(hashTable) == 2));
 	deleteHashTable(hashTable);
 	return flag;
 }
@@ -38,14 +37,16 @@ bool test()
 void main()
 {
 	setlocale(LC_ALL, "Russian");
-
+	string fileName = "";
 	cout << "Test: " << test() << endl << endl;
 	auto hashTable = createHashTable();
-	loadFromFile(hashTable, "text.txt");
 
+	cout << "Введите названия файла: " << endl;
+	cin >> fileName;
+	loadFromFile(hashTable, fileName);
 	cout << "Частота встречаемости:" << endl;
 	printHashTable(hashTable);
-	cout << "Коэффициент заполнения хеш-таблицы: " << occupancyOfHashTable(hashTable) << "%" << endl;
+	cout << "Коэффициент заполнения хеш-таблицы: " << occupancyOfHashTable(hashTable) << endl;
 	cout << "Максимальная длина списка: " << maxLengthOfList(hashTable) << endl;
 	cout << "Средняя длина списка: " << averageLengthOfList(hashTable) << endl;
 	

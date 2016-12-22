@@ -11,13 +11,13 @@ HashTable *createHashTable();
 void add(HashTable *&hashTable, const string &word);
 
 /* Примерная заполняемость хеш-таблицы в процентах*/
-int occupancyOfHashTable(HashTable *hashTable);
+double occupancyOfHashTable(HashTable *hashTable);
 
 /* Максимальная длина листа */
 int maxLengthOfList(HashTable *hashTable);
 
 /* Средняя длина листа */
-int averageLengthOfList(HashTable *hashTable);
+double averageLengthOfList(HashTable *hashTable);
 
 /* Вывод содержимого хеш-таблицы на экран */
 void printHashTable(HashTable *hashTable);
