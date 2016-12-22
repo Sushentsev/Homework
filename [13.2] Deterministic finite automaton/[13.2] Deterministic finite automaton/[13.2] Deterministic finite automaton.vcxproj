@@ -119,6 +119,7 @@
   <ItemGroup>
     <Text Include="input.txt" />
     <Text Include="states.txt" />
+    <Text Include="test.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dfa.h" />
