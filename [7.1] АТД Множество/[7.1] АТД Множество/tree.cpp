@@ -78,9 +78,10 @@ bool removeNode(TreeNode *&node, int value)
 		}
 		else if (node->leftChild != nullptr && node->leftChild != nullptr)
 		{
-			auto minNode = findMinNode(node); 
-			node->value = minNode->value;
-			return removeNode(minNode, node->value);
+			auto minNode = findMinNode(node);
+			int temp = minNode->value;
+			removeNode(node, temp);
+			node->value = temp;
 		}
 		else if (node->leftChild != nullptr)
 		{

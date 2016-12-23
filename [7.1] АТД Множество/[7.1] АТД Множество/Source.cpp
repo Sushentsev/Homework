@@ -48,14 +48,14 @@ void isContained(Tree *tree)
 	}
 }
 
-void AscendingOrder(Tree *tree)
+void ascendingOrder(Tree *tree)
 {
 	cout << "Ёлементы в пор€дке возрастани€:" << endl;
 	printAscendingOrder(tree);
 	cout << endl << endl;
 }
 
-void DescendingOrder(Tree *tree)
+void descendingOrder(Tree *tree)
 {
 	cout << "Ёлементы в пор€дке убывани€:" << endl;
 	printDescendingOrder(tree);
@@ -76,7 +76,7 @@ void printInformation()
 
 bool test()
 {
-	bool flag = 1;
+	bool flag = true;
 	Tree *tree = plantTree();
 	addNode(tree, 5);
 	addNode(tree, 8);
@@ -115,14 +115,15 @@ void main()
 			isContained(tree);
 			break;
 		case 4:
-			AscendingOrder(tree);
+			ascendingOrder(tree);
 			break;
 		case 5:
-			DescendingOrder(tree);
+			descendingOrder(tree);
 			break;
 		default:
 			break;
 		}
 	}
 	removeTree(tree);
+	delete tree;
 }
