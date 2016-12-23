@@ -64,7 +64,8 @@ void addToHead(List *list, const string &name, const string &phone)
 
 void addToTale(List *list, const string &name, const string &phone)
 {
-
+	auto lastElement = getLastElement(list);
+	lastElement->next = createListElement(nullptr, name, phone);
 }
 
 int getSize(List *list)

@@ -18,6 +18,8 @@ string getNameFromHead(List *list);
 
 string getPhoneFromHead(List *list);
 
+void addToTale(List *list, const string &name, const string &phone);
+
 void removeFromHead(List *&list);
 
 /* Getting size of list */
