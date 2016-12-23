@@ -89,12 +89,11 @@ int survivor(List *&list, int m)
 
 void removeList(List *&list)
 {
-	while (list->head != nullptr)
+	while (list->head->next != list->head)
 	{
-		auto toDelete = list->head;
-		list->head = list->head->next;
-		delete toDelete;
+		removeElement(list->head, list->head);
 	}
+	delete list->head;
 	delete list;
 	list = nullptr;
 }
@@ -144,7 +143,6 @@ void main()
 	cout << "Test 1: " << test1() << endl;
 	cout << "Test 2: " << test2() << endl;
 	cout << "Test 3: " << test3() << endl;
-
 	int n = 0;
 	int m = 0;
 	auto list = createList();
