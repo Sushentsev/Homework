@@ -29,14 +29,14 @@ void loadFromFile(List *book)
 
 void main()
 {
-	setlocale(LC_ALL, "Russian");
 	auto book = createList();
-	bool sortType = 0;
+	short sortType = 0;
+
+	cout << "Choose the type of sorting (by name is 0, by phone number is 1):" << endl;
+	cin >> sortType;
 
 	loadFromFile(book);
-	//cout << "Выберите тип сортировки (по имени - 0, по номеру телефона - 1):" << endl;
-	//cin >> sortType;
-
-	//printList(book);
+	mergeSort(book, sortType);
+	printList(book);
 	removeList(book);
 }

@@ -29,15 +29,47 @@ ListElement* createListElement(ListElement *next, const string &name, const stri
 	return newListElement;
 }
 
+ListElement* getLastElement(List *list)
+{
+	auto cursor = list->head;
+	while (cursor->next != nullptr)
+	{
+		cursor = cursor->next;
+	}
+	return cursor;
+}
+
+string getNameFromHead(List *list)
+{
+	return list->head->name;
+}
+
+string getPhoneFromHead(List *list)
+{
+	return list->head->phone;
+}
+
+void removeFromHead(List *&list)
+{
+	auto oldHead = list->head;
+	list->head = list->head->next;
+	delete oldHead;
+}
+
 void addToHead(List *list, const string &name, const string &phone)
 {
 	list->head = createListElement(list->head, name, phone);
 	++list->length;
 }
 
-bool isEmpty(List *list)
+void addToTale(List *list, const string &name, const string &phone)
 {
-	return list->length	 == 0;
+
+}
+
+int getSize(List *list)
+{
+	return list->length;
 }
 
 void printList(List *list)
@@ -48,42 +80,6 @@ void printList(List *list)
 		cout << "Имя: " << cursor->name << " Телефон: " << cursor->phone << endl;
 		cursor = cursor->next;
 	}
-}
-
-int getNumberByName(List *list, const string &name)
-{
-	int number = 0;
-	auto cursor = list->head;
-	while (cursor != nullptr)
-	{
-		if (cursor->name == name)
-		{
-			return number;
-		}
-
-		cursor = cursor->next;
-		++number;
-	}
-
-	return -1;
-}
-
-int getNumberByPhone(List *list, const string &phone)
-{
-	int number = 0;
-	auto cursor = list->head;
-	while (cursor != nullptr)
-	{
-		if (cursor->phone == phone)
-		{
-			return number;
-		}
-
-		cursor = cursor->next;
-		++number;
-	}
-
-	return -1;
 }
 
 void removeList(List *&list)
