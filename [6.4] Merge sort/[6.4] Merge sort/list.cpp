@@ -29,8 +29,18 @@ ListElement* createListElement(ListElement *next, const string &name, const stri
 	return newListElement;
 }
 
+bool isEmpty(List *list)
+{
+	return list->length == 0;
+}
+
 ListElement* getLastElement(List *list)
 {
+	if (isEmpty(list))
+	{
+		return;
+	}
+
 	auto cursor = list->head;
 	while (cursor->next != nullptr)
 	{
@@ -41,16 +51,29 @@ ListElement* getLastElement(List *list)
 
 string getNameFromHead(List *list)
 {
+	if (isEmpty(list))
+	{
+		return;
+	}
 	return list->head->name;
 }
 
 string getPhoneFromHead(List *list)
 {
+	if (isEmpty(list))
+	{
+		return;
+	}
 	return list->head->phone;
 }
 
 void removeFromHead(List *&list)
 {
+	if (isEmpty(list))
+	{
+		return;
+	}
+
 	auto oldHead = list->head;
 	list->head = list->head->next;
 	--list->length;
@@ -65,6 +88,12 @@ void addToHead(List *list, const string &name, const string &phone)
 
 void addToTale(List *list, const string &name, const string &phone)
 {
+	if (isEmpty(list))
+	{
+		list->head = createListElement(nullptr, name, phone);
+		return;
+	}
+
 	auto lastElement = getLastElement(list);
 	lastElement->next = createListElement(nullptr, name, phone);
 	++list->length;

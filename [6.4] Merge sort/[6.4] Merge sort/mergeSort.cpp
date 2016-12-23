@@ -14,6 +14,7 @@ List *split(List *list)
 	{
 		const string name = getNameFromHead(list);
 		const string phone = getPhoneFromHead(list);
+		removeFromHead(list);
 	}
 
 	return splitedList;
