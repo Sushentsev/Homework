@@ -53,6 +53,7 @@ void removeFromHead(List *&list)
 {
 	auto oldHead = list->head;
 	list->head = list->head->next;
+	--list->length;
 	delete oldHead;
 }
 
@@ -66,6 +67,7 @@ void addToTale(List *list, const string &name, const string &phone)
 {
 	auto lastElement = getLastElement(list);
 	lastElement->next = createListElement(nullptr, name, phone);
+	++list->length;
 }
 
 int getSize(List *list)
