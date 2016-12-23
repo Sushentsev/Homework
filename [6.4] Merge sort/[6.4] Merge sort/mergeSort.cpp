@@ -35,8 +35,8 @@ List *merge(List *&leftHalf, List *rightHalf, const short sortType)
 
 	while (!isEmpty(leftHalf) && !isEmpty(rightHalf))
 	{
-		if (!sortType && (getNameFromHead(leftHalf) < getNameFromHead(rightHalf)) || 
-			sortType && (getPhoneFromHead(leftHalf) < getPhoneFromHead(rightHalf)))
+		if ((sortType == 0) && (getNameFromHead(leftHalf) < getNameFromHead(rightHalf)) || 
+			(sortType == 1) && (getPhoneFromHead(leftHalf) < getPhoneFromHead(rightHalf)))
 		{
 			cutFromFirstListToSecond(leftHalf, mergedList);
 		}

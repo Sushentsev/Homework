@@ -18,6 +18,9 @@ ListElement* createListElement(ListElement *next, const string &name, const stri
 /* Checking list on emptiness */
 bool isEmpty(List *list);
 
+/* Checking whether first element is smaller than second */
+bool isSmaller(List *list, const short sortType);
+
 /* Getting last element */
 ListElement* getLastElement(List *list);
 

@@ -34,6 +34,25 @@ bool isEmpty(List *list)
 	return list->length == 0;
 }
 
+bool isSmaller(List *list, const short sortType)
+{
+	if (sizeOfList(list) <= 1)
+	{
+		return true;
+	}
+
+	if (sortType == 0)
+	{
+		return list->head->name < list->head->next->name;
+	}
+	else if (sortType == 1)
+	{
+		return list->head->phone < list->head->next->phone;
+	}
+
+	return false;
+}
+
 ListElement* getLastElement(List *list)
 {
 	if (isEmpty(list))
