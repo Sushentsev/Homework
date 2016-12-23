@@ -72,7 +72,7 @@ string getNameFromHead(List *list)
 {
 	if (isEmpty(list))
 	{
-		return nullptr;
+		return "";
 	}
 	return list->head->name;
 }
@@ -81,7 +81,7 @@ string getPhoneFromHead(List *list)
 {
 	if (isEmpty(list))
 	{
-		return nullptr;
+		return "";
 	}
 	return list->head->phone;
 }
