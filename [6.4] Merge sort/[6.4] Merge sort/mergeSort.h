@@ -1,4 +1,5 @@
 #pragma once
+#include "list.h"
 
-/* Merge Sort */
+/* Implementation of merge sort */
 void mergeSort(List *&list, const short sortType);

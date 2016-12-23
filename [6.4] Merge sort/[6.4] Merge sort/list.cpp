@@ -38,7 +38,7 @@ ListElement* getLastElement(List *list)
 {
 	if (isEmpty(list))
 	{
-		return;
+		return nullptr;
 	}
 
 	auto cursor = list->head;
@@ -53,7 +53,7 @@ string getNameFromHead(List *list)
 {
 	if (isEmpty(list))
 	{
-		return;
+		return nullptr;
 	}
 	return list->head->name;
 }
@@ -62,7 +62,7 @@ string getPhoneFromHead(List *list)
 {
 	if (isEmpty(list))
 	{
-		return;
+		return nullptr;
 	}
 	return list->head->phone;
 }
@@ -91,6 +91,7 @@ void addToTale(List *list, const string &name, const string &phone)
 	if (isEmpty(list))
 	{
 		list->head = createListElement(nullptr, name, phone);
+		++list->length;
 		return;
 	}
 
@@ -99,7 +100,7 @@ void addToTale(List *list, const string &name, const string &phone)
 	++list->length;
 }
 
-int getSize(List *list)
+int sizeOfList(List *list)
 {
 	return list->length;
 }
@@ -109,7 +110,7 @@ void printList(List *list)
 	auto cursor = list->head;
 	while (cursor != nullptr)
 	{
-		cout << "Имя: " << cursor->name << " Телефон: " << cursor->phone << endl;
+		cout << "Name: " << cursor->name << " Phone: " << cursor->phone << endl;
 		cursor = cursor->next;
 	}
 }

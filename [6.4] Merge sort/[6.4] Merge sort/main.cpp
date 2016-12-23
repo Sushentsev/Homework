@@ -17,13 +17,13 @@ void loadFromFile(List *book)
 		{
 			file >> name;
 			file >> phone;
-			addToHead(book, name, phone);
+			addToTale(book, name, phone);
 		}
 		file.close();
 	}
 	else
 	{
-		cout << "Ошибка при чтении файла!" << endl;
+		cout << "Error while reading file!" << endl;
 	}
 }
 
@@ -37,6 +37,7 @@ void main()
 
 	loadFromFile(book);
 	mergeSort(book, sortType);
+	cout << "Sorted book:" << endl;
 	printList(book);
 	removeList(book);
 }
