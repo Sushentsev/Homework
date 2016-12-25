@@ -1,6 +1,6 @@
+#include "arithmeticTree.h"
 #include <iostream>
 #include <string>
-#include "arithmeticTree.h"
 
 using namespace std;
 
@@ -20,19 +20,17 @@ struct Tree
 
 Tree* plantTree()
 {
-	auto tree = new Tree{ nullptr };
-	return tree;
+	return new Tree{ nullptr };
 }
 
 TreeNode* createTreeNode(const int value, const char &operation, TreeNode *leftChild, TreeNode *rightChild, TreeNode *parent)
 {
-	auto newNode = new TreeNode{ value, operation, leftChild, rightChild, parent };
-	return newNode;
+	return new TreeNode{ value, operation, leftChild, rightChild, parent };
 }
 
 bool isDigit(const char &symbol)
 {
-	return (symbol >= '0'  && symbol <= '9');
+	return (symbol >= '0' && symbol <= '9');
 }
 
 bool isOperator(const char &symbol)
@@ -59,55 +57,64 @@ void buildTree(Tree *&tree, const string &expression)
 {
 	if (isEmpty(tree))
 	{
-		tree->root = createTreeNode(0, '\0', nullptr, nullptr, nullptr);
+		tree->root = createTreeNode(0, '0', nullptr, nullptr, nullptr);
 	}
-	const int sizeOfExpression = expression.length();
-	auto cursor = tree->root;
 
-	for (int i = 0; i < sizeOfExpression; ++i)
+	const int sizeOfExpression = expression.length();
+	int index = 0;
+	auto cursor = tree->root;
+	while (index < sizeOfExpression)
 	{
-		if (isLeftBracket(expression[i]))
+		if (isLeftBracket(expression[index]))
 		{
 			if (cursor->leftChild == nullptr)
 			{
-				cursor->leftChild = createTreeNode(0, '\0', nullptr, nullptr, cursor);
+				cursor->leftChild = createTreeNode(0, '0', nullptr, nullptr, cursor);
 				cursor = cursor->leftChild;
 			}
 			else
 			{
-				cursor->rightChild = createTreeNode(0, '\0', nullptr, nullptr, cursor);
+				cursor->rightChild = createTreeNode(0, '0', nullptr, nullptr, cursor);
 				cursor = cursor->rightChild;
 			}
 		}
-		else if (isRightBracket(expression[i]))
+		else if (isRightBracket(expression[index]))
 		{
 			cursor = cursor->parent;
 		}
-		else if (isDigit(expression[i]))
+		else if (isDigit(expression[index]))
 		{
+			int number = 0;
+			while (isDigit(expression[index]))
+			{
+				number = number * 10 + (int)expression[index] - '0';
+				++index;
+			}
+
 			if (cursor->leftChild == nullptr)
 			{
-				cursor->leftChild = createTreeNode(atoi(expression[i]), '\0', nullptr, nullptr, cursor);
+				cursor->leftChild = createTreeNode(number, '0', nullptr, nullptr, cursor);
 			}
 			else
 			{
-				cursor->rightChild = createTreeNode(expression[i], '\0', nullptr, nullptr, cursor);
+				cursor->rightChild = createTreeNode(number, '0', nullptr, nullptr, cursor);
 			}
+			--index;
 		}
-		else if (isOperator(expression[i]))
+		else if (isOperator(expression[index]))
 		{
-			cursor->operation = expression[i];
+			cursor->operation = expression[index];
 		}
+		++index;
 	}
 
 	auto oldRoot = tree->root;
 	tree->root = tree->root->leftChild;
+	tree->root->parent = nullptr;
 	delete oldRoot;
 }
 
-
-
-double getValue(const int num1, const int num2, const char &operation)
+double getValue(const double num1, const double num2, const char &operation)
 {
 	switch (operation)
 	{
@@ -139,9 +146,9 @@ double computeTree(TreeNode *node)
 		return node->value;
 	}
 
-	const int num1 = computeTree(node->leftChild);
-	const int num2 = computeTree(node->rightChild);
-	return getValue(num1, num2, node->value);
+	const double num1 = computeTree(node->leftChild);
+	const double num2 = computeTree(node->rightChild);
+	return getValue(num1, num2, node->operation);
 }
 
 double computeTree(Tree *tree)
@@ -161,9 +168,9 @@ void printTree(TreeNode *node)
 		return;
 	}
 
-	if (isOperator(node->value))
+	if (isOperator(node->operation))
 	{
-		cout << "( " << node->value << " ";
+		cout << "( " << node->operation << " ";
 		printTree(node->leftChild);
 		printTree(node->rightChild);
 		cout << ") ";

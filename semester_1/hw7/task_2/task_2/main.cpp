@@ -1,7 +1,7 @@
+#include "arithmeticTree.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "arithmeticTree.h"
 
 using namespace std;
 
@@ -30,5 +30,7 @@ void main()
 	loadExpression(expression, fileName);
 	buildTree(tree, expression);
 	printTree(tree);
+	cout << endl;
+	cout << computeTree(tree) << endl;
 	removeTree(tree);
 }
