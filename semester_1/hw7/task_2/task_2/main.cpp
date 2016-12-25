@@ -19,12 +19,27 @@ void loadExpression(string &expression, const string &fileName)
 	}
 }
 
+bool test()
+{
+	auto tree = plantTree();
+	bool flag = true;
+	string expression = "";
+	const string fileName = "test.txt";
+
+	loadExpression(expression, fileName);
+	buildTree(tree, expression);
+	flag = computeTree(tree) == 25;
+	removeTree(tree);
+	return flag;
+}
+
 void main()
 {
 	auto tree = plantTree();
 	string expression = "";
 	string fileName = "";
 
+	cout << "Test: " << test() << endl;
 	cout << "Enter file name:" << endl;
 	cin >> fileName;
 	loadExpression(expression, fileName);

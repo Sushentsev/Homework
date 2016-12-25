@@ -192,14 +192,8 @@ void removeTree(TreeNode *&node)
 	{
 		return;
 	}
-	if (node->leftChild != nullptr)
-	{
-		removeTree(node->leftChild);
-	}
-	if (node->rightChild != nullptr)
-	{
-		removeTree(node->rightChild);
-	}
+	removeTree(node->leftChild);
+	removeTree(node->rightChild);
 	delete node;
 	node = nullptr;
 }
