@@ -1,8 +1,8 @@
+#include "list.h"
+#include "mergeSort.h"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "list.h"
-#include "mergeSort.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ void loadFromFile(List *book, const string &fileName)
 		{
 			file >> name;
 			file >> phone;
-			addToTale(book, name, phone);
+			addToTail(book, name, phone);
 		}
 		file.close();
 	}
@@ -36,12 +36,12 @@ bool isSorted(List *list, const short sortType)
 	{
 		if (sortType == 1) //sort by phone
 		{
-			flag = flag && isSmaller(list, 1);
+			flag = flag && isHeadSmaller(list, 1);
 			removeFromHead(list);
 		}
 		else if (sortType == 0) //sort by name
 		{
-			flag = flag && isSmaller(list, 0);
+			flag = flag && isHeadSmaller(list, 0);
 			removeFromHead(list);
 		}
 	}

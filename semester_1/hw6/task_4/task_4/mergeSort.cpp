@@ -10,7 +10,7 @@ void cutFromFirstListToSecond(List *&firstList, List *&secondList)
 	const string name = getNameFromHead(firstList);
 	const string phone = getPhoneFromHead(firstList);
 	removeFromHead(firstList);
-	addToTale(secondList, name, phone);
+	addToTail(secondList, name, phone);
 }
 
 List *split(List *list)

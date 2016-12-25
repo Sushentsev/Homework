@@ -1,6 +1,6 @@
+#include "list.h"
 #include <iostream>
 #include <string>
-#include "list.h"
 
 using namespace std;
 
@@ -19,14 +19,12 @@ struct List
 
 List* createList()
 {
-	auto list = new List{ 0, nullptr };
-	return list;
+	return new List{ 0, nullptr };
 }
 
 ListElement* createListElement(ListElement *next, const string &name, const string &phone)
 {
-	auto newListElement = new ListElement{ name, phone, next };
-	return newListElement;
+	return new ListElement{ name, phone, next };
 }
 
 bool isEmpty(List *list)
@@ -34,7 +32,7 @@ bool isEmpty(List *list)
 	return list->length == 0;
 }
 
-bool isSmaller(List *list, const short sortType)
+bool isHeadSmaller(List *list, const short sortType)
 {
 	if (sizeOfList(list) <= 1)
 	{
@@ -105,7 +103,7 @@ void addToHead(List *list, const string &name, const string &phone)
 	++list->length;
 }
 
-void addToTale(List *list, const string &name, const string &phone)
+void addToTail(List *list, const string &name, const string &phone)
 {
 	if (isEmpty(list))
 	{

@@ -1,8 +1,6 @@
 #pragma once
 #include <string>
 
-using namespace std;
-
 /* The structure of element of list */
 struct ListElement;
 
@@ -13,31 +11,31 @@ struct List;
 List* createList();
 
 /* Creating the element of list */
-ListElement* createListElement(ListElement *next, const string &name, const string &phone);
+ListElement* createListElement(ListElement *next, const std::string &name, const std::string &phone);
 
 /* Checking list on emptiness */
 bool isEmpty(List *list);
 
 /* Checking whether first element is smaller than second */
-bool isSmaller(List *list, const short sortType);
+bool isHeadSmaller(List *list, const short sortType);
 
 /* Getting last element */
 ListElement* getLastElement(List *list);
 
 /* Getting name from head */
-string getNameFromHead(List *list);
+std::string getNameFromHead(List *list);
 
 /* Getting phone from head */
-string getPhoneFromHead(List *list);
+std::string getPhoneFromHead(List *list);
 
 /* Removing head */
 void removeFromHead(List *&list);
 
 /* Adding data to head */
-void addToHead(List *list, const string &name, const string &phone);
+void addToHead(List *list, const std::string &name, const std::string &phone);
 
-/* Adding data to tale */
-void addToTale(List *list, const string &name, const string &phone);
+/* Adding data to Tail */
+void addToTail(List *list, const std::string &name, const std::string &phone);
 
 /* Getting the size of list */
 int sizeOfList(List *list);
