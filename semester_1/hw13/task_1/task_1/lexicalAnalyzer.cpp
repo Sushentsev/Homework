@@ -1,6 +1,6 @@
+#include "lexicalAnalyzer.h"
 #include <iostream>
 #include <string>
-#include "lexicalAnalyzer.h"
 
 using namespace std;
 
@@ -52,7 +52,6 @@ bool isRealNumber(const string &str)
 			}
 			break;
 		}
-
 		case 1:
 		{
 			if (isDigit(symbol))
@@ -73,7 +72,6 @@ bool isRealNumber(const string &str)
 			}
 			break;
 		}
-
 		case 2:
 		{
 			if (isDigit(symbol))
@@ -86,7 +84,6 @@ bool isRealNumber(const string &str)
 			}
 			break;
 		}
-
 		case 3:
 		{
 			if (isDigit(symbol))
@@ -103,7 +100,6 @@ bool isRealNumber(const string &str)
 			}
 			break;
 		}
-
 		case 4:
 		{
 			if (isSign(symbol) && !isLastSymbol(i, sizeOfStr))
@@ -120,7 +116,6 @@ bool isRealNumber(const string &str)
 			}
 			break;
 		}
-
 		case 5:
 		{
 			if (isDigit(symbol))
@@ -135,6 +130,5 @@ bool isRealNumber(const string &str)
 		}
 		}
 	}
-
 	return true;
 }

@@ -1,6 +1,6 @@
+#include "lexicalAnalyzer.h"
 #include <iostream>
 #include <string>
-#include "lexicalAnalyzer.h"
 
 using namespace std;
 
@@ -25,7 +25,6 @@ void main()
 	cout << "Test: " << test() << endl;
 	cout << "Enter a string:" << endl;
 	getline(cin, str);
-
 	if (isRealNumber(str))
 	{
 		cout << "It is a real number" << endl;
