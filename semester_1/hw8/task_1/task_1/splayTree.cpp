@@ -49,31 +49,146 @@ bool isEmpty(Tree *tree)
 	return (tree->root == nullptr);
 }
 
-void turnRight(TreeNode *&child, TreeNode *&parent)
+void turnRight(TreeNode *&child)
 {
+	auto parentElement = child->parent;
+	auto grandparentElement = parentElement->parent;
+
+	if (grandparentElement != nullptr)
+	{
+		if (grandparentElement->leftChild = parentElement)
+		{
+			grandparentElement->leftChild = child;
+		}
+		else
+		{
+			grandparentElement->rightChild = child;
+		}
+	}
+
+	if (parentElement->leftChild == child)
+	{
+		parentElement->leftChild = child->rightChild;
+		if (parentElement->leftChild != nullptr)
+		{
+			parentElement->leftChild->parent = parentElement;
+		}
+		child->rightChild = parentElement;
+	}
+	else
+	{
+		parentElement->rightChild = child->leftChild;
+		if (parentElement->rightChild != nullptr)
+		{
+			parentElement->rightChild->parent = parentElement;
+		}
+		child->leftChild = parentElement;
+	}
+
+	child->parent = grandparentElement;
+	parentElement->parent = child;
+
+	/*
+	auto parent = child->parent;
+	auto grandParent = parent->parent;
+
+	if (grandParent != nullptr)
+	{
+		if (grandParent->leftChild = parent)
+		{
+			grandParent->leftChild = child;
+		}
+		else if (grandParent->rightChild = parent)
+		{
+			grandParent->rightChild = child;
+		}
+	}
 	parent->leftChild = child->rightChild;
-	child->parent = parent->parent;
-	parent->parent = child;
+	if (parent->leftChild != nullptr)
+	{
+		parent->leftChild->parent = parent;
+	}
 	child->rightChild = parent;
+	child->parent = grandParent;
+	parent->parent = child;
+	*/
 }
 
-void turnLeft(TreeNode *&child, TreeNode *&parent)
+void turnLeft(TreeNode *&child)
 {
+
+	auto parentElement = child->parent;
+	auto grandparentElement = parentElement->parent;
+
+	if (grandparentElement != nullptr)
+	{
+		if (grandparentElement->leftChild = parentElement)
+		{
+			grandparentElement->leftChild = child;
+		}
+		else
+		{
+			grandparentElement->rightChild = child;
+		}
+	}
+
+	if (parentElement->leftChild == child)
+	{
+		parentElement->leftChild = child->rightChild;
+		if (parentElement->leftChild != nullptr)
+		{
+			parentElement->leftChild->parent = parentElement;
+		}
+		child->rightChild = parentElement;
+	}
+	else
+	{
+		parentElement->rightChild = child->leftChild;
+		if (parentElement->rightChild != nullptr)
+		{
+			parentElement->rightChild->parent = parentElement;
+		}
+		child->leftChild = parentElement;
+	}
+
+	child->parent = grandparentElement;
+	parentElement->parent = child;
+
+	/*
+	auto parent = child->parent;
+	auto grandParent = parent->parent;
+
+	if (grandParent != nullptr)
+	{
+		if (grandParent->leftChild = parent)
+		{
+			grandParent->leftChild = child;
+		}
+		else if (grandParent->rightChild = parent)
+		{
+			grandParent->rightChild = child;
+		}
+	}
 	parent->rightChild = child->leftChild;
-	child->parent = parent->parent;
-	parent->parent = child;
+	if (parent->rightChild != nullptr)
+	{
+		parent->rightChild->parent = parent;
+	}
 	child->leftChild = parent;
+	child->parent = grandParent;
+	parent->parent = child;
+	*/
 }
 
 void zig(TreeNode *&child, TreeNode *&parent)
 {
 	if (parent->leftChild == child)
 	{
-		turnRight(child, parent);
+		turnRight(child);
 	}
 	else if (parent->rightChild == child)
 	{
-		turnLeft(child, parent);
+		turnLeft(child);
 	}
 }
 
@@ -81,13 +196,13 @@ void zigZag(TreeNode *&child, TreeNode *&parent)
 {
 	if (parent->leftChild == child)
 	{
-		turnRight(child, parent);
-		turnLeft(child, child->parent);
+		turnRight(child);
+		turnLeft(child);
 	}
 	else if (parent->rightChild == child)
 	{
-		turnLeft(child, parent);
-		turnRight(child, child->parent);
+		turnLeft(child);
+		turnRight(child);
 	}
 }
 
@@ -95,13 +210,13 @@ void zigZig(TreeNode *&child, TreeNode *&parent)
 {
 	if (parent->leftChild == child)
 	{
-		turnRight(parent, parent->parent);
-		turnRight(child, parent);
+		turnRight(parent);
+		turnRight(child);
 	}
 	else if (parent->rightChild == child)
 	{
-		turnLeft(parent, parent->parent);
-		turnLeft(child, parent);
+		turnLeft(parent);
+		turnLeft(child);
 	}
 }
 
@@ -118,6 +233,11 @@ bool isBothLeftChildren(TreeNode *child, TreeNode *parent)
 bool isBothRightChildren(TreeNode *child, TreeNode *parent)
 {
 	return (parent->rightChild == child && parent->parent->rightChild == parent);
+}
+
+bool isLeaf(TreeNode *node)
+{
+	return (node->leftChild == nullptr && node->rightChild == nullptr);
 }
 
 void splay(TreeNode *&node)
@@ -151,7 +271,7 @@ string getValue(TreeNode *&node, const string &key)
 		splay(node);
 		return node->value->value;
 	}
-	else if (node->leftChild == nullptr && node->rightChild == nullptr)
+	else if (isLeaf(node))
 	{
 		splay(node);
 		return "";
@@ -160,7 +280,7 @@ string getValue(TreeNode *&node, const string &key)
 	{
 		return getValue(node->leftChild, key);
 	}
-	else if (key > node->value->key)
+	else
 	{
 		return getValue(node->rightChild, key);
 	}
@@ -182,7 +302,7 @@ bool isContained(TreeNode *&node, const string &key)
 		splay(node);
 		return true;
 	}
-	else if (node->leftChild == nullptr && node->rightChild == nullptr)
+	else if (isLeaf(node))
 	{
 		splay(node);
 		return false;
@@ -191,7 +311,7 @@ bool isContained(TreeNode *&node, const string &key)
 	{
 		return isContained(node->leftChild, key);
 	}
-	else if (key > node->value->key)
+	else
 	{
 		return isContained(node->rightChild, key);
 	}
@@ -206,10 +326,8 @@ bool isContained(Tree *tree, const string &key)
 	return isContained(tree->root, key);
 }
 
-void addNode(TreeNode *&node, const string &key, const string &value)
+void addNode(TreeNode *&node, TreeNode *&parent, const string &key, const string &value)
 {
-
-	auto parent = node->parent;
 	if (node == nullptr)
 	{
 		node = createTreeNode(key, value, nullptr, nullptr, parent);
@@ -224,11 +342,11 @@ void addNode(TreeNode *&node, const string &key, const string &value)
 	}
 	else if (key < node->value->key)
 	{
-		return addNode(node->leftChild, key, value);
+		return addNode(node->leftChild, node, key, value);
 	}
 	else if (key > node->value->key)
 	{
-		return addNode(node->rightChild, key, value);
+		return addNode(node->rightChild, node, key, value);
 	}
 }
 
@@ -239,8 +357,8 @@ void addNode(Tree *tree, const string &key, const string &value)
 		tree->root = createTreeNode(key, value, nullptr, nullptr, nullptr);
 		return;
 	}
-
-	addNode(tree->root, key, value);
+	auto parent = new TreeNode{ nullptr };
+	addNode(tree->root, parent, key, value);
 }
 
 TreeNode *findMinNode(TreeNode *node)
@@ -273,9 +391,8 @@ bool hasOnlyRightChild(TreeNode *node)
 	return (node->leftChild == nullptr && node->rightChild != nullptr);
 }
 
-void removeNode(TreeNode *&node, const string &key)
+void removeNode(TreeNode *&node, TreeNode *&parent, const string &key)
 {
-	auto parent = node->parent;
 	if (node == nullptr)
 	{
 		splay(parent);
@@ -294,7 +411,7 @@ void removeNode(TreeNode *&node, const string &key)
 			auto minNode = findMinNode(node);
 			const string temp1 = minNode->value->key;
 			const string temp2 = minNode->value->value;
-			removeNode(node, key);
+			removeNode(node,parent, key);
 			node->value->key = temp1;
 			node->value->value = temp2;
 			splay(parent);
@@ -317,11 +434,11 @@ void removeNode(TreeNode *&node, const string &key)
 	}
 	else if (key > node->value->key)
 	{
-		return removeNode(node->rightChild, key);
+		return removeNode(node->rightChild, node, key);
 	}
 	else if (key < node->value->key)
 	{
-		return removeNode(node->leftChild, key);
+		return removeNode(node->leftChild, node, key);
 	}
 }
 
@@ -331,8 +448,8 @@ void removeNode(Tree *tree, const string &key)
 	{
 		return;
 	}
-
-	return removeNode(tree->root, key);
+	auto parent = new TreeNode{ nullptr };
+	return removeNode(tree->root, parent, key);
 }
 
 void removeValue(TreeNode *&node)

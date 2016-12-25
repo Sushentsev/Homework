@@ -27,5 +27,5 @@ bool test()
 
 void main()
 {
-	cout << test();
+	cout << test() << endl;
 }
