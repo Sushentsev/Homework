@@ -1,7 +1,7 @@
+#include "dfa.h"
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "dfa.h"
 
 using namespace std;
 
