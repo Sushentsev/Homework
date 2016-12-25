@@ -24,11 +24,6 @@ bool isExponent(const char &symbol)
 	return (symbol == 'E');
 }
 
-bool isLastSymbol(int index, int sizeOfStr)
-{
-	return (index == sizeOfStr - 1);
-}
-
 bool isRealNumber(const string &str)
 {
 	const int sizeOfStr = str.length();
@@ -58,11 +53,11 @@ bool isRealNumber(const string &str)
 			{
 				state = 1;
 			}
-			else if (isDot(symbol) && !isLastSymbol(i, sizeOfStr))
+			else if (isDot(symbol))
 			{
 				state = 2;
 			}
-			else if (isExponent(symbol) && !isLastSymbol(i, sizeOfStr))
+			else if (isExponent(symbol))
 			{
 				state = 4;
 			}
@@ -90,7 +85,7 @@ bool isRealNumber(const string &str)
 			{
 				state = 3;
 			}
-			else if (isExponent(symbol) && !isLastSymbol(i, sizeOfStr))
+			else if (isExponent(symbol))
 			{
 				state = 4;
 			}
@@ -102,13 +97,13 @@ bool isRealNumber(const string &str)
 		}
 		case 4:
 		{
-			if (isSign(symbol) && !isLastSymbol(i, sizeOfStr))
+			if (isSign(symbol))
 			{
 				state = 5;
 			}
 			else if (isDigit(symbol))
 			{
-				state = 5;
+				state = 6;
 			}
 			else
 			{
@@ -120,7 +115,19 @@ bool isRealNumber(const string &str)
 		{
 			if (isDigit(symbol))
 			{
-				state = 5;
+				state = 6;
+			}
+			else
+			{
+				return false;
+			}
+			break;
+		}
+		case 6:
+		{
+			if (isDigit(symbol))
+			{
+				state = 6;
 			}
 			else
 			{
@@ -130,5 +137,5 @@ bool isRealNumber(const string &str)
 		}
 		}
 	}
-	return true;
+	return (state == 1 || state == 3 || state == 6);
 }
