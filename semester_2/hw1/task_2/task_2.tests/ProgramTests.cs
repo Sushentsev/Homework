@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace task_2.tests
 {
     [TestClass]
-    public class FibonacciTests
+    public class ProgramTests
     {
         [TestMethod]
         public void Calculating()
