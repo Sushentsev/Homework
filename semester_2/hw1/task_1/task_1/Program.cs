@@ -2,13 +2,13 @@
 
 namespace task_1
 {
-    class Program
+    public class Program
     {
         /// <summary>
         /// Calculating the factorial
         /// </summary>
         /// <returns>The factorial of a number</returns>
-        private static int Factorial(int n)
+        public static int Factorial(int n)
         {
             int result = 1;
             for (int i = 1; i <= n; ++i)
