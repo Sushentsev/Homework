@@ -2,12 +2,13 @@
 
 namespace task_3
 {
-    class Program
+    public class Program
     {
         /// <summary>
-        /// Doing Bubble Sort
+        /// Bubble sorting
         /// </summary>
-        private static void BubbleSort(int[] array)
+        /// <returns>sorted array</returns>
+        public static void BubbleSort(int[] array)
         {
             for (int i = 0; i < array.Length - 1; ++i)
                 for (int j = 0; j < array.Length - i - 1; ++j)
