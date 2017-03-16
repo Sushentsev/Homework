@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace task_1.tests
 {
     [TestClass]
-    public class FactorialTests
+    public class ProgramTests
     {
         [TestMethod]
         public void TestMethod1()
