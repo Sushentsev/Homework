@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace task_5
+namespace Task_5
 {
     public class Program
     {
@@ -14,8 +14,10 @@ namespace task_5
             {
                 for (int j = 0; j <  matrix.GetLength(1) - i - 1; ++j)
                 {
-                    if (matrix[0, i] > matrix[0, i + 1])
-                        SwapColumn(matrix, i, i + 1);
+                    if (matrix[0, j] > matrix[0, j + 1])
+                    {
+                        SwapColumn(matrix, j, j + 1);
+                    }
                 }
             }
         }
@@ -42,8 +44,12 @@ namespace task_5
         {
             Random ran = new Random();
             for (int i = 0; i < matrix.GetLength(0); ++i)
+            {
                 for (int j = 0; j < matrix.GetLength(1); ++j)
+                {
                     matrix[i, j] = ran.Next(1, 11);
+                }
+            }
         }
 
         /// <summary>
@@ -54,12 +60,14 @@ namespace task_5
             for (int i = 0; i < matrix.GetLength(0); ++i)
             {
                 for (int j = 0; j < matrix.GetLength(1); ++j)
-                    Console.Write("{0} ", matrix[i, j]);
+                {
+                    Console.Write($"{matrix[i, j]} ");
+                }
                 Console.WriteLine();
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Enter matrix size:");
             int l = int.Parse(Console.ReadLine());
