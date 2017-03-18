@@ -11,18 +11,29 @@ namespace task_2
         public static int Fibonacci(int n)
         {
             if (n < 0)
+            {
                 return 0;
-            else if (n == 0)
-                return 1;
+            }
             else
-                return Fibonacci(n - 1) + Fibonacci(n - 2);
+            {
+                int previousNumber1 = 1;
+                int previousNumber2 = 1;
+                int currentNumber = 1;
+                for (int i = 2; i <= n; ++i)
+                {
+                    currentNumber = previousNumber1 + previousNumber2;
+                    previousNumber1 = previousNumber2;
+                    previousNumber2 = currentNumber;
+                }
+                return currentNumber;
+            }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Write a number:");
             int n = int.Parse(Console.ReadLine());
-            Console.WriteLine("The {0}th number is {1}", n, Fibonacci(n));
+            Console.WriteLine($"The {n}th number is {Fibonacci(n)}");
         }
     }
 }
