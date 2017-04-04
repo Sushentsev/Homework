@@ -14,10 +14,10 @@ namespace Task_2.Tests
 
         /// <summary>
         /// Add test with one element.
-        /// The result is the only number in the list.
+        /// The result is the only number in the list
         /// </summary>
         [TestMethod]
-        public void AddTest1()
+        public void AddOneElementToListTest()
         {
             list.Add(1);
             Assert.AreEqual(1, list.Peek());
@@ -25,10 +25,10 @@ namespace Task_2.Tests
 
         /// <summary>
         /// Add test with two elements.
-        /// The resut is the value which was added last.
+        /// The resut is the value which was added last
         /// </summary>
         [TestMethod]
-        public void AddTest2()
+        public void AddTwoElementsToListTest()
         {
             list.Add(1);
             list.Add(2);
@@ -37,20 +37,20 @@ namespace Task_2.Tests
 
         /// <summary>
         /// Empty test on empty list.
-        /// The list should be empty.
+        /// The list should be empty
         /// </summary>
         [TestMethod]
-        public void EmptyTest1()
+        public void EmptyStackTest()
         {
             Assert.IsTrue(list.IsEmpty());
         }
 
         /// <summary>
         /// Empty test on not empty list.
-        /// The list should not be empty.
+        /// The list should not be empty
         /// </summary>
         [TestMethod]
-        public void EmptyTest2()
+        public void ListWithOneElementIsEmptyTest()
         {
             list.Add(1);
             Assert.IsFalse(list.IsEmpty());
@@ -58,20 +58,20 @@ namespace Task_2.Tests
 
         /// <summary>
         /// Length test on empty list.
-        /// The length should be zero.
+        /// The length should be zero
         /// </summary>
         [TestMethod]
-        public void LengthTest1()
+        public void LengthOfEmptyListTest()
         {
             Assert.AreEqual(0, list.GetLength());
         }
 
         /// <summary>
         /// Length test on not empty list.
-        /// The length should be three.
+        /// The length should be three
         /// </summary>
         [TestMethod]
-        public void LengthTest2()
+        public void LengthOfNotEmptyListTest()
         {
             list.Add(1);
             list.Add(2);
@@ -81,20 +81,20 @@ namespace Task_2.Tests
 
         /// <summary>
         /// IsContained test on empty list.
-        /// The result should be false.
+        /// The result should be false
         /// </summary>
         [TestMethod]
-        public void IsContainedTest1()
+        public void IsContainedInEmptyListTest()
         {
             Assert.IsFalse(list.IsContained(0));
         }
 
         /// <summary>
         /// IsContained test on list with only one element. It is zero.
-        /// Zero should be in the list.
+        /// Zero should be in the list
         /// </summary>
         [TestMethod]
-        public void IsContainedTest2()
+        public void IsContainedInNotEmptyListTest1()
         {
             list.Add(0);
             Assert.IsTrue(list.IsContained(0));
@@ -105,7 +105,7 @@ namespace Task_2.Tests
         /// One should not be in the list.
         /// </summary>
         [TestMethod]
-        public void IsContainedTest3()
+        public void IsContainedInNotEmptyListTest2()
         {
             list.Add(0);
             Assert.IsFalse(list.IsContained(1));
@@ -116,7 +116,7 @@ namespace Task_2.Tests
         /// One should be in the list.
         /// </summary>
         [TestMethod]
-        public void IsContainedTest4()
+        public void IsContainedInNotEmptyListTest3()
         {
             list.Add(1);
             list.Add(2);
@@ -129,7 +129,7 @@ namespace Task_2.Tests
         /// Two should be in the list.
         /// </summary>
         [TestMethod]
-        public void IsContainedTest5()
+        public void IsContainedInNotEmptyListTest4()
         {
             list.Add(1);
             list.Add(2);
@@ -142,7 +142,7 @@ namespace Task_2.Tests
         /// Three should be in the list.
         /// </summary>
         [TestMethod]
-        public void IsContainedTest6()
+        public void IsContainedInNotEmptyListTest5()
         {
             list.Add(1);
             list.Add(2);
@@ -155,7 +155,7 @@ namespace Task_2.Tests
         /// Ten should not be in the list.
         /// </summary>
         [TestMethod]
-        public void IsContainedTest7()
+        public void IsContainedInNotEmptyListTest6()
         {
             list.Add(1);
             list.Add(2);
@@ -164,27 +164,25 @@ namespace Task_2.Tests
         }
 
         /// <summary>
-        /// The list is empty.
+        /// The list is empty
         /// </summary>
         [TestMethod]
-        public void RemoveElementTest1()
+        public void RemoveFromEmptyListTest()
         {
             try
             {
                 list.RemoveElement(0);
+                Assert.Fail();
             }
-            catch(Exception)
-            {
-
-            }
+            catch(Exception) { }
         }
 
         /// <summary>
         /// The list consists of one element (0).
-        /// The list should be empty in the end.
+        /// The list should be empty in the end
         /// </summary>
         [TestMethod]
-        public void RemoveElementTest2()
+        public void RemoveFromNotEmptyList1()
         {
             list.Add(0);
             list.RemoveElement(0);
@@ -193,10 +191,10 @@ namespace Task_2.Tests
 
         /// <summary>
         /// The list consists of one element (0).
-        /// The list should be the same in the end.
+        /// The list should be the same in the end
         /// </summary>
         [TestMethod]
-        public void RemoveElementTest3()
+        public void RemoveFromNotEmptyList2()
         {
             list.Add(0);
             list.RemoveElement(1);
@@ -205,10 +203,10 @@ namespace Task_2.Tests
 
         /// <summary>
         /// The list consists of three elements (1, 2, 3).
-        /// The list should have the length of two in the end.
+        /// The list should have the length of two in the end
         /// </summary>
         [TestMethod]
-        public void RemoveElementTest4()
+        public void RemoveFromNotEmptyList3()
         {
             list.Add(1);
             list.Add(2);
@@ -219,10 +217,10 @@ namespace Task_2.Tests
 
         /// <summary>
         /// The list consists of three elements (1, 2, 3).
-        /// The list should have the length of two in the end.
+        /// The list should have the length of two in the end
         /// </summary>
         [TestMethod]
-        public void RemoveElementTest5()
+        public void RemoveFromNotEmptyList4()
         {
             list.Add(1);
             list.Add(2);
@@ -233,10 +231,10 @@ namespace Task_2.Tests
 
         /// <summary>
         /// The list consists of three elements (1, 2, 3).
-        /// The list should be the same in the end.
+        /// The list should be the same in the end
         /// </summary>
         [TestMethod]
-        public void RemoveElementTest6()
+        public void RemoveFromNotEmptyList5()
         {
             list.Add(1);
             list.Add(2);

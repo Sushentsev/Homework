@@ -2,6 +2,9 @@
 
 namespace Task_2
 {
+    /// <summary>
+    /// Linked list
+    /// </summary>
     public class List
     {
         /// <summary>
@@ -9,13 +12,13 @@ namespace Task_2
         /// </summary>
         private class ListElement
         {
-            public ListElement Next;
-            public int Value;
+            public ListElement Next { get; set; }
+            public int Value { get; private set; }
 
             public ListElement(ListElement next, int value)
             {
-                Next = next;
-                Value = value;
+                this.Next = next;
+                this.Value = value;
             }
 
         }
@@ -61,6 +64,7 @@ namespace Task_2
         public bool IsContained(int value)
         {
             var cursor = head;
+
             for (var i = 0; i < length; ++i)
             {
                 if (cursor.Value == value)
@@ -69,6 +73,7 @@ namespace Task_2
                 }
                 cursor = cursor.Next;
             }
+
             return false;
         }
 
@@ -100,6 +105,7 @@ namespace Task_2
             }
 
             var cursor = head;
+
             for (int i = 0; i < length - 1; ++i)
             {
                 if (cursor.Next.Value == value)
@@ -117,6 +123,15 @@ namespace Task_2
         /// Getting the first value in list
         /// </summary>
         /// <returns>The first value in list</returns>
-        public int Peek() => head.Value;
+        public int Peek()
+        {
+            if (IsEmpty())
+            {
+                throw new Exception("List is empty");
+            }
+
+            return head.Value;
+        }
+            
     }
 }
