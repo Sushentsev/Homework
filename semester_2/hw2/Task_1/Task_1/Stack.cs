@@ -2,6 +2,9 @@
 
 namespace Task_1
 {
+    /// <summary>
+    /// Stack on list
+    /// </summary>
     public class Stack
     {
         /// <summary>
@@ -9,13 +12,13 @@ namespace Task_1
         /// </summary>
         private class StackElement
         {
-            public StackElement Next;
-            public int Value;
+            public StackElement Next { get; private set; }
+            public int Value { get; private set; }
 
             public StackElement(StackElement next, int value)
             {
-                Next = next;
-                Value = value;
+                this.Next = next;
+                this.Value = value;
             }
         }
 
@@ -27,12 +30,12 @@ namespace Task_1
         /// <summary>
         /// The first element of stack
         /// </summary>
-        private StackElement head = null;
+        private StackElement head;
 
         /// <summary>
         /// Pushing new value to stack
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Value for pushing</param>
         public void Push(int value)
         {
             var newElement = new StackElement(head, value);
@@ -43,13 +46,14 @@ namespace Task_1
         /// <summary>
         /// Removing element from stack
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Last pushed value</returns>
         public int Pop()
         {
             if (length == 0)
             {
-                throw new Exception("Check is empty!");
+                throw new Exception("Stack is empty!");
             }
+
             var temp = head.Value;
             head = head.Next;
             --length;
@@ -59,13 +63,13 @@ namespace Task_1
         /// <summary>
         /// Checking stack on emptiness
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if stack is empty otherwise false</returns>
         public bool IsEmpty() => length == 0;
 
         /// <summary>
         /// Getting the length of stack
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Stack length</returns>
         public int GetLength() => length;
     }
 

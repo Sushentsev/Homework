@@ -13,20 +13,22 @@ namespace Task_1.Tests
         }
 
         /// <summary>
-        /// Push test with one element
+        /// Push test with one element.
+        /// The stack should not be empty
         /// </summary>
         [TestMethod]
-        public void PushTest1()
+        public void PushOneValueTest()
         {
             stack.Push(2);
             Assert.IsFalse(stack.IsEmpty());
         }
 
         /// <summary>
-        /// Push test with two elements
+        /// Push test with two elements.
+        /// The stack should not be empty
         /// </summary>
         [TestMethod]
-        public void PushTest2()
+        public void PushTwoValuesTest()
         {
             stack.Push(1);
             stack.Push(2);
@@ -34,20 +36,22 @@ namespace Task_1.Tests
         }
 
         /// <summary>
-        /// Pop test with one element
+        /// Pop test with one element.
+        /// Pop() should return last pushed value
         /// </summary>
         [TestMethod]
-        public void PopTest1()
+        public void PopWithOnePushedValueTest()
         {
             stack.Push(1);
             Assert.AreEqual(1, stack.Pop());
         }
 
         /// <summary>
-        /// Pop test with two elements
+        /// Pop test with two elements.
+        /// Pop() should return last pushed value
         /// </summary>
         [TestMethod]
-        public void PopTest2()
+        public void PopWithTwoPushedValueTest()
         {
             stack.Push(1);
             stack.Push(2);
@@ -55,26 +59,26 @@ namespace Task_1.Tests
         }
 
         /// <summary>
-        /// Pop test with empty stack
+        /// Pop test with empty stack.
+        /// The exception should be thrown
         /// </summary>
         [TestMethod]
-        public void PopTest3()
+        public void EmptyStackPopTest()
         {
             try
             {
                 stack.Pop();
+                Assert.Fail();
             }
-            catch(Exception)
-            {
-
-            };
+            catch (Exception) { }
         }
 
         /// <summary>
-        /// Pop test with three elements
+        /// Length test with three elements.
+        /// The result should be three
         /// </summary>
         [TestMethod]
-        public void LengthTest1()
+        public void TheLengthOfStackWithThreeElementsTest()
         {
             stack.Push(1);
             stack.Push(2);
