@@ -6,80 +6,49 @@ namespace Task_4.Tests
     [TestClass]
     public class StackOnArrayTest
     {
-        /// <summary>
-        /// Initialize stack
-        /// </summary>
         [TestInitialize]
         public void Initialize()
         {
             stack = new StackOnArray();
         }
 
-        /// <summary>
-        /// Push test with one element.
-        /// The stack should not be empty
-        /// </summary>
         [TestMethod]
-        public void PushOneElementTest()
+        public void PushOneValueTest()
         {
             stack.Push(2);
             Assert.IsFalse(stack.IsEmpty());
         }
 
-        /// <summary>
-        /// Push test with two elements.
-        /// The stack should not be empty
-        /// </summary>
         [TestMethod]
-        public void PushTwoElementsTest()
+        public void PushTwoValuesTest()
         {
             stack.Push(1);
             stack.Push(2);
             Assert.IsFalse(stack.IsEmpty());
         }
 
-        /// <summary>
-        /// Pop test with one element.
-        /// Pop() should return last added element
-        /// </summary>
         [TestMethod]
-        public void PopFromStackWithOneElementTest()
+        public void PopWithOnePushedValueTest()
         {
             stack.Push(1);
             Assert.AreEqual(1, stack.Pop());
         }
 
-        /// <summary>
-        /// Pop test with two elements.
-        /// Pop() should return last added element
-        /// </summary>
         [TestMethod]
-        public void PopFromStackWithTwoElementsTest()
+        public void PopWithTwoPushedValueTest()
         {
             stack.Push(1);
             stack.Push(2);
             Assert.AreEqual(2, stack.Pop());
         }
 
-        /// <summary>
-        /// Pop test with empty stack.
-        /// The exception should be thrown
-        /// </summary>
         [TestMethod]
-        public void PopFromEmptyStackTest()
+        [ExpectedException(typeof(Exception))]
+        public void EmptyStackPopTest()
         {
-            try
-            {
-                stack.Pop();
-                Assert.Fail();
-            }
-            catch (Exception) { }
+            stack.Pop();
         }
 
-        /// <summary>
-        /// Length test with three elements.
-        /// Stack length should be three
-        /// </summary>
         [TestMethod]
         public void LengthOfStackWithThreeElementsTest()
         {
@@ -89,10 +58,6 @@ namespace Task_4.Tests
             Assert.AreEqual(3, stack.GetLength());
         }
 
-        /// <summary>
-        /// Length test with zero elements.
-        /// Stack length should be zero
-        /// </summary>
         [TestMethod]
         public void LengthOfEmptyStackTest()
         {

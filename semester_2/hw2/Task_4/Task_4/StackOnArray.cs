@@ -44,7 +44,7 @@ namespace Task_4
         /// <returns>Last pushed value</returns>
         public int Pop()
         {
-            if (head == 0)
+            if (IsEmpty())
             {
                 throw new Exception("The stack is empty!");
             }
@@ -59,7 +59,7 @@ namespace Task_4
         /// <returns>Value from head</returns>
         public int Peek()
         {
-            if (head == 0)
+            if (IsEmpty())
             {
                 throw new Exception("The stack is empty!");
             }
