@@ -94,7 +94,7 @@ namespace Task_2
         {
             if (!IsContained(value))
             {
-                return;
+                throw new Exception("The word is not contained in the list!");
             }
 
             if (head.Value == value)
@@ -106,7 +106,7 @@ namespace Task_2
 
             var cursor = head;
 
-            for (int i = 0; i < length - 1; ++i)
+            for (var i = 0; i < length - 1; ++i)
             {
                 if (cursor.Next.Value == value)
                 {
@@ -127,7 +127,7 @@ namespace Task_2
         {
             if (IsEmpty())
             {
-                throw new Exception("List is empty!");
+                throw new Exception("List is empty");
             }
 
             return head.Value;
