@@ -49,7 +49,7 @@ namespace Task_1
         /// <returns>Last pushed value</returns>
         public int Pop()
         {
-            if (length == 0)
+            if (IsEmpty())
             {
                 throw new Exception("Stack is empty!");
             }

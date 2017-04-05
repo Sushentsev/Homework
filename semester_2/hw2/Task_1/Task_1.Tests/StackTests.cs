@@ -12,10 +12,6 @@ namespace Task_1.Tests
             stack = new Stack();
         }
 
-        /// <summary>
-        /// Push test with one element.
-        /// The stack should not be empty
-        /// </summary>
         [TestMethod]
         public void PushOneValueTest()
         {
@@ -23,10 +19,6 @@ namespace Task_1.Tests
             Assert.IsFalse(stack.IsEmpty());
         }
 
-        /// <summary>
-        /// Push test with two elements.
-        /// The stack should not be empty
-        /// </summary>
         [TestMethod]
         public void PushTwoValuesTest()
         {
@@ -35,10 +27,6 @@ namespace Task_1.Tests
             Assert.IsFalse(stack.IsEmpty());
         }
 
-        /// <summary>
-        /// Pop test with one element.
-        /// Pop() should return last pushed value
-        /// </summary>
         [TestMethod]
         public void PopWithOnePushedValueTest()
         {
@@ -46,10 +34,6 @@ namespace Task_1.Tests
             Assert.AreEqual(1, stack.Pop());
         }
 
-        /// <summary>
-        /// Pop test with two elements.
-        /// Pop() should return last pushed value
-        /// </summary>
         [TestMethod]
         public void PopWithTwoPushedValueTest()
         {
@@ -58,32 +42,26 @@ namespace Task_1.Tests
             Assert.AreEqual(2, stack.Pop());
         }
 
-        /// <summary>
-        /// Pop test with empty stack.
-        /// The exception should be thrown
-        /// </summary>
         [TestMethod]
+        [ExpectedException(typeof(Exception))]
         public void EmptyStackPopTest()
         {
-            try
-            {
-                stack.Pop();
-                Assert.Fail();
-            }
-            catch (Exception) { }
+            stack.Pop();
         }
 
-        /// <summary>
-        /// Length test with three elements.
-        /// The result should be three
-        /// </summary>
         [TestMethod]
-        public void TheLengthOfStackWithThreeElementsTest()
+        public void LengthOfStackWithThreeElementsTest()
         {
             stack.Push(1);
             stack.Push(2);
             stack.Push(3);
             Assert.AreEqual(3, stack.GetLength());
+        }
+
+        [TestMethod]
+        public void LengthOfEmptyStackTest()
+        {
+            Assert.AreEqual(0, stack.GetLength());
         }
 
         private Stack stack;
