@@ -94,7 +94,7 @@ namespace Task_2
         {
             if (!IsContained(value))
             {
-                return;
+                throw new Exception("The value is not contained in the list!");
             }
 
             if (head.Value == value)
