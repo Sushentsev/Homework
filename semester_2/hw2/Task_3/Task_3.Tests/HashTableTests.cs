@@ -12,23 +12,16 @@ namespace Task_3.Tests
             table = new HashTable(); 
         }
 
-        /// <summary>
-        /// Test for GetHash method.
-        /// Checking if hashes for different words are correct
-        /// </summary>
         [TestMethod]
-        public void GetHashTest()
+        public void GetHashCodeOfWordsTest()
         {
             Assert.AreEqual(111, table.GetHash("abcde"));
             Assert.AreEqual(84, table.GetHash("abracadabra"));
             Assert.AreEqual(0, table.GetHash(""));
         }
 
-        /// <summary>
-        /// Test for Removing method
-        /// </summary>
         [TestMethod]
-        public void RemoveTest()
+        public void RemovingSomeValuesTest()
         {
             table.Add("abcde");
             table.Add("abracadabra");
@@ -40,9 +33,6 @@ namespace Task_3.Tests
             Assert.IsTrue(table.IsContained("346gre"));
         }
 
-        /// <summary>
-        /// Test for IsContained method
-        /// </summary>
         [TestMethod]
         public void IsContainedTest()
         {

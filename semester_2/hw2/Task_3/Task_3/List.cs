@@ -94,7 +94,7 @@ namespace Task_3
         {
             if (!IsContained(value))
             {
-                return;
+                throw new Exception("The word is not contained in the list!");
             }
 
             if (head.Value == value)
