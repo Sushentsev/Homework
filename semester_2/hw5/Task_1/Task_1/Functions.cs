@@ -32,7 +32,20 @@ namespace Task_1
         /// <param name="list">Связный список</param>
         /// <param name="function">Функция</param>
         /// <returns>Связный список, составленный из элементов переданного списка, для которых переданная функция вернула true</returns>
-        public static List<int> Filter(List<int> list, Func<int, bool> function) => list.FindAll(element => function(element));
+        public static List<int> Filter(List<int> list, Func<int, bool> function)
+        {
+            var newList = new List<int>();
+
+            foreach (var element in list)
+            {
+                if (function(element))
+                {
+                    newList.Add(element);
+                }
+            }
+
+            return newList;
+        }
 
         /// <summary>
         /// Функция Fold
