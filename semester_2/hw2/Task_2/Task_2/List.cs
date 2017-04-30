@@ -53,7 +53,7 @@ namespace Task_2
         /// <param name="position">Позиция для добавления</param>
         public void AddValueByPosition(int value, int position)
         {
-            if (position < 0 || position >= Length)
+            if (position < 0 || position > Length)
             {
                 throw new OutOfIndexException("Incorrect position!");
             }
@@ -106,7 +106,7 @@ namespace Task_2
         /// <summary>
         /// Изменения значения элемента по его позиции
         /// </summary>
-        /// /// <param name="value">Новое значение</param>
+        /// <param name="value">Новое значение</param>
         /// <param name="position">Необходимая позиция</param>
         public void ChangeValueByPosition(int value, int position)
         {
@@ -148,20 +148,6 @@ namespace Task_2
             }
             cursor.Next = cursor.Next.Next;
             --Length;
-        }
-
-        /// <summary>
-        /// Получение первого элемента списика
-        /// </summary>
-        /// <returns>Значение первого элемента списка</returns>
-        public int Peek()
-        {
-            if (IsEmpty())
-            {
-                throw new EmptyListException("List is empty!");
-            }
-
-            return head.Value;
-        }      
+        }  
     }
 }
