@@ -3,18 +3,30 @@
 namespace Task_2
 {
     /// <summary>
-    /// Linked list
+    /// Класс связный список
     /// </summary>
     public class List
     {
         /// <summary>
-        /// The element of list
+        /// Элемент связного списка
         /// </summary>
         private class ListElement
         {
+            /// <summary>
+            /// Указатель на следующий элемент списка
+            /// </summary>
             public ListElement Next { get; set; }
-            public int Value { get; private set; }
 
+            /// <summary>
+            /// Значение элемента списка
+            /// </summary>
+            public int Value { get; set; }
+
+            /// <summary>
+            /// Конструктор для класса ListElement
+            /// </summary>
+            /// <param name="next">Указатель на следующий элемент</param>
+            /// <param name="value">Значение элемента</param>
             public ListElement(ListElement next, int value)
             {
                 this.Next = next;
@@ -24,114 +36,132 @@ namespace Task_2
         }
 
         /// <summary>
-        /// The first element of list
+        /// Указатель на первый элемент списка
         /// </summary>
         private ListElement head;
 
         /// <summary>
-        /// The length of list
+        /// Длина списка
         /// </summary>
-        private int length;
+        public int Length { get; private set; }
 
         /// <summary>
-        /// Adding new element to list
+        /// Добавление нового элемента в нужную позицию.
+        /// Нумерация начинается с 0
         /// </summary>
-        /// <param name="value">The value for adding</param>
-        public void Add(int value)
+        /// <param name="value">Значение для добавления</param>
+        /// <param name="position">Позиция для добавления</param>
+        public void AddValueByPosition(int value, int position)
         {
-            var newElement = new ListElement(head, value);
-            head = newElement;
-            ++length;
-        }
-
-        /// <summary>
-        /// Checking list on emptiness
-        /// </summary>
-        /// <returns>True if list is empty otherwise false</returns>
-        public bool IsEmpty() => length == 0;
-
-        /// <summary>
-        /// Getting length of list
-        /// </summary>
-        /// <returns>The length of list</returns>
-        public int GetLength() => length;
-
-        /// <summary>
-        /// Checking value on belonging
-        /// </summary>
-        /// <param name="value">The value for searching</param>
-        /// <returns>True if valur belongs otherwise false</returns>
-        public bool IsContained(int value)
-        {
-            var cursor = head;
-
-            for (var i = 0; i < length; ++i)
+            if (position < 0 || position >= Length)
             {
-                if (cursor.Value == value)
-                {
-                    return true;
-                }
-                cursor = cursor.Next;
+                throw new OutOfIndexException("Incorrect position!");
             }
 
-            return false;
-        }
-
-        /// <summary>
-        /// Removing list
-        /// </summary>
-        public void RemoveList()
-        {
-            head = null;
-            length = 0;
-        }
-
-        /// <summary>
-        /// Removing element from list
-        /// </summary>
-        /// <param name="value">The value for removing</param>
-        public void RemoveElement(int value)
-        {
-            if (!IsContained(value))
+            if (position == 0)
             {
-                throw new Exception("The value is not contained in the list!");
-            }
-
-            if (head.Value == value)
-            {
-                head = head.Next;
-                --length;
+                var newHeadElement = new ListElement(head, value);
+                head = newHeadElement;
+                ++Length;
                 return;
             }
 
             var cursor = head;
-
-            for (int i = 0; i < length - 1; ++i)
+            for (var i = 0; i < position - 1; ++i)
             {
-                if (cursor.Next.Value == value)
-                {
-                    cursor.Next = cursor.Next.Next;
-                    --length;
-                    return;
-                }
-
                 cursor = cursor.Next;
             }
+            var newElement = new ListElement(cursor.Next, value);
+            cursor.Next = newElement;
+            ++Length;
         }
 
         /// <summary>
-        /// Getting the first value in list
+        /// Проверка списка на пустоту
         /// </summary>
-        /// <returns>The first value in list</returns>
+        /// <returns>True, если список пуст, иначе false </returns>
+        public bool IsEmpty() => Length == 0;
+
+        /// <summary>
+        /// Получение значения элемента по его позиции
+        /// </summary>
+        /// <param name="position">Необходимая позиция</param>
+        /// <returns>Значение элемента</returns>
+        public int GetValueByPosition(int position)
+        {
+            if (position < 0 || position >= Length)
+            {
+                throw new OutOfIndexException("Incorrect position!");
+            }
+
+            var cursor = head;
+            for (var i = 0; i < position; ++i)
+            {
+                cursor = cursor.Next;
+            }
+
+            return cursor.Value;
+        }
+
+        /// <summary>
+        /// Изменения значения элемента по его позиции
+        /// </summary>
+        /// /// <param name="value">Новое значение</param>
+        /// <param name="position">Необходимая позиция</param>
+        public void ChangeValueByPosition(int value, int position)
+        {
+            if (position < 0 || position >= Length)
+            {
+                throw new OutOfIndexException("Incorrect position!");
+            }
+
+            var cursor = head;
+            for (var i = 0; i < position; ++i)
+            {
+                cursor = cursor.Next;
+            }
+            cursor.Value = value;
+        }
+
+        /// <summary>
+        /// Удаление элемента в заданной позиции
+        /// </summary>
+        /// <param name="position">Позиция для удаления</param>
+        public void RemoveElementByPosition(int position)
+        {
+            if (position < 0 || position >= Length)
+            {
+                throw new OutOfIndexException("Incorrect position!");
+            }
+
+            if (position == 0)
+            {
+                head = head.Next;
+                --Length;
+                return;
+            }
+
+            var cursor = head;
+            for (var i = 0; i < position - 1; ++i)
+            {
+                cursor = cursor.Next;
+            }
+            cursor.Next = cursor.Next.Next;
+            --Length;
+        }
+
+        /// <summary>
+        /// Получение первого элемента списика
+        /// </summary>
+        /// <returns>Значение первого элемента списка</returns>
         public int Peek()
         {
             if (IsEmpty())
             {
-                throw new Exception("List is empty");
+                throw new EmptyListException("List is empty!");
             }
 
             return head.Value;
-        }
-            
+        }      
     }
 }
