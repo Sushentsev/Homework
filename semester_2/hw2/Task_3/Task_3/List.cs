@@ -3,18 +3,30 @@
 namespace Task_3
 {
     /// <summary>
-    /// Linked list
+    /// Класс связный список
     /// </summary>
     public class List
     {
         /// <summary>
-        /// The element of list
+        /// Класс элемент связного списка
         /// </summary>
         private class ListElement
         {
+            /// <summary>
+            /// Указатель на следующий элемент
+            /// </summary>
             public ListElement Next { get; set; }
+
+            /// <summary>
+            /// Значение элемента
+            /// </summary>
             public string Value { get; private set; }
 
+            /// <summary>
+            /// Конструктор для класса ListElement
+            /// </summary>
+            /// <param name="next">Указатель на следующий элемент</param>
+            /// <param name="value">Значение элемента</param>
             public ListElement(ListElement next, string value)
             {
                 this.Next = next;
@@ -24,19 +36,19 @@ namespace Task_3
         }
 
         /// <summary>
-        /// The first element of list
+        /// Указатель на первый элемент списка
         /// </summary>
         private ListElement head;
 
         /// <summary>
-        /// The length of list
+        /// Длина списка
         /// </summary>
         private int length;
 
         /// <summary>
-        /// Adding new element to list
+        /// Добавление нового элемента в начало списка
         /// </summary>
-        /// <param name="value">The value for adding</param>
+        /// <param name="value">Значение для добавления</param>
         public void Add(string value)
         {
             var newElement = new ListElement(head, value);
@@ -45,22 +57,22 @@ namespace Task_3
         }
 
         /// <summary>
-        /// Checking list on emptiness
+        /// Проверка списка на пустоту
         /// </summary>
-        /// <returns>True if list is empty otherwise false</returns>
+        /// <returns>True, если список пуст, иначе false</returns>
         public bool IsEmpty() => length == 0;
 
         /// <summary>
-        /// Getting length of list
+        /// Получение длины списка
         /// </summary>
-        /// <returns>The length of list</returns>
+        /// <returns>Длина списка</returns>
         public int GetLength() => length;
 
         /// <summary>
-        /// Checking value on belonging
+        /// Проверка значения на принадлежность списку
         /// </summary>
-        /// <param name="value">The value for searching</param>
-        /// <returns>True if value belongs otherwise false</returns>
+        /// <param name="value">Значение для поиска</param>
+        /// <returns>True, если значение принадлежит списку, иначе false</returns>
         public bool IsContained(string value)
         {
             var cursor = head;
@@ -78,23 +90,19 @@ namespace Task_3
         }
 
         /// <summary>
-        /// Removing list
+        /// Удаление элемента из списка
         /// </summary>
-        public void RemoveList()
-        {
-            head = null;
-            length = 0;
-        }
-
-        /// <summary>
-        /// Removing element from list
-        /// </summary>
-        /// <param name="value">The value for removing</param>
+        /// <param name="value">Значение для удаления</param>
         public void RemoveElement(string value)
         {
+            if (IsEmpty())
+            {
+                throw new EmptyListException("List is empty!");
+            }
+
             if (!IsContained(value))
             {
-                throw new Exception("The word is not contained in the list!");
+                throw new NotContainedValueException("The word is not contained in the list!");
             }
 
             if (head.Value == value)
@@ -105,7 +113,6 @@ namespace Task_3
             }
 
             var cursor = head;
-
             for (var i = 0; i < length - 1; ++i)
             {
                 if (cursor.Next.Value == value)
@@ -120,14 +127,14 @@ namespace Task_3
         }
 
         /// <summary>
-        /// Getting the first value in list
+        /// Получение первого элемента списка
         /// </summary>
-        /// <returns>The first value in list</returns>
+        /// <returns>Значение первого элемента списка</returns>
         public string Peek()
         {
             if (IsEmpty())
             {
-                throw new Exception("List is empty");
+                throw new EmptyListException("List is empty");
             }
 
             return head.Value;

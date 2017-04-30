@@ -114,7 +114,7 @@ namespace Task_3.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(EmptyListException))]
         public void RemoveFromEmptyListTest()
         {
             list.RemoveElement("efe");
@@ -129,7 +129,7 @@ namespace Task_3.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(NotContainedValueException))]
         public void RemoveFromNotEmptyList2()
         {
             list.Add("qwerty");
@@ -157,7 +157,7 @@ namespace Task_3.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(NotContainedValueException))]
         public void RemoveFromNotEmptyList5()
         {
             list.Add("qwerty");

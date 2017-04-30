@@ -3,22 +3,22 @@
 namespace Task_3
 {
     /// <summary>
-    /// Hash table on linked list
+    /// Класс хеш-таблица на основе связного списка
     /// </summary>
     public class HashTable
     {
         /// <summary>
-        /// The size of hash table
+        /// Размер хеш-таблицы
         /// </summary>
         private const int sizeOfTable = 128;
 
         /// <summary>
-        /// Hash table
+        /// Хеш-таблица
         /// </summary>
         public List[] Table { get; private set; }
 
         /// <summary>
-        /// Constructor for hash table
+        /// Конструктор для хеш-таблицы
         /// </summary>
         public HashTable()
         {
@@ -31,10 +31,10 @@ namespace Task_3
         }
 
         /// <summary>
-        /// Hash function
+        /// Хеш-функция
         /// </summary>
-        /// <param name="word">Word for hashing</param>
-        /// <returns>Hash value</returns>
+        /// <param name="word">Слово для хеширования</param>
+        /// <returns>Хеш-значение</returns>
         public int GetHash(string word)
         {
             var hash = 0;
@@ -49,22 +49,22 @@ namespace Task_3
         }
 
         /// <summary>
-        /// Adding new word to hash table
+        /// Добавление нового значения в хеш-таблицу
         /// </summary>
-        /// <param name="word">Word for adding</param>
+        /// <param name="word">Значение для добавления</param>
         public void Add(string word) => Table[GetHash(word)].Add(word);
 
         /// <summary>
-        /// Removing word from hash table
+        /// Удаление значения из хеш-таблицы
         /// </summary>
-        /// <param name="word">Word for removing</param>
+        /// <param name="word">Значение для удаления</param>
         public void Remove(string word) => Table[GetHash(word)].RemoveElement(word);
 
         /// <summary>
-        /// Checking if the word is contained
+        /// Проверка значения на принадлежность хеш-таблице
         /// </summary>
-        /// <param name="word">Word for checking</param>
-        /// <returns>True if belongs otherwise false</returns>
+        /// <param name="word">Значение для проверки</param>
+        /// <returns>True, если принадлежит, иначе false</returns>
         public bool IsContained(string word) => Table[GetHash(word)].IsContained(word);
     }
 }
