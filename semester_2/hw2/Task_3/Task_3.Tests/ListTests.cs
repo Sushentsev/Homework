@@ -30,7 +30,7 @@ namespace Task_3.Tests
         }
 
         [TestMethod]
-        public void EmptyStackTest()
+        public void EmptyListTest()
         {
             Assert.IsTrue(list.IsEmpty());
         }

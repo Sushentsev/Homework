@@ -13,14 +13,6 @@ namespace Task_3.Tests
         }
 
         [TestMethod]
-        public void GetHashCodeOfWordsTest()
-        {
-            Assert.AreEqual(111, table.GetHash("abcde"));
-            Assert.AreEqual(84, table.GetHash("abracadabra"));
-            Assert.AreEqual(0, table.GetHash(""));
-        }
-
-        [TestMethod]
         public void RemovingSomeValuesTest()
         {
             table.Add("abcde");
