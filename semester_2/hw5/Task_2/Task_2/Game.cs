@@ -10,8 +10,6 @@ namespace Task_2
         /// <summary>
         /// Смещение курсора влева
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
         public void OnLeft(object sender, EventArgs args)
         {
             if (Console.CursorLeft > 0)
@@ -23,8 +21,6 @@ namespace Task_2
         /// <summary>
         /// Смещение курсора вправо
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
         public void OnRight(object sender, EventArgs args)
         {
             if (Console.CursorLeft < Console.BufferWidth - 1)
@@ -36,8 +32,6 @@ namespace Task_2
         /// <summary>
         /// Смещение курсора вверх
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
         public void OnUp(object sender, EventArgs args)
         {
             if (Console.CursorTop > 0)
@@ -49,8 +43,12 @@ namespace Task_2
         /// <summary>
         /// Смещение курсора вниз
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        public void OnDown(object sender, EventArgs args) => ++Console.CursorTop; 
+        public void OnDown(object sender, EventArgs args)
+        {
+            if (Console.CursorTop < Console.BufferHeight - 1)
+            {
+                ++Console.CursorTop;
+            }
+        }
     }
 }

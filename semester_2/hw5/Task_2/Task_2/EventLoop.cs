@@ -32,7 +32,7 @@ namespace Task_2
         /// </summary>
         public void Run()
         {
-            while(true)
+            while (true)
             {
                 var key = Console.ReadKey(true);
                 switch (key.Key)
