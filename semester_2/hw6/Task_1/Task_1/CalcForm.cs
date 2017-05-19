@@ -16,5 +16,11 @@ namespace Task_1
         {
             InitializeComponent();
         }
+
+        private void OnNumberButtonClick(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            inputField.Text += button.Text;
+        }
     }
 }
