@@ -40,14 +40,12 @@ namespace Task_2
         {
             var hashCode = value.GetHashCode();
 
-            if (IsBelong(value))
-            {
-                set[hashCode].Remove(value);
-            }
-            else
+            if (!IsBelong(value))
             {
                 throw new RemoveNotContainedValueException("The value is not contained in the set!");
             }
+
+            set[hashCode].Remove(value);
         }
 
         /// <summary>
@@ -71,9 +69,9 @@ namespace Task_2
         }
 
         /// <summary>
-        /// Возвращает количество элементов в множестве
+        /// Подсчет количества значений в множестве
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Количество значений в множестве</returns>
         public int GetSize()
         {
             var result = 0;
