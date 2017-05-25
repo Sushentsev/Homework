@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.clearButton = new System.Windows.Forms.Button();
-            this.inputField = new System.Windows.Forms.TextBox();
+            this.display = new System.Windows.Forms.TextBox();
             this.changeSignButton = new System.Windows.Forms.Button();
             this.getPercentButton = new System.Windows.Forms.Button();
             this.divideButton = new System.Windows.Forms.Button();
@@ -60,16 +60,17 @@
             this.clearButton.TabIndex = 0;
             this.clearButton.Text = "AC";
             this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.OnClearButtonClick);
             // 
-            // inputField
+            // display
             // 
-            this.inputField.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.inputField.Location = new System.Drawing.Point(12, 12);
-            this.inputField.Name = "inputField";
-            this.inputField.ReadOnly = true;
-            this.inputField.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.inputField.Size = new System.Drawing.Size(218, 29);
-            this.inputField.TabIndex = 1;
+            this.display.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.display.Location = new System.Drawing.Point(12, 12);
+            this.display.Name = "display";
+            this.display.ReadOnly = true;
+            this.display.Size = new System.Drawing.Size(218, 29);
+            this.display.TabIndex = 1;
+            this.display.Text = "0";
             // 
             // changeSignButton
             // 
@@ -81,6 +82,7 @@
             this.changeSignButton.TabIndex = 2;
             this.changeSignButton.Text = "+/-";
             this.changeSignButton.UseVisualStyleBackColor = true;
+            this.changeSignButton.Click += new System.EventHandler(this.OnChangeSignButtonClick);
             // 
             // getPercentButton
             // 
@@ -92,6 +94,7 @@
             this.getPercentButton.TabIndex = 3;
             this.getPercentButton.Text = "%";
             this.getPercentButton.UseVisualStyleBackColor = true;
+            this.getPercentButton.Click += new System.EventHandler(this.OnPercentButtonClick);
             // 
             // divideButton
             // 
@@ -103,6 +106,7 @@
             this.divideButton.TabIndex = 4;
             this.divideButton.Text = "÷";
             this.divideButton.UseVisualStyleBackColor = true;
+            this.divideButton.Click += new System.EventHandler(this.OnOperationButtonClick);
             // 
             // multiplyButton
             // 
@@ -114,6 +118,7 @@
             this.multiplyButton.TabIndex = 8;
             this.multiplyButton.Text = "×";
             this.multiplyButton.UseVisualStyleBackColor = true;
+            this.multiplyButton.Click += new System.EventHandler(this.OnOperationButtonClick);
             // 
             // digitNineButton
             // 
@@ -161,6 +166,7 @@
             this.plusButton.TabIndex = 16;
             this.plusButton.Text = "+";
             this.plusButton.UseVisualStyleBackColor = true;
+            this.plusButton.Click += new System.EventHandler(this.OnOperationButtonClick);
             // 
             // digitThreeButton
             // 
@@ -208,6 +214,7 @@
             this.minusButton.TabIndex = 12;
             this.minusButton.Text = "-";
             this.minusButton.UseVisualStyleBackColor = true;
+            this.minusButton.Click += new System.EventHandler(this.OnOperationButtonClick);
             // 
             // digitSixButton
             // 
@@ -255,6 +262,7 @@
             this.pointButton.TabIndex = 17;
             this.pointButton.Text = ",";
             this.pointButton.UseVisualStyleBackColor = true;
+            this.pointButton.Click += new System.EventHandler(this.OnPointButtonClick);
             // 
             // digitZeroButton
             // 
@@ -278,6 +286,7 @@
             this.resultButton.TabIndex = 19;
             this.resultButton.Text = "=";
             this.resultButton.UseVisualStyleBackColor = true;
+            this.resultButton.Click += new System.EventHandler(this.OnGetResultButtonClick);
             // 
             // Calc
             // 
@@ -303,7 +312,7 @@
             this.Controls.Add(this.divideButton);
             this.Controls.Add(this.getPercentButton);
             this.Controls.Add(this.changeSignButton);
-            this.Controls.Add(this.inputField);
+            this.Controls.Add(this.display);
             this.Controls.Add(this.clearButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -318,7 +327,7 @@
         #endregion
 
         private System.Windows.Forms.Button clearButton;
-        private System.Windows.Forms.TextBox inputField;
+        private System.Windows.Forms.TextBox display;
         private System.Windows.Forms.Button changeSignButton;
         private System.Windows.Forms.Button getPercentButton;
         private System.Windows.Forms.Button divideButton;
