@@ -11,7 +11,7 @@ namespace Task_2
         /// <summary>
         /// Множество 
         /// </summary>
-        private Dictionary<int, List<T>> set = new Dictionary<int, List<T>>();
+        private Dictionary<T, List<T>> set = new Dictionary<T, List<T>>();
 
         /// <summary>
         /// Операция добавления нового значения
@@ -19,16 +19,14 @@ namespace Task_2
         /// <param name="value">Значение для добавления</param>
         public void Add(T value)
         {
-            var hashCode = value.GetHashCode();
-
             if (!IsBelong(value))
             {
-                if (!set.ContainsKey(hashCode))
+                if (!set.ContainsKey(value))
                 {
-                    set.Add(hashCode, new List<T>());
+                    set.Add(value, new List<T>());
                 }
 
-                set[hashCode].Add(value);
+                set[value].Add(value);
             }
         }
 
@@ -38,14 +36,12 @@ namespace Task_2
         /// <param name="value">Значение для удаления</param>
         public void Remove(T value)
         {
-            var hashCode = value.GetHashCode();
-
             if (!IsBelong(value))
             {
                 throw new RemoveNotContainedValueException("The value is not contained in the set!");
             }
 
-            set[hashCode].Remove(value);
+            set[value].Remove(value);
         }
 
         /// <summary>
@@ -55,11 +51,9 @@ namespace Task_2
         /// <returns>True, если принадлежит, иначе false</returns>
         public bool IsBelong(T value)
         {
-            var hashCode = value.GetHashCode();
-
-            if (set.ContainsKey(hashCode))
+            if (set.ContainsKey(value))
             {
-                if (set[hashCode].Contains(value))
+                if (set[value].Contains(value))
                 {
                     return true;
                 }
