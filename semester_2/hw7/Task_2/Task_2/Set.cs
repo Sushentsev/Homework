@@ -11,7 +11,7 @@ namespace Task_2
         /// <summary>
         /// Множество 
         /// </summary>
-        private Dictionary<T, List<T>> set = new Dictionary<T, List<T>>();
+        private Dictionary<T, T> set = new Dictionary<T, T>();
 
         /// <summary>
         /// Операция добавления нового значения
@@ -21,12 +21,7 @@ namespace Task_2
         {
             if (!IsBelong(value))
             {
-                if (!set.ContainsKey(value))
-                {
-                    set.Add(value, new List<T>());
-                }
-
-                set[value].Add(value);
+                set.Add(value, value);
             }
         }
 
@@ -41,7 +36,7 @@ namespace Task_2
                 throw new RemoveNotContainedValueException("The value is not contained in the set!");
             }
 
-            set[value].Remove(value);
+            set.Remove(value);
         }
 
         /// <summary>
@@ -49,34 +44,13 @@ namespace Task_2
         /// </summary>
         /// <param name="value">Значение для проверки</param>
         /// <returns>True, если принадлежит, иначе false</returns>
-        public bool IsBelong(T value)
-        {
-            if (set.ContainsKey(value))
-            {
-                if (set[value].Contains(value))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
+        public bool IsBelong(T value) => set.ContainsKey(value);
 
         /// <summary>
         /// Подсчет количества значений в множестве
         /// </summary>
         /// <returns>Количество значений в множестве</returns>
-        public int GetSize()
-        {
-            var result = 0;
-
-            foreach (var setElement in set)
-            {
-                result += setElement.Value.Count;
-            }
-
-            return result;
-        }
+        public int GetSize() => set.Count;
 
         /// <summary>
         /// Класс с операциями над множествами
@@ -95,18 +69,12 @@ namespace Task_2
 
                 foreach (var setElement in set1.set)
                 {
-                    foreach (var listElement in setElement.Value)
-                    {
-                        resultSet.Add(listElement);
-                    }
+                    resultSet.Add(setElement.Value);
                 }
 
                 foreach (var setElement in set2.set)
                 {
-                    foreach (var listElement in setElement.Value)
-                    {
-                        resultSet.Add(listElement);
-                    }
+                    resultSet.Add(setElement.Value);
                 }
 
                 return resultSet;
@@ -124,12 +92,9 @@ namespace Task_2
 
                 foreach (var setElement in set1.set)
                 {
-                    foreach (var listElement in setElement.Value)
+                    if (set2.IsBelong(setElement.Value))
                     {
-                        if (set2.IsBelong(listElement))
-                        {
-                            resultSet.Add(listElement);
-                        }
+                        resultSet.Add(setElement.Value);
                     }
                 }
 
