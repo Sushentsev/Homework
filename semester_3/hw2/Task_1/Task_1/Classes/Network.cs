@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Task_1.Interfaces;
 
@@ -17,7 +18,7 @@ namespace Task_1.Classes
         /// <summary>
         /// Graph of computers dependencies.
         /// </summary>
-        private int[,] graph;
+        private bool[,] graph;
 
         /// <summary>
         /// Field for generating random values.
@@ -36,10 +37,7 @@ namespace Task_1.Classes
         /// <returns>True – all not infected, false – otherwise.</returns>
         public bool AreAllNotInfected() => computers.Count(computer => !computer.IsInfected) == computers.Length;
 
-        public Network(string filename)
-        {
-            LoadInformationFromFile(filename);
-        }
+        public Network(string filepath) => LoadInformationFromFile(filepath);
 
         /// <summary>
         /// Infecting random computers.
@@ -54,9 +52,36 @@ namespace Task_1.Classes
         /// Loading some information from file: number of computers, OS, dependencies.
         /// </summary>
         /// <param name="filename">Name of file</param>
-        private void LoadInformationFromFile(string filename)
+        private void LoadInformationFromFile(string filepath)
         {
+            try
+            {   
+                // Open the text file using a stream reader.
+                using (var sr = new StreamReader(filepath))
+                {
+                    int size = sr.Read();
+                    computers = new IComputer[size];
+                    graph = new Boolean[size, size];
 
+                    for (var i = 0; i < size; ++i)
+                    {
+                        computers[i] = new Computer((OS)sr.Read());
+                    }
+
+                    for (var i = 0; i < size; ++i)
+                    {
+                        for (var j = 0; j < size; ++j)
+                        {
+                            graph[i, j] = sr.Read().Equals(1) ? true : false;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
         }
 
         public void MakeMove()
@@ -72,6 +97,7 @@ namespace Task_1.Classes
                 return;
             }
 
+            // New bool array which shows if computer with index i is infected.
             var infectedComputers = new Boolean[computers.Length];
 
             for (var i = 0; i < computers.Length; ++i)
@@ -82,13 +108,14 @@ namespace Task_1.Classes
                 }
             }
 
+            // Trying to infect computers.
             for (var i = 0; i < computers.Length; ++i)
             {
                 if (infectedComputers[i])
                 {
                     for (var j = 0; j < graph.GetLongLength(0); ++j)
                     {
-                        if (graph[i,j].Equals(1))
+                        if (graph[i,j])
                         {
                             computers[j].TryToInfect();
                         }
@@ -106,6 +133,8 @@ namespace Task_1.Classes
             {
                 Console.WriteLine($"Computer {i + 1} on {computers[i].oS} infection: {computers[i].IsInfected}");
             }
+
+            Console.WriteLine();
         }
     }
 }
