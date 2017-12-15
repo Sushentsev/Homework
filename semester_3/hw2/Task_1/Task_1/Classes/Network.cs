@@ -37,6 +37,10 @@ namespace Task_1.Classes
         /// <returns>True – all not infected, false – otherwise.</returns>
         public bool AreAllNotInfected() => computers.Count(computer => !computer.IsInfected) == computers.Length;
 
+        /// <summary>
+        /// Constructor for network.
+        /// </summary>
+        /// <param name="filepath">Path of file.</param>
         public Network(string filepath) => LoadInformationFromFile(filepath);
 
         /// <summary>
@@ -51,7 +55,7 @@ namespace Task_1.Classes
         /// <summary>
         /// Loading some information from file: number of computers, OS, dependencies.
         /// </summary>
-        /// <param name="filename">Name of file</param>
+        /// <param name="filepath">Path of file.</param>
         private void LoadInformationFromFile(string filepath)
         {
             try
@@ -59,20 +63,25 @@ namespace Task_1.Classes
                 // Open the text file using a stream reader.
                 using (var sr = new StreamReader(filepath))
                 {
-                    int size = sr.Read();
+                    int size = int.Parse(sr.ReadLine());
+                        
                     computers = new IComputer[size];
                     graph = new Boolean[size, size];
 
+                    var text = sr.ReadLine();
+                    string[] bits = text.Split(' ');
                     for (var i = 0; i < size; ++i)
                     {
-                        computers[i] = new Computer((OS)sr.Read());
+                        computers[i] = new Computer((OS)int.Parse(bits[i]));
                     }
 
                     for (var i = 0; i < size; ++i)
                     {
+                        text = sr.ReadLine();
+                        bits = text.Split(' ');
                         for (var j = 0; j < size; ++j)
                         {
-                            graph[i, j] = sr.Read().Equals(1) ? true : false;
+                            graph[i, j] = int.Parse(bits[j]) == 1  ? true : false;
                         }
                     }
                 }
@@ -84,6 +93,9 @@ namespace Task_1.Classes
             }
         }
 
+        /// <summary>
+        /// Making move.
+        /// </summary>
         public void MakeMove()
         {
             if (AreAllNotInfected())
