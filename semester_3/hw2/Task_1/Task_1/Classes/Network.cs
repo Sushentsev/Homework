@@ -44,18 +44,18 @@ namespace Task_1.Classes
         private bool AreAllNotInfected() => NumberOfInfectedComputers() == 0;
 
         /// <summary>
-        /// Constructor for network.
+        /// Constructor for network with loading from file.
         /// </summary>
         /// <param name="filepath">Path of file.</param>
         public Network(string filepath) => LoadInformationFromFile(filepath);
 
         /// <summary>
-        /// Infecting random computers.
+        /// Trying to infect random computer.
         /// </summary>
-        private void InfectRandomComputer()
+        private void TryToInfectRandomComputer()
         {
             var index = random.Next(0, Computers.Length);
-            Computers[index].IsInfected = true;
+            Computers[index].TryToInfect();
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Task_1.Classes
         {
             if (AreAllNotInfected())
             {
-                InfectRandomComputer();
+                TryToInfectRandomComputer();
                 return;
             }
 

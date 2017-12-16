@@ -11,7 +11,7 @@ namespace Task_1.Classes
         /// <summary>
         /// Computer infecting.
         /// </summary>
-        public bool IsInfected { get; set; }
+        public bool IsInfected { get; private set; }
 
         /// <summary>
         /// Operation system.

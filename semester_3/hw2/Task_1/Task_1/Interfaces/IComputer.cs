@@ -10,7 +10,7 @@ namespace Task_1.Interfaces
         /// <summary>
         /// Computer infecting.
         /// </summary>
-        bool IsInfected { get; set; }
+        bool IsInfected { get; }
 
         /// <summary>
         /// Computer operation system.
