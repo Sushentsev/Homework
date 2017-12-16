@@ -7,9 +7,9 @@ using Task_1.Interfaces;
 namespace Task_1.Classes
 {
     /// <summary>
-    /// Class RobotsMaker.
+    /// Class RobotsManager.
     /// </summary>
-    public class RobotsMaker : IRobotsMaker
+    public class RobotsManager : IRobotsManager
     {
         /// <summary>
         /// Array or robots.
@@ -24,8 +24,8 @@ namespace Task_1.Classes
         /// <summary>
         /// Constructor with loading from file.
         /// </summary>
-        /// <param name="filepath"></param>
-        public RobotsMaker(string filepath)
+        /// <param name="filepath">Path of a file.</param>
+        public RobotsManager(string filepath)
         {
             try
             {
@@ -78,11 +78,18 @@ namespace Task_1.Classes
         /// <param name="numberOfRobots">Number of robots.</param>
         /// <param name="graph">Adjacency matrix.</param>
         /// <param name="startNodes">Starting nodes for robots.</param>
-        public RobotsMaker(int numberOfNodes, int numberOfRobots, bool[,] graph, int[] startNodes)
+        public RobotsManager(int numberOfNodes, int numberOfRobots, int[,] graph, int[] startNodes)
         {
-            graph = new bool[numberOfNodes, numberOfNodes];
+            this.graph = new bool[numberOfNodes, numberOfNodes];
             robots = new Robot[numberOfRobots];
-            this.graph = graph;
+
+            for (var i = 0; i < numberOfNodes; ++i)
+            {
+                for (var j = 0; j < numberOfNodes; ++j)
+                {
+                    this.graph[i, j] = graph[i, j] == 1 ? true : false;
+                }
+            }
 
             for (var i = 0; i < robots.Length; ++i)
             {
@@ -96,23 +103,41 @@ namespace Task_1.Classes
         /// <returns>True — exist, false — otherwise.</returns>
         public bool IsSequenceExists()
         {
+            var numberOfCurrentDestroyed = 0;
             var numberOfRobots = robots.Length;
-            var intersection = robots[0].TeleportingNodes;
+            var destroyedRobots = new bool[numberOfRobots];
+            IEnumerable<int> intersection = robots[0].TeleportingNodes;
 
             if (numberOfRobots == 1)
             {
                 return false;
             }
 
-            // Finding intersection of teleporting nodes of all robots.
-            foreach (var robot in robots)
+            for (var i = 0; i < numberOfRobots; ++i)
             {
-                intersection.Intersect(robot.TeleportingNodes);
-            }
+                if (!destroyedRobots[i])
+                {
+                    numberOfCurrentDestroyed = 0;
 
-            if (intersection.Count == 0)
-            {
-                return false;
+                    for (var j = i + 1; j < numberOfRobots; ++j)
+                    {
+                        if (!destroyedRobots[j])
+                        {
+                            intersection = robots[i].TeleportingNodes.Intersect(robots[j].TeleportingNodes);
+
+                            if (intersection.Any())
+                            {
+                                ++numberOfCurrentDestroyed;
+                                destroyedRobots[j] = true;
+                            }
+                        }
+                    }
+
+                    if (numberOfCurrentDestroyed == 0)
+                    {
+                        return false;
+                    }
+                }
             }
 
             return true;

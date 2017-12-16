@@ -1,9 +1,9 @@
 ﻿namespace Task_1.Interfaces
 {
     /// <summary>
-    /// Interface for maker.
+    /// Interface for manager.
     /// </summary>
-    interface IRobotsMaker
+    interface IRobotsManager
     {
         /// <summary>
         /// Is there a sequence in which all the robots will be destroyed.

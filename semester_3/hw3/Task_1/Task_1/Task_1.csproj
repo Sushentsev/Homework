@@ -43,9 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Robot.cs" />
-    <Compile Include="Classes\RobotsMaker.cs" />
+    <Compile Include="Classes\RobotsManager.cs" />
     <Compile Include="Interfaces\IRobot.cs" />
-    <Compile Include="Interfaces\IRobotsMaker.cs" />
+    <Compile Include="Interfaces\IRobotsManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
