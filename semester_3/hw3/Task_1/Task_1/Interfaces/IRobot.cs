@@ -5,7 +5,7 @@ namespace Task_1.Interfaces
     /// <summary>
     /// Interface for robot.
     /// </summary>
-    interface IRobot
+    public interface IRobot
     {
         /// <summary>
         /// List of nodes in which robot can teleport.

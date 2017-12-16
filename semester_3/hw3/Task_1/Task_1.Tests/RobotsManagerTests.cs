@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Task_1.Classes;
 using System.IO;
+using System;
 
 namespace Task_1.Tests
 {
@@ -126,7 +127,7 @@ namespace Task_1.Tests
         }
 
         /// <summary>
-        /// Same as TestMethod1 but with other constructor.
+        /// Same as TestMethod5 but with other constructor.
         /// </summary>
         [TestMethod]
         public void TestMethod10()

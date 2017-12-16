@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface for manager.
     /// </summary>
-    interface IRobotsManager
+    public interface IRobotsManager
     {
         /// <summary>
         /// Is there a sequence in which all the robots will be destroyed.
