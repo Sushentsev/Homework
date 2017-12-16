@@ -8,6 +8,7 @@
         Windows,
         Linux,
         MacOs,
-        Embox
+        Embox,
+        SafeOS
     }
 }

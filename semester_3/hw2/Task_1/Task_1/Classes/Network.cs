@@ -13,12 +13,12 @@ namespace Task_1.Classes
         /// <summary>
         /// List of computers.
         /// </summary>
-        public IComputer[] Computers { get; set; }
+        public IComputer[] Computers { get; private set; }
 
         /// <summary>
         /// Graph of computers dependencies.
         /// </summary>
-        public bool[,] graph { get; }
+        public bool[,] Graph { get; private set; }
 
         /// <summary>
         /// Field for generating random values.
@@ -71,8 +71,8 @@ namespace Task_1.Classes
                 {
                     int size = int.Parse(sr.ReadLine());
                         
-                    computers = new IComputer[size];
-                    graph = new Boolean[size, size];
+                    Computers = new IComputer[size];
+                    Graph = new Boolean[size, size];
 
                     var text = sr.ReadLine();
                     string[] bits = text.Split(' ');
@@ -87,9 +87,11 @@ namespace Task_1.Classes
                         bits = text.Split(' ');
                         for (var j = 0; j < size; ++j)
                         {
-                            graph[i, j] = int.Parse(bits[j]) == 1  ? true : false;
+                            Graph[i, j] = int.Parse(bits[j]) == 1  ? true : false;
                         }
                     }
+
+                    sr.Close();
                 }
             }
             catch (Exception e)
@@ -131,9 +133,9 @@ namespace Task_1.Classes
             {
                 if (infectedComputers[i])
                 {
-                    for (var j = 0; j < graph.GetLongLength(0); ++j)
+                    for (var j = 0; j < Graph.GetLongLength(0); ++j)
                     {
-                        if (graph[i,j])
+                        if (Graph[i,j])
                         {
                             Computers[j].TryToInfect();
                         }
@@ -143,7 +145,7 @@ namespace Task_1.Classes
         }
 
         /// <summary>
-        /// Printing information to console about all computers.
+        /// Printing information about all computers to copmuters.
         /// </summary>
         public void PrintInformation()
         {

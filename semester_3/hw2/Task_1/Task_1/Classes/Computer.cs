@@ -66,6 +66,8 @@ namespace Task_1.Classes
                     return random.Next(25, 40);
                 case OS.Embox:
                     return random.Next(0, 10);
+                case OS.SafeOS:
+                    return 0;
                 default:
                     return 100;
             }

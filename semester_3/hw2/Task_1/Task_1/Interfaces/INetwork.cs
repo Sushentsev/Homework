@@ -3,8 +3,18 @@
     /// <summary>
     /// Network interface.
     /// </summary>
-    interface INetwork
+    public interface INetwork
     {
+        /// <summary>
+        /// List of computers.
+        /// </summary>
+        IComputer[] Computers { get; }
+
+        /// <summary>
+        /// Graph of computers dependencies.
+        /// </summary>
+        bool[,] Graph { get; }
+
         /// <summary>
         /// Making moving.
         /// </summary>

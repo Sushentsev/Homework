@@ -5,7 +5,7 @@ namespace Task_1.Interfaces
     /// <summary>
     /// Computer interface.
     /// </summary>
-    interface IComputer
+    public interface IComputer
     {
         /// <summary>
         /// Computer infecting.
