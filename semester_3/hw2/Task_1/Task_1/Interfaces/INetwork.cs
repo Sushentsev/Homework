@@ -16,15 +16,9 @@
         void PrintInformation();
 
         /// <summary>
-        /// Checking all computers on infection.
+        /// Getting number of infected computers.
         /// </summary>
-        /// <returns>True — all infected, false — otherwise.</returns>
-        bool AreAllInfected();
-
-        /// <summary>
-        /// Checking all computers on infection.
-        /// </summary>
-        /// <returns>True - all not infected, false - otherwise.</returns>
-        bool AreAllNotInfected();
+        /// <returns>Number of infected computers.</returns>
+        int NumberOfInfectedComputers();
     }
 }

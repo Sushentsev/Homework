@@ -59,7 +59,7 @@ namespace Task_1.Classes
             switch (oS)
             {
                 case OS.Windows:
-                    return random.Next(40, 50);
+                    return random.Next(50, 70);
                 case OS.Linux:
                     return random.Next(10, 25);
                 case OS.MacOs:
@@ -67,7 +67,7 @@ namespace Task_1.Classes
                 case OS.Embox:
                     return random.Next(0, 10);
                 default:
-                    return 50;
+                    return 100;
             }
         }
     }

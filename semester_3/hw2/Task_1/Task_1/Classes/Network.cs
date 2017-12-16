@@ -13,12 +13,12 @@ namespace Task_1.Classes
         /// <summary>
         /// List of computers.
         /// </summary>
-        private IComputer[] computers;
+        public IComputer[] Computers { get; set; }
 
         /// <summary>
         /// Graph of computers dependencies.
         /// </summary>
-        private bool[,] graph;
+        public bool[,] graph { get; }
 
         /// <summary>
         /// Field for generating random values.
@@ -26,16 +26,22 @@ namespace Task_1.Classes
         private Random random = new Random();
 
         /// <summary>
+        /// Getting number of infected computers.
+        /// </summary>
+        /// <returns>Number of infected computers.</returns>
+        public int NumberOfInfectedComputers() => Computers.Count(computer => computer.IsInfected);
+
+        /// <summary>
         /// Checking all computers on infecting.
         /// </summary>
         /// <returns>True – all infected, false – otherwise.</returns>
-        public bool AreAllInfected() => computers.Count(computer => computer.IsInfected) == computers.Length;
+        private bool AreAllInfected() => NumberOfInfectedComputers() == Computers.Length;
 
         /// <summary>
         /// Checking all computers on infection.
         /// </summary>
         /// <returns>True – all not infected, false – otherwise.</returns>
-        public bool AreAllNotInfected() => computers.Count(computer => !computer.IsInfected) == computers.Length;
+        private bool AreAllNotInfected() => NumberOfInfectedComputers() == 0;
 
         /// <summary>
         /// Constructor for network.
@@ -48,8 +54,8 @@ namespace Task_1.Classes
         /// </summary>
         private void InfectRandomComputer()
         {
-            var index = random.Next(0, computers.Length);
-            computers[index].IsInfected = true;
+            var index = random.Next(0, Computers.Length);
+            Computers[index].IsInfected = true;
         }
 
         /// <summary>
@@ -72,7 +78,7 @@ namespace Task_1.Classes
                     string[] bits = text.Split(' ');
                     for (var i = 0; i < size; ++i)
                     {
-                        computers[i] = new Computer((OS)int.Parse(bits[i]));
+                        Computers[i] = new Computer((OS)int.Parse(bits[i]));
                     }
 
                     for (var i = 0; i < size; ++i)
@@ -110,18 +116,18 @@ namespace Task_1.Classes
             }
 
             // New bool array which shows if computer with index i is infected.
-            var infectedComputers = new Boolean[computers.Length];
+            var infectedComputers = new Boolean[Computers.Length];
 
-            for (var i = 0; i < computers.Length; ++i)
+            for (var i = 0; i < Computers.Length; ++i)
             {
-                if (computers[i].IsInfected)
+                if (Computers[i].IsInfected)
                 {
                     infectedComputers[i] = true;
                 }
             }
 
             // Trying to infect computers.
-            for (var i = 0; i < computers.Length; ++i)
+            for (var i = 0; i < Computers.Length; ++i)
             {
                 if (infectedComputers[i])
                 {
@@ -129,7 +135,7 @@ namespace Task_1.Classes
                     {
                         if (graph[i,j])
                         {
-                            computers[j].TryToInfect();
+                            Computers[j].TryToInfect();
                         }
                     }
                 }
@@ -141,9 +147,9 @@ namespace Task_1.Classes
         /// </summary>
         public void PrintInformation()
         {
-            for (var i = 0; i < computers.Length; ++i)
+            for (var i = 0; i < Computers.Length; ++i)
             {
-                Console.WriteLine($"Computer {i + 1} on {computers[i].oS} infection: {computers[i].IsInfected}");
+                Console.WriteLine($"Computer {i + 1} on {Computers[i].oS} infection: {Computers[i].IsInfected}");
             }
 
             Console.WriteLine();
