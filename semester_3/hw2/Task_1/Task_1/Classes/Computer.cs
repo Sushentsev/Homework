@@ -35,12 +35,15 @@ namespace Task_1.Classes
         }
 
         /// <summary>
+        /// Generating random number.
+        /// </summary>
+        public Random random = new Random(DateTime.Now.Millisecond);
+
+        /// <summary>
         /// Trying to infect a computer.
         /// </summary>
         public void TryToInfect()
         {
-            var random = new Random(DateTime.Now.Millisecond);
-
             if (random.Next(0, 100) <= probabitityOfInfection)
             {
                 IsInfected = true;
@@ -54,8 +57,6 @@ namespace Task_1.Classes
         /// <returns>Probability of infection.</returns>
         private int GetProbabitityOfInfection()
         {
-            var random = new Random(DateTime.Now.Millisecond);
-
             switch (oS)
             {
                 case OS.Windows:
