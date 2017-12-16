@@ -8,19 +8,8 @@ namespace Task_1.Interfaces
     interface IRobot
     {
         /// <summary>
-        /// Started node for robot.
+        /// List of nodes in which robot can teleport.
         /// </summary>
-        int StartNode { get; }
-
-        /// <summary>
-        /// List of nodes which robot can visit.
-        /// </summary>
-        List<int> VisitedNodes { get; }
-
-        /// <summary>
-        /// Set graph to robot.
-        /// </summary>
-        /// <param name="graph">Adjacency matrix.</param>
-        void SetGraph(int[,] graph);
+        List<int> TeleportingNodes { get; }
     }
 }
