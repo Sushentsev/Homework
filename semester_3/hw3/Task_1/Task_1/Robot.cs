@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Task_1.Interfaces;
 
-namespace Task_1.Classes
+namespace Task_1
 {
     /// <summary>
     /// Robot class.

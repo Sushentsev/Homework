@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Task_1.Interfaces;
 
-namespace Task_1.Classes
+namespace Task_1
 {
     /// <summary>
     /// Class RobotsManager.
