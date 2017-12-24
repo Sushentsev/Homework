@@ -6,12 +6,12 @@
     public interface INetwork
     {
         /// <summary>
-        /// List of computers.
+        /// Gets the list of computers.
         /// </summary>
         IComputer[] Computers { get; }
 
         /// <summary>
-        /// Graph of computers dependencies.
+        /// Gets the graph of computers dependencies.
         /// </summary>
         bool[,] Graph { get; }
 

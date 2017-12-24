@@ -1,18 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
-using Task_1.Classes;
-
-namespace Task_1.Tests
+﻿namespace Task_1.Tests
 {
+    using System.IO;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Task_1.Classes;
+
+    /// <summary>
+    /// Class for testing the network.
+    /// </summary>
     [TestClass]
     public class NetTests
     {
-        private Network network;
+        // Structure of input file:
+        // First line — number of computers;
+        // Second line — OS: Windows(0), Linux(1), MacOS(2), Embox(3), SafeOS(4);
+        // Other lines — dependencies.
 
-        /// Structure of input file:
-        /// First line — number of computers;
-        //  Second line — OS: Windows(0), Linux(1), MacOS(2), Embox(3), SafeOS(4);
-        //  Other lines — dependencies.
+        /// <summary>
+        /// A current network.
+        /// </summary>
+        private Network network;
 
         /// <summary>
         /// All computers are independent.
@@ -20,15 +26,15 @@ namespace Task_1.Tests
         [TestMethod]
         public void InfectingIndependentComputers()
         {
-            network = new Network(Path.GetFullPath("test1.txt"));
-            const int numberOfMoves = 100;
+            this.network = new Network(Path.GetFullPath("test1.txt"));
+            const int NumberOfMoves = 100;
 
-            for (var i = 0; i <= numberOfMoves; ++i)
+            for (var i = 0; i <= NumberOfMoves; ++i)
             {
-                network.MakeMove();
+                this.network.MakeMove();
             }
 
-            Assert.IsTrue(network.NumberOfInfectedComputers() <= 1);
+            Assert.IsTrue(this.network.NumberOfInfectedComputers() <= 1);
         }
 
         /// <summary>
@@ -37,32 +43,32 @@ namespace Task_1.Tests
         [TestMethod]
         public void InfectingRandomComputers()
         {
-            network = new Network(Path.GetFullPath("test2.txt"));
-            int numberOfComputers = network.Computers.Length;
-            const int numberOfMoves = 50;
+            this.network = new Network(Path.GetFullPath("test2.txt"));
+            int numberOfComputers = this.network.Computers.Length;
+            const int NumberOfMoves = 50;
 
-            for (var i = 0; i < numberOfMoves; ++i)
+            for (var i = 0; i < NumberOfMoves; ++i)
             {
                 // Making a move.
-                network.MakeMove();
+                this.network.MakeMove();
 
                 // Finding infected computers.
                 for (var j = 0; j < numberOfComputers; ++j)
                 {
-                    if (network.Computers[j].IsInfected)
+                    if (this.network.Computers[j].IsInfected)
                     {
                         var numberOfConnectingInfectedComputers = 0;
 
                         // Finding number of all infected computers which have connection to current computer.
                         for (var k = 0; k < numberOfComputers; ++k)
                         {
-                            if (network.Graph[j, k] && network.Computers[k].IsInfected)
+                            if (this.network.Graph[j, k] && this.network.Computers[k].IsInfected)
                             {
                                 ++numberOfConnectingInfectedComputers;
                             }
                         }
 
-                        if (network.NumberOfInfectedComputers() >= 2)
+                        if (this.network.NumberOfInfectedComputers() >= 2)
                         {
                             // Because it counts itself too.
                             Assert.IsTrue(numberOfConnectingInfectedComputers >= 2);
@@ -78,15 +84,15 @@ namespace Task_1.Tests
         [TestMethod]
         public void InfectingSafeComputers()
         {
-            network = new Network(Path.GetFullPath("test3.txt"));
-            const int numberOfMoves = 100;
+            this.network = new Network(Path.GetFullPath("test3.txt"));
+            const int NumberOfMoves = 100;
 
-            for (var i = 0; i < numberOfMoves; ++i)
+            for (var i = 0; i < NumberOfMoves; ++i)
             {
-                network.MakeMove();
+                this.network.MakeMove();
             }
 
-            Assert.IsTrue(network.NumberOfInfectedComputers() == 0);
+            Assert.AreEqual(0, this.network.NumberOfInfectedComputers());
         }
     }
 }

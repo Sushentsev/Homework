@@ -1,22 +1,17 @@
-﻿using System;
-using Task_1.Interfaces;
-
-namespace Task_1.Classes
+﻿namespace Task_1.Classes
 {
+    using System;
+    using Task_1.Interfaces;
+
     /// <summary>
     /// Computer of local network.
     /// </summary>
     public class Computer : IComputer
     {
         /// <summary>
-        /// Computer infecting.
+        /// Generating random number.
         /// </summary>
-        public bool IsInfected { get; private set; }
-
-        /// <summary>
-        /// Operation system.
-        /// </summary>
-        public OS oS { get; private set; }
+        private Random random = new Random(DateTime.Now.Millisecond);
 
         /// <summary>
         /// Probability of infection.
@@ -25,28 +20,33 @@ namespace Task_1.Classes
         private int probabitityOfInfection;
 
         /// <summary>
-        /// Constructor for computer class.
+        /// Initializes a new instance of the <see cref="Computer"/> class.
         /// </summary>
-        /// <param name="oS">Operation system.</param>
-        public Computer(OS oS)
+        /// <param name="os">Operation system.</param>
+        public Computer(OS os)
         {
-            this.oS = oS;
-            this.probabitityOfInfection = GetProbabitityOfInfection();
+            this.OS = os;
+            this.probabitityOfInfection = this.GetProbabitityOfInfection();
         }
 
         /// <summary>
-        /// Generating random number.
+        /// Gets a value indicating whether a computer is infected.
         /// </summary>
-        public Random random = new Random(DateTime.Now.Millisecond);
+        public bool IsInfected { get; private set; }
+
+        /// <summary>
+        /// Gets an operation system.
+        /// </summary>
+        public OS OS { get; private set; }
 
         /// <summary>
         /// Trying to infect a computer.
         /// </summary>
         public void TryToInfect()
         {
-            if (random.Next(0, 100) <= probabitityOfInfection)
+            if (this.random.Next(0, 100) <= this.probabitityOfInfection)
             {
-                IsInfected = true;
+                this.IsInfected = true;
             }
         }
 
@@ -57,16 +57,16 @@ namespace Task_1.Classes
         /// <returns>Probability of infection.</returns>
         private int GetProbabitityOfInfection()
         {
-            switch (oS)
+            switch (OS)
             {
                 case OS.Windows:
-                    return random.Next(50, 70);
+                    return this.random.Next(50, 70);
                 case OS.Linux:
-                    return random.Next(10, 25);
+                    return this.random.Next(10, 25);
                 case OS.MacOs:
-                    return random.Next(25, 40);
+                    return this.random.Next(25, 40);
                 case OS.Embox:
-                    return random.Next(0, 10);
+                    return this.random.Next(0, 10);
                 case OS.SafeOS:
                     return 0;
                 default:

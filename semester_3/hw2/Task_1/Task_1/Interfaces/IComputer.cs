@@ -1,21 +1,21 @@
-﻿using Task_1.Classes;
-
-namespace Task_1.Interfaces
+﻿namespace Task_1.Interfaces
 {
+    using Task_1.Classes;
+
     /// <summary>
     /// Computer interface.
     /// </summary>
     public interface IComputer
     {
         /// <summary>
-        /// Computer infecting.
+        /// Gets a value indicating whether a computer is infected.
         /// </summary>
         bool IsInfected { get; }
 
         /// <summary>
-        /// Computer operation system.
+        /// Gets a computer operation system.
         /// </summary>
-        OS oS { get; }
+        OS OS { get; }
 
         /// <summary>
         /// Trying to infect a computer.
