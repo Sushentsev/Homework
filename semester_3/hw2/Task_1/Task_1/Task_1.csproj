@@ -42,11 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Computer.cs" />
-    <Compile Include="Classes\Enums.cs" />
-    <Compile Include="Classes\Network.cs" />
-    <Compile Include="Interfaces\IComputer.cs" />
-    <Compile Include="Interfaces\INetwork.cs" />
+    <Compile Include="Computer.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="IComputer.cs" />
+    <Compile Include="INetwork.cs" />
+    <Compile Include="Network.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

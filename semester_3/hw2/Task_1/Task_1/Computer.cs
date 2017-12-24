@@ -1,7 +1,6 @@
-﻿namespace Task_1.Classes
+﻿namespace Task_1
 {
     using System;
-    using Task_1.Interfaces;
 
     /// <summary>
     /// Computer of local network.
@@ -11,7 +10,7 @@
         /// <summary>
         /// Generating random number.
         /// </summary>
-        private Random random = new Random(DateTime.Now.Millisecond);
+        private Random random;
 
         /// <summary>
         /// Probability of infection.
@@ -23,9 +22,10 @@
         /// Initializes a new instance of the <see cref="Computer"/> class.
         /// </summary>
         /// <param name="os">Operation system.</param>
-        public Computer(OS os)
+        public Computer(OS os, Random random)
         {
             this.OS = os;
+            this.random = random;
             this.probabitityOfInfection = this.GetProbabitityOfInfection();
         }
 
@@ -44,7 +44,7 @@
         /// </summary>
         public void TryToInfect()
         {
-            if (this.random.Next(0, 100) <= this.probabitityOfInfection)
+            if (this.random.Next(1, 100) <= this.probabitityOfInfection)
             {
                 this.IsInfected = true;
             }

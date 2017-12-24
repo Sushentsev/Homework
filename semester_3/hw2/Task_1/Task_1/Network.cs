@@ -1,9 +1,8 @@
-﻿namespace Task_1.Classes
+﻿namespace Task_1
 {
     using System;
     using System.IO;
     using System.Linq;
-    using Task_1.Interfaces;
 
     /// <summary>
     /// Local network.
@@ -81,7 +80,7 @@
         }
 
         /// <summary>
-        /// Printing information about all computers to copmuters.
+        /// Printing information about all computers in the network.
         /// </summary>
         public void PrintInformation()
         {
@@ -108,12 +107,13 @@
 
                     this.Computers = new IComputer[size];
                     this.Graph = new bool[size, size];
-
+            
                     var text = sr.ReadLine();
                     string[] bits = text.Split(' ');
+
                     for (var i = 0; i < size; ++i)
                     {
-                        this.Computers[i] = new Computer((OS)int.Parse(bits[i]));
+                        this.Computers[i] = new Computer((OS)int.Parse(bits[i]), random);
                     }
 
                     for (var i = 0; i < size; ++i)

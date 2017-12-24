@@ -1,7 +1,5 @@
-﻿namespace Task_1.Interfaces
+﻿namespace Task_1
 {
-    using Task_1.Classes;
-
     /// <summary>
     /// Computer interface.
     /// </summary>

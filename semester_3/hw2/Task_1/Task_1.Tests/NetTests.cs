@@ -2,7 +2,6 @@
 {
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Task_1.Classes;
 
     /// <summary>
     /// Class for testing the network.

@@ -1,4 +1,4 @@
-﻿namespace Task_1.Interfaces
+﻿namespace Task_1
 {
     /// <summary>
     /// Network interface.

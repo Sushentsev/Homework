@@ -1,4 +1,4 @@
-﻿namespace Task_1.Classes
+﻿namespace Task_1
 {
     /// <summary>
     /// Operation systems.
