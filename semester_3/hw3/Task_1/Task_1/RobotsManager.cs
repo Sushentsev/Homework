@@ -59,11 +59,9 @@
                     {
                         this.robots[i] = new Robot(int.Parse(bits[i]), this.graph);
                     }
-
-                    sr.Close();
                 }
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);

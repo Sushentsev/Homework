@@ -13,11 +13,6 @@
         private bool[,] graph;
 
         /// <summary>
-        /// List for current calculations.
-        /// </summary>
-        private List<int> visitedNodes;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Robot"/> class.
         /// </summary>
         /// <param name="startNode">Robot's starting node.</param>
@@ -26,8 +21,7 @@
         {
             this.graph = graph;
             this.TeleportingNodes = new List<int>();
-            this.visitedNodes = new List<int>();
-            this.FindTeleportingNodes(startNode);
+            this.FindTeleportingNodes(startNode, new HashSet<int>());
         }
 
         /// <summary>
@@ -39,10 +33,11 @@
         /// Finding teleporting nodes for current node.
         /// </summary>
         /// <param name="startNode">Current node.</param>
-        private void FindTeleportingNodes(int startNode)
+        /// <param name="visitedNodes">HashSet of visited nodes.</param>
+        private void FindTeleportingNodes(int startNode, HashSet<int> visitedNodes)
         {
             // Added starting node to visited.
-            this.visitedNodes.Add(startNode);
+            visitedNodes.Add(startNode);
             var temp = new List<int>();
             var addedNodes = 0;
 
@@ -73,9 +68,9 @@
             {
                 for (int i = 0; i < this.TeleportingNodes.Count; ++i)
                 {
-                    if (!this.visitedNodes.Contains(this.TeleportingNodes[i]))
+                    if (!visitedNodes.Contains(this.TeleportingNodes[i]))
                     {
-                        this.FindTeleportingNodes(this.TeleportingNodes[i]);
+                        this.FindTeleportingNodes(this.TeleportingNodes[i], visitedNodes);
                     }
                 }
             }

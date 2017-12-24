@@ -21,60 +21,60 @@
         private RobotsManager maker;
 
         /// <summary>
-        /// Two robots with three nodes.
+        /// Two robots with three nodes. Loading from file.
         /// </summary>
         [TestMethod]
-        public void TestMethod1()
+        public void TwoRobotsThreeNodesSequenceExistsLoadFromFile()
         {
             this.maker = new RobotsManager(Path.GetFullPath("test1.txt"));
             Assert.IsTrue(this.maker.IsSequenceExists());
         }
 
         /// <summary>
-        /// Four robots with four nodes.
+        /// Four robots with four nodes. Loading from file.
         /// </summary>
         [TestMethod]
-        public void TestMethod2()
+        public void FourRobotsFourNodesSequenceExistsLoadFromFile()
         {
             this.maker = new RobotsManager(Path.GetFullPath("test2.txt"));
             Assert.IsTrue(this.maker.IsSequenceExists());
         }
 
         /// <summary>
-        /// Two robots with four nodes.
+        /// Two robots with four nodes. Loading from file.
         /// </summary>
         [TestMethod]
-        public void TestMethod3()
+        public void TwoRobotsFourNodesSequenceNotExistsLoadFromFile()
         {
             this.maker = new RobotsManager(Path.GetFullPath("test3.txt"));
             Assert.IsFalse(this.maker.IsSequenceExists());
         }
 
         /// <summary>
-        /// Only one robot.
+        /// Only one robot. Loading from file.
         /// </summary>
         [TestMethod]
-        public void TestMethod4()
+        public void OneRobotSequenceNotExistsLoadFromFile()
         {
             this.maker = new RobotsManager(Path.GetFullPath("test4.txt"));
             Assert.IsFalse(this.maker.IsSequenceExists());
         }
 
         /// <summary>
-        /// Three robots with three nodes.
+        /// Three robots with three nodes. Loading from file.
         /// </summary>
         [TestMethod]
-        public void TestMethod5()
+        public void ThreeRobotsThreeNodesSequenceExistsLoadFromFile()
         {
             this.maker = new RobotsManager(Path.GetFullPath("test5.txt"));
             Assert.IsTrue(this.maker.IsSequenceExists());
         }
 
         /// <summary>
-        /// Same as TestMethod1 but with other constructor.
+        /// Two robots with three nodes.
         /// </summary>
         [TestMethod]
-        public void TestMethod6()
+        public void TwoRobotsThreeNodesSequenceExists()
         {
             const int NumberOfNodes = 3;
             int[,] graph = { { 0, 1, 0 }, { 0, 1, 0 }, { 0, 1, 0 } };
@@ -86,10 +86,10 @@
         }
 
         /// <summary>
-        /// Same as TestMethod2 but with other constructor.
+        /// Four robots with four nodes.
         /// </summary>
         [TestMethod]
-        public void TestMethod7()
+        public void FourRobotsFourNodesSequenceExists()
         {
             const int NumberOfNodes = 4;
             int[,] graph = { { 0, 1, 0, 0 }, { 1, 0, 1, 0 }, { 0, 1, 0, 1 }, { 0, 0, 1, 0 } };
@@ -101,10 +101,10 @@
         }
 
         /// <summary>
-        /// Same as TestMethod3 but with other constructor.
+        /// Two robots with four nodes.
         /// </summary>
         [TestMethod]
-        public void TestMethod8()
+        public void TwoRobotsFourNodesSequenceNotExists()
         {
             const int NumberOfNodes = 4;
             int[,] graph = { { 0, 1, 0, 0 }, { 1, 0, 1, 0 }, { 0, 1, 0, 1 }, { 0, 0, 1, 0 } };
@@ -116,10 +116,10 @@
         }
 
         /// <summary>
-        /// Same as TestMethod4 but with other constructor.
+        /// Only one robot.
         /// </summary>
         [TestMethod]
-        public void TestMetho9()
+        public void OneRobotSequenceNotExists()
         {
             const int NumberOfNodes = 3;
             int[,] graph = { { 0, 1, 1 }, { 1, 0, 1 }, { 1, 1, 0 } };
@@ -131,10 +131,10 @@
         }
 
         /// <summary>
-        /// Same as TestMethod5 but with other constructor.
+        /// Three robots with three nodes.
         /// </summary>
         [TestMethod]
-        public void TestMethod10()
+        public void ThreeRobotsThreeNodesSequenceExists()
         {
             const int NumberOfNodes = 3;
             int[,] graph = { { 0, 1, 1 }, { 1, 0, 1 }, { 1, 1, 0 } };
