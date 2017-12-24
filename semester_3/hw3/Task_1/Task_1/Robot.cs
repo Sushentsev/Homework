@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace Task_1
+﻿namespace Task_1
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Robot class.
     /// </summary>
     public class Robot : IRobot
     {
         /// <summary>
-        /// List of nodes in which robot can teleport.
-        /// </summary>
-        public List<int> TeleportingNodes { get; private set; }
-
-        /// <summary>
-        /// Adjacency matrix.
+        /// Gets an djacency matrix.
         /// </summary>
         private bool[,] graph;
 
@@ -23,17 +18,22 @@ namespace Task_1
         private List<int> visitedNodes;
 
         /// <summary>
-        /// Constrcutor for robot.
+        /// Initializes a new instance of the <see cref="Robot"/> class.
         /// </summary>
         /// <param name="startNode">Robot's starting node.</param>
         /// <param name="graph">Adjacency matrix.</param>
         public Robot(int startNode, bool[,] graph)
         {
             this.graph = graph;
-            TeleportingNodes = new List<int>();
-            visitedNodes = new List<int>();
-            FindTeleportingNodes(startNode);
+            this.TeleportingNodes = new List<int>();
+            this.visitedNodes = new List<int>();
+            this.FindTeleportingNodes(startNode);
         }
+
+        /// <summary>
+        /// Gets the list of nodes in which robot can teleport.
+        /// </summary>
+        public List<int> TeleportingNodes { get; private set; }
 
         /// <summary>
         /// Finding teleporting nodes for current node.
@@ -42,14 +42,14 @@ namespace Task_1
         private void FindTeleportingNodes(int startNode)
         {
             // Added starting node to visited.
-            visitedNodes.Add(startNode);
+            this.visitedNodes.Add(startNode);
             var temp = new List<int>();
             var addedNodes = 0;
 
             // Finding adjacent nodes.
-            for (var i = 0; i < graph.GetLength(0); ++i)
+            for (var i = 0; i < this.graph.GetLength(0); ++i)
             {
-                if (graph[startNode, i])
+                if (this.graph[startNode, i])
                 {
                     temp.Add(i);
                 }
@@ -58,11 +58,11 @@ namespace Task_1
             // Finding teleporting nodes and adding them to list.
             foreach (var node in temp)
             {
-                for (var j = 0; j < graph.GetLength(0); ++j)
+                for (var j = 0; j < this.graph.GetLength(0); ++j)
                 {
-                    if (graph[node, j] && !TeleportingNodes.Contains(j))
+                    if (this.graph[node, j] && !this.TeleportingNodes.Contains(j))
                     {
-                        TeleportingNodes.Add(j);
+                        this.TeleportingNodes.Add(j);
                         ++addedNodes;
                     }
                 }
@@ -71,11 +71,11 @@ namespace Task_1
             // Finding teleporting for nodes which are not visited.
             if (addedNodes > 0)
             {
-                for (int i = 0; i < TeleportingNodes.Count; ++i)
+                for (int i = 0; i < this.TeleportingNodes.Count; ++i)
                 {
-                    if (!visitedNodes.Contains(TeleportingNodes[i]))
+                    if (!this.visitedNodes.Contains(this.TeleportingNodes[i]))
                     {
-                        FindTeleportingNodes(TeleportingNodes[i]);
+                        this.FindTeleportingNodes(this.TeleportingNodes[i]);
                     }
                 }
             }

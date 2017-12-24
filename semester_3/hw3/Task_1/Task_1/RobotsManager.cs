@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace Task_1
+﻿namespace Task_1
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     /// <summary>
     /// Class RobotsManager.
     /// </summary>
@@ -21,7 +21,7 @@ namespace Task_1
         private bool[,] graph;
 
         /// <summary>
-        /// Constructor with loading from file.
+        /// Initializes a new instance of the <see cref="RobotsManager"/> class.
         /// </summary>
         /// <param name="filepath">Path of a file.</param>
         public RobotsManager(string filepath)
@@ -35,7 +35,7 @@ namespace Task_1
                     var line = string.Empty;
                     string[] bits = line.Split(' ');
                     var numberOfNodes = int.Parse(sr.ReadLine());
-                    graph = new bool[numberOfNodes, numberOfNodes];
+                    this.graph = new bool[numberOfNodes, numberOfNodes];
 
                     // Loading adjacency matrix.
                     for (var i = 0; i < numberOfNodes; ++i)
@@ -44,20 +44,20 @@ namespace Task_1
                         bits = line.Split(' ');
                         for (var j = 0; j < numberOfNodes; ++j)
                         {
-                            graph[i, j] = int.Parse(bits[j]) == 1 ? true : false;
+                            this.graph[i, j] = Convert.ToBoolean(int.Parse(bits[j]));
                         }
                     }
 
-                    //Loading number of robots, starting nodes.
+                    // Loading number of robots, starting nodes.
                     var numberOfRobots = int.Parse(sr.ReadLine());
-                    robots = new Robot[numberOfRobots];
+                    this.robots = new Robot[numberOfRobots];
                     line = sr.ReadLine();
                     bits = line.Split(' ');
 
                     // Initializing array of robots.
                     for (var i = 0; i < numberOfRobots; ++i)
                     {
-                        robots[i] = new Robot(int.Parse(bits[i]), graph);
+                        this.robots[i] = new Robot(int.Parse(bits[i]), this.graph);
                     }
 
                     sr.Close();
@@ -71,7 +71,7 @@ namespace Task_1
         }
 
         /// <summary>
-        /// Constructor with loading from current settings.
+        /// Initializes a new instance of the <see cref="RobotsManager"/> class.
         /// </summary>
         /// <param name="numberOfNodes">Number of nodes.</param>
         /// <param name="numberOfRobots">Number of robots.</param>
@@ -80,19 +80,19 @@ namespace Task_1
         public RobotsManager(int numberOfNodes, int numberOfRobots, int[,] graph, int[] startNodes)
         {
             this.graph = new bool[numberOfNodes, numberOfNodes];
-            robots = new Robot[numberOfRobots];
+            this.robots = new Robot[numberOfRobots];
 
             for (var i = 0; i < numberOfNodes; ++i)
             {
                 for (var j = 0; j < numberOfNodes; ++j)
                 {
-                    this.graph[i, j] = graph[i, j] == 1 ? true : false;
+                    this.graph[i, j] = Convert.ToBoolean(graph[i, j]);
                 }
             }
 
-            for (var i = 0; i < robots.Length; ++i)
+            for (var i = 0; i < this.robots.Length; ++i)
             {
-                robots[i] = new Robot(startNodes[i], this.graph);
+                this.robots[i] = new Robot(startNodes[i], this.graph);
             }
         }
 
@@ -103,9 +103,9 @@ namespace Task_1
         public bool IsSequenceExists()
         {
             var numberOfCurrentDestroyed = 0;
-            var numberOfRobots = robots.Length;
+            var numberOfRobots = this.robots.Length;
             var destroyedRobots = new bool[numberOfRobots];
-            IEnumerable<int> intersection = robots[0].TeleportingNodes;
+            IEnumerable<int> intersection = this.robots[0].TeleportingNodes;
 
             if (numberOfRobots == 1)
             {
@@ -122,7 +122,7 @@ namespace Task_1
                     {
                         if (!destroyedRobots[j])
                         {
-                            intersection = robots[i].TeleportingNodes.Intersect(robots[j].TeleportingNodes);
+                            intersection = this.robots[i].TeleportingNodes.Intersect(this.robots[j].TeleportingNodes);
 
                             if (intersection.Any())
                             {

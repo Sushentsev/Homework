@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace Task_1
+﻿namespace Task_1
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Interface for robot.
     /// </summary>
     public interface IRobot
     {
         /// <summary>
-        /// List of nodes in which robot can teleport.
+        /// Gets the list of nodes in which robot can teleport.
         /// </summary>
         List<int> TeleportingNodes { get; }
     }
