@@ -47,6 +47,7 @@
             // 
             // undoButton
             // 
+            this.undoButton.Enabled = false;
             this.undoButton.Location = new System.Drawing.Point(12, 12);
             this.undoButton.Name = "undoButton";
             this.undoButton.Size = new System.Drawing.Size(54, 20);
@@ -57,6 +58,7 @@
             // 
             // redoButton
             // 
+            this.redoButton.Enabled = false;
             this.redoButton.Location = new System.Drawing.Point(12, 35);
             this.redoButton.Name = "redoButton";
             this.redoButton.Size = new System.Drawing.Size(54, 20);
@@ -77,6 +79,7 @@
             // 
             // selectButton
             // 
+            this.selectButton.Enabled = false;
             this.selectButton.Location = new System.Drawing.Point(169, 12);
             this.selectButton.Name = "selectButton";
             this.selectButton.Size = new System.Drawing.Size(91, 20);
@@ -87,6 +90,7 @@
             // 
             // removeButton
             // 
+            this.removeButton.Enabled = false;
             this.removeButton.Location = new System.Drawing.Point(266, 12);
             this.removeButton.Name = "removeButton";
             this.removeButton.Size = new System.Drawing.Size(91, 20);
