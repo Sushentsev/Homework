@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Task_1.Controller.Commands
+﻿namespace Task_1.Controller.Commands
 {
-    interface ICommand
+    using Task_1.Model;
+
+    /// <summary>
+    /// Interface for command.
+    /// </summary>
+    public interface ICommand
     {
+        /// <summary>
+        /// Gets a value indicating whether command has undo.
+        /// </summary>
+        bool HasUndo { get; }
+
+        /// <summary>
+        /// Executes a command.
+        /// </summary>
+        /// <param name="model">Model.</param>
+        void Execute(Model model);
+
+        /// <summary>
+        /// Unexecutes a command.
+        /// </summary>
+        /// <param name="model">Model.</param>
+        void UnExecute(Model model);
     }
 }

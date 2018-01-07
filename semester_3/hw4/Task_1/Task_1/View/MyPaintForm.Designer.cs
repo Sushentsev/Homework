@@ -1,4 +1,6 @@
-﻿namespace Task_1
+﻿using System.Drawing;
+
+namespace Task_1
 {
     partial class MyPaintForm
     {
@@ -28,104 +30,108 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.area = new System.Windows.Forms.Panel();
-            this.undoButton = new System.Windows.Forms.Button();
-            this.redoButton = new System.Windows.Forms.Button();
-            this.drawButton = new System.Windows.Forms.Button();
-            this.selectButton = new System.Windows.Forms.Button();
-            this.removeButton = new System.Windows.Forms.Button();
+            this.DrawingArea = new System.Windows.Forms.Panel();
+            this.UndoButton = new System.Windows.Forms.Button();
+            this.RedoButton = new System.Windows.Forms.Button();
+            this.RemoveLineButton = new System.Windows.Forms.Button();
+            this.DrawRadioButton = new System.Windows.Forms.RadioButton();
+            this.SelectRadioButton = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
-            // area
+            // DrawingArea
             // 
-            this.area.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.area.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.area.Location = new System.Drawing.Point(12, 61);
-            this.area.Name = "area";
-            this.area.Size = new System.Drawing.Size(719, 351);
-            this.area.TabIndex = 0;
+            this.DrawingArea.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DrawingArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DrawingArea.Location = new System.Drawing.Point(12, 38);
+            this.DrawingArea.Name = "DrawingArea";
+            this.DrawingArea.Size = new System.Drawing.Size(719, 374);
+            this.DrawingArea.TabIndex = 0;
+            this.DrawingArea.Paint += new System.Windows.Forms.PaintEventHandler(this.OnDrawingArea_Paint);
+            this.DrawingArea.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnDrawingArea_MouseDown);
+            this.DrawingArea.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnDrawingArea_MouseMove);
+            this.DrawingArea.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnDrawingArea_MouseUp);
             // 
-            // undoButton
+            // UndoButton
             // 
-            this.undoButton.Enabled = false;
-            this.undoButton.Location = new System.Drawing.Point(12, 12);
-            this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(54, 20);
-            this.undoButton.TabIndex = 1;
-            this.undoButton.Text = "Undo";
-            this.undoButton.UseVisualStyleBackColor = true;
-            this.undoButton.Click += new System.EventHandler(this.OnUndoButton_Click);
+            this.UndoButton.Location = new System.Drawing.Point(12, 12);
+            this.UndoButton.Name = "UndoButton";
+            this.UndoButton.Size = new System.Drawing.Size(54, 20);
+            this.UndoButton.TabIndex = 1;
+            this.UndoButton.Text = "Undo";
+            this.UndoButton.UseVisualStyleBackColor = true;
+            this.UndoButton.Click += new System.EventHandler(this.OnUndoButton_Click);
             // 
-            // redoButton
+            // RedoButton
             // 
-            this.redoButton.Enabled = false;
-            this.redoButton.Location = new System.Drawing.Point(12, 35);
-            this.redoButton.Name = "redoButton";
-            this.redoButton.Size = new System.Drawing.Size(54, 20);
-            this.redoButton.TabIndex = 2;
-            this.redoButton.Text = "Redo";
-            this.redoButton.UseVisualStyleBackColor = true;
-            this.redoButton.Click += new System.EventHandler(this.OnRedoButton_Click);
+            this.RedoButton.Location = new System.Drawing.Point(72, 12);
+            this.RedoButton.Name = "RedoButton";
+            this.RedoButton.Size = new System.Drawing.Size(54, 20);
+            this.RedoButton.TabIndex = 2;
+            this.RedoButton.Text = "Redo";
+            this.RedoButton.UseVisualStyleBackColor = true;
+            this.RedoButton.Click += new System.EventHandler(this.OnRedoButton_Click);
             // 
-            // drawButton
+            // RemoveLineButton
             // 
-            this.drawButton.Location = new System.Drawing.Point(72, 12);
-            this.drawButton.Name = "drawButton";
-            this.drawButton.Size = new System.Drawing.Size(91, 20);
-            this.drawButton.TabIndex = 3;
-            this.drawButton.Text = "Draw line";
-            this.drawButton.UseVisualStyleBackColor = true;
-            this.drawButton.Click += new System.EventHandler(this.OnDrawButton_Click);
+            this.RemoveLineButton.Location = new System.Drawing.Point(132, 12);
+            this.RemoveLineButton.Name = "RemoveLineButton";
+            this.RemoveLineButton.Size = new System.Drawing.Size(91, 20);
+            this.RemoveLineButton.TabIndex = 5;
+            this.RemoveLineButton.Text = "Remove line";
+            this.RemoveLineButton.UseVisualStyleBackColor = true;
+            this.RemoveLineButton.Click += new System.EventHandler(this.OnRemoveButton_Click);
             // 
-            // selectButton
+            // DrawRadioButton
             // 
-            this.selectButton.Enabled = false;
-            this.selectButton.Location = new System.Drawing.Point(169, 12);
-            this.selectButton.Name = "selectButton";
-            this.selectButton.Size = new System.Drawing.Size(91, 20);
-            this.selectButton.TabIndex = 4;
-            this.selectButton.Text = "Select line";
-            this.selectButton.UseVisualStyleBackColor = true;
-            this.selectButton.Click += new System.EventHandler(this.OnSelectButton_Click);
+            this.DrawRadioButton.AutoSize = true;
+            this.DrawRadioButton.Checked = true;
+            this.DrawRadioButton.Location = new System.Drawing.Point(229, 14);
+            this.DrawRadioButton.Name = "DrawRadioButton";
+            this.DrawRadioButton.Size = new System.Drawing.Size(50, 17);
+            this.DrawRadioButton.TabIndex = 6;
+            this.DrawRadioButton.TabStop = true;
+            this.DrawRadioButton.Text = "Draw";
+            this.DrawRadioButton.UseVisualStyleBackColor = true;
+            this.DrawRadioButton.Click += new System.EventHandler(this.DrawRadioButton_Click);
             // 
-            // removeButton
+            // SelectRadioButton
             // 
-            this.removeButton.Enabled = false;
-            this.removeButton.Location = new System.Drawing.Point(266, 12);
-            this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(91, 20);
-            this.removeButton.TabIndex = 5;
-            this.removeButton.Text = "Remove line";
-            this.removeButton.UseVisualStyleBackColor = true;
-            this.removeButton.Click += new System.EventHandler(this.OnRemoveButton_Click);
+            this.SelectRadioButton.AutoSize = true;
+            this.SelectRadioButton.Location = new System.Drawing.Point(285, 14);
+            this.SelectRadioButton.Name = "SelectRadioButton";
+            this.SelectRadioButton.Size = new System.Drawing.Size(55, 17);
+            this.SelectRadioButton.TabIndex = 7;
+            this.SelectRadioButton.Text = "Select";
+            this.SelectRadioButton.UseVisualStyleBackColor = true;
             // 
             // MyPaintForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 424);
-            this.Controls.Add(this.removeButton);
-            this.Controls.Add(this.selectButton);
-            this.Controls.Add(this.drawButton);
-            this.Controls.Add(this.redoButton);
-            this.Controls.Add(this.undoButton);
-            this.Controls.Add(this.area);
+            this.Controls.Add(this.SelectRadioButton);
+            this.Controls.Add(this.DrawRadioButton);
+            this.Controls.Add(this.RemoveLineButton);
+            this.Controls.Add(this.RedoButton);
+            this.Controls.Add(this.UndoButton);
+            this.Controls.Add(this.DrawingArea);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MyPaintForm";
             this.Text = "MyPaint";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel area;
-        private System.Windows.Forms.Button undoButton;
-        private System.Windows.Forms.Button redoButton;
-        private System.Windows.Forms.Button drawButton;
-        private System.Windows.Forms.Button selectButton;
-        private System.Windows.Forms.Button removeButton;
+        private System.Windows.Forms.Panel DrawingArea;
+        private System.Windows.Forms.Button UndoButton;
+        private System.Windows.Forms.Button RedoButton;
+        private System.Windows.Forms.Button RemoveLineButton;
+        private System.Windows.Forms.RadioButton DrawRadioButton;
+        private System.Windows.Forms.RadioButton SelectRadioButton;
     }
 }
 
