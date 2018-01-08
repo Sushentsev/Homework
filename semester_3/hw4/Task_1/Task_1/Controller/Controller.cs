@@ -17,12 +17,12 @@
         /// <summary>
         /// Stack with undo commands.
         /// </summary>
-        private Stack<ICommand> undoCommandStack = new Stack<ICommand>();
+        private readonly Stack<ICommand> undoCommandStack = new Stack<ICommand>();
 
         /// <summary>
         /// Stack with redo commands.
         /// </summary>
-        private Stack<ICommand> redoCommandStack = new Stack<ICommand>();
+        private readonly Stack<ICommand> redoCommandStack = new Stack<ICommand>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class.
@@ -38,7 +38,7 @@
         /// <summary>
         /// Gets a value indicating whether redo stack is available.
         /// </summary>
-        public bool IsRedoAvailavle { get => this.redoCommandStack.Count != 0; }
+        public bool IsRedoAvailable { get => this.redoCommandStack.Count != 0; }
 
         /// <summary>
         /// Handles a command.
@@ -72,7 +72,7 @@
         /// </summary>
         public void Redo()
         {
-            if (this.IsRedoAvailavle)
+            if (this.IsRedoAvailable)
             {
                 var command = this.redoCommandStack.Pop();
                 command.Execute(this.model);

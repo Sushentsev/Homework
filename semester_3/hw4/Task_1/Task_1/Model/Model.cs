@@ -10,9 +10,14 @@
     public class Model
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Model"/> class.
+        /// </summary>
+        public Model() => this.LinesList = new List<Line>();
+
+        /// <summary>
         /// List of lines.
         /// </summary>
-        private readonly List<Line> linesList = new List<Line>();
+        public List<Line> LinesList { get; private set; }
 
         /// <summary>
         /// Gets a selected line.
@@ -31,14 +36,14 @@
         public void AddLine(Line line)
         {
             this.ClearSelection();
-            this.linesList.Add(line);
+            this.LinesList.Add(line);
         }
 
         /// <summary>
         /// Removes line from list.
         /// </summary>
         /// <param name="line">Line for removing.</param>
-        public void RemoveLine(Line line) => this.linesList.Remove(line);
+        public void RemoveLine(Line line) => this.LinesList.Remove(line);
 
         /// <summary>
         /// Tries to select a line.
@@ -48,7 +53,7 @@
         {
             this.ClearSelection();
 
-            foreach (var line in this.linesList)
+            foreach (var line in this.LinesList)
             {
                 if (line.IsPointContained(point))
                 {
@@ -85,7 +90,7 @@
         /// <param name="e">Data for painting.</param>
         public void DrawLines(PaintEventArgs e)
         {
-            foreach (var line in this.linesList)
+            foreach (var line in this.LinesList)
             {
                 line.Draw(e);
             }
