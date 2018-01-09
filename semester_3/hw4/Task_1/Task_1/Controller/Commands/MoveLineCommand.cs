@@ -44,13 +44,13 @@
         /// <summary>
         /// Moves a line.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         public void Execute(Model model) => model.MoveLine(this.movingLine, this.oldPoint, this.newPoint);
 
         /// <summary>
         /// Moves a line.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         public void UnExecute(Model model) => model.MoveLine(this.movingLine, this.newPoint, this.oldPoint);
     }
 }

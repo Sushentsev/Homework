@@ -3,7 +3,9 @@
     using System;
     using System.Drawing;
     using System.Windows.Forms;
+    using Task_1.Controller;
     using Task_1.Controller.Commands;
+    using Task_1.Model;
     using Task_1.View;
 
     /// <summary>
@@ -27,6 +29,11 @@
         private readonly LineBuilder lineBuilder;
 
         /// <summary>
+        /// Line view field.
+        /// </summary>
+        private readonly LineView lineView;
+
+        /// <summary>
         /// Gets a value indicating whether user is drawing.
         /// </summary>
         private bool isDrawing;
@@ -36,13 +43,27 @@
         /// </summary>
         private Point oldPoint;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MyPaintForm"/> class.
+        /// </summary>
         public MyPaintForm()
         {
             this.InitializeComponent();
             this.model = new Model.Model();
             this.controller = new Controller.Controller(this.model);
             this.lineBuilder = new LineBuilder();
+            this.lineView = new LineView();
+
+            this.controller.UndoUpdated += UndoStack_Changed;
+            this.controller.RedoUpdated += RedoStack_Changed;
+            this.model.SelectionChanged += Selection_Changed;
         }
+
+        public void UndoStack_Changed(object sender, StackChangedArgs e) => this.UndoButton.Enabled = e.IsStackAvailable;
+
+        public void RedoStack_Changed(object sender, StackChangedArgs e) => this.RedoButton.Enabled = e.IsStackAvailable;
+
+        public void Selection_Changed(object sender, SelectionChangedArgs e) => this.RemoveLineButton.Enabled = e.IsRemoveAvailable;
 
         private void OnUndoButton_Click(object sender, EventArgs e)
         {
@@ -149,7 +170,7 @@
                 this.lineBuilder.DrawLine(e);
             }
 
-            this.controller.HandleCommand(new DrawLinesCommand(e));
+            this.lineView.DrawLines(this.model.LinesList, e);
         }
 
         private void DrawRadioButton_Click(object sender, EventArgs e)

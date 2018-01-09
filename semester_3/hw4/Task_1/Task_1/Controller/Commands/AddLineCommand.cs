@@ -26,13 +26,13 @@
         /// <summary>
         /// Adds new line.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         public void Execute(Model model) => model.AddLine(this.line);
 
         /// <summary>
         /// Removes a line.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         public void UnExecute(Model model) => model.RemoveLine(this.line);
     }
 }

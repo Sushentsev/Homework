@@ -10,21 +10,6 @@
     public class Line
     {
         /// <summary>
-        /// Pen for not selected line.
-        /// </summary>
-        private readonly Pen notSelectedLinePen = new Pen(Color.Black, 2);
-
-        /// <summary>
-        /// Pen for selected line.
-        /// </summary>
-        private readonly Pen selectedLinePen = new Pen(Color.Red, 2);
-
-        /// <summary>
-        /// Pen for selected vertex.
-        /// </summary>
-        private readonly Pen selectedVertexPen = new Pen(Color.Black, 3);
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Line"/> class.
         /// </summary>
         /// <param name="startPoint">Start point.</param>
@@ -68,27 +53,9 @@
         }
 
         /// <summary>
-        /// Draws a line.
-        /// </summary>
-        /// <param name="e">Data for painting.</param>
-        public void Draw(PaintEventArgs e)
-        {
-            if (this.IsSelected)
-            {
-                e.Graphics.DrawLine(this.selectedLinePen, this.StartPoint, this.EndPoint);
-                e.Graphics.DrawEllipse(this.selectedVertexPen, new Rectangle(this.StartPoint.X - 2, this.StartPoint.Y - 2, 3, 3));
-                e.Graphics.DrawEllipse(this.selectedVertexPen, new Rectangle(this.EndPoint.X - 2, this.EndPoint.Y - 2, 3, 3));
-            }
-            else
-            {
-                e.Graphics.DrawLine(this.notSelectedLinePen, this.StartPoint, this.EndPoint);
-            }
-        }
-
-        /// <summary>
         /// Checks whether point is contained in line.
         /// </summary>
-        /// <param name="point">Point.</param>
+        /// <param name="point">Current point.</param>
         /// <returns>Whether point is contained.</returns>
         public bool IsPointContained(Point point) => this.GetDistance(point).CompareTo(7) <= 0;
 

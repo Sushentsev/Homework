@@ -1,7 +1,7 @@
-﻿using System.Drawing;
-
-namespace Task_1
+﻿namespace Task_1
 {
+    using System.Drawing;
+
     partial class MyPaintForm
     {
         /// <summary>
@@ -53,6 +53,7 @@ namespace Task_1
             // 
             // UndoButton
             // 
+            this.UndoButton.Enabled = false;
             this.UndoButton.Location = new System.Drawing.Point(12, 12);
             this.UndoButton.Name = "UndoButton";
             this.UndoButton.Size = new System.Drawing.Size(54, 20);
@@ -63,6 +64,7 @@ namespace Task_1
             // 
             // RedoButton
             // 
+            this.RedoButton.Enabled = false;
             this.RedoButton.Location = new System.Drawing.Point(72, 12);
             this.RedoButton.Name = "RedoButton";
             this.RedoButton.Size = new System.Drawing.Size(54, 20);
@@ -73,6 +75,7 @@ namespace Task_1
             // 
             // RemoveLineButton
             // 
+            this.RemoveLineButton.Enabled = false;
             this.RemoveLineButton.Location = new System.Drawing.Point(132, 12);
             this.RemoveLineButton.Name = "RemoveLineButton";
             this.RemoveLineButton.Size = new System.Drawing.Size(91, 20);

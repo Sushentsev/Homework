@@ -56,7 +56,7 @@
         /// <summary>
         /// Gets new instance of the <see cref="Line"/> class.
         /// </summary>
-        /// <returns>Line.</returns>
+        /// <returns>Current line.</returns>
         public Line GetLine() => new Line(this.startPoint, this.endPoint);
     }
 }

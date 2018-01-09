@@ -47,15 +47,17 @@
   <ItemGroup>
     <Compile Include="Controller\Commands\AddLineCommand.cs" />
     <Compile Include="Controller\Commands\ClearSelectionCommand.cs" />
-    <Compile Include="Controller\Commands\DrawLinesCommand.cs" />
     <Compile Include="Controller\Commands\ICommand.cs" />
     <Compile Include="Controller\Commands\MoveLineCommand.cs" />
     <Compile Include="Controller\Commands\RemoveLineCommand.cs" />
     <Compile Include="Controller\Commands\SelectLineCommand.cs" />
     <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Controller\StackChangedArgs.cs" />
+    <Compile Include="Model\SelectionChangedArgs.cs" />
     <Compile Include="Model\Shapes\Line.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="View\LineBuilder.cs" />
+    <Compile Include="View\LineView.cs" />
     <Compile Include="View\MyPaintForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,6 +1,7 @@
 ﻿namespace Task_1.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Task_1.Model;
@@ -12,72 +13,44 @@
     public class LineTests
     {
         private readonly Random rand = new Random();
+        private IList<Line> lines;
+        private IList<IList<Point>> points;
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            var data = new DataClass("lines.txt", "points.txt");
+            this.lines = data.Lines;
+            this.points = data.Points;
+        }
+            
         [TestMethod]
         public void MoveLineTest()
         {
-            const int numberOfPoint = 100;
+            var p1 = new Point(1, 2);
+            var p2 = new Point(5, 6);
+            var newP1 = new Point(2, 2);
+            var newP2 = new Point(7, 8);
 
-            var line = this.GetRandomLine();
+            var line = new Line(p1, p2);
 
-            for (var i = 0; i < numberOfPoint; ++i)
-            {
-                var point = this.GetRandomPoint();
+            line.MoveLine(p1, newP1);
+            line.MoveLine(p2, newP2);
 
-                if (i < 50)
-                {
-                    line.MoveLine(line.StartPoint, point);
-                    Assert.AreEqual(point, line.StartPoint);
-                }
-                else
-                {
-                    line.MoveLine(line.EndPoint, point);
-                    Assert.AreEqual(point, line.EndPoint);
-                }
-            }
+            Assert.AreEqual(line.StartPoint, newP1);
+            Assert.AreEqual(line.EndPoint, newP2);
         }
 
         [TestMethod]
         public void IsPointContainedTest()
         {
-            const int numberOfPoints = 100;
-
-            var line = this.GetRandomLine();
-            var xDiff = line.EndPoint.X - line.StartPoint.X;
-            var yDiff = line.EndPoint.Y - line.StartPoint.Y;
-            // Creates radious line.
-            var radiousLine = new Line(new Point(0, 0), new Point(xDiff, yDiff));
-
-            for (var j = 0; j <= numberOfPoints; ++j)
+            for (var i = 0; i < this.lines.Count; ++i)
             {
-                var xPoint = rand.Next(Math.Min(0, xDiff), Math.Max(0, xDiff));
-                // Computes Y coordinate as Y = k * X.
-                var yPoint = (yDiff / xDiff) * xPoint;
-                // Parallel transfer.
-                var point = new Point(xPoint + xDiff, yPoint + yDiff);
-
-                Assert.IsTrue(line.IsPointContained(point));
+                for (var j = 0; j < this.points[i].Count; ++j)
+                {
+                    Assert.IsTrue(this.lines[i].IsPointContained(this.points[i][j]));
+                }
             }
-        }
-
-        private Point GetRandomPoint() => new Point(this.rand.Next(100), this.rand.Next(100));
-
-        private Line GetRandomLine()
-        {
-            // Y = k * X.
-            var k = this.rand.Next(100);
-            var x1 = this.rand.Next(100);
-            var x2 = this.rand.Next(100);
-
-            while (x1 == x2)
-            {
-                x2 = this.rand.Next(100);
-            }
-
-            var p1 = new Point(x1, k * x1);
-            var p2 = new Point(x2, k * x2);
-
-            return new Line(p1, p2);
         }
     }
 }

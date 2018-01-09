@@ -15,13 +15,14 @@
         /// <summary>
         /// Executes a command.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         void Execute(Model model);
 
         /// <summary>
         /// Unexecutes a command.
+        /// If HasUndo returns false, throw NotImplementedException.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         void UnExecute(Model model);
     }
 }

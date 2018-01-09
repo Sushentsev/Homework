@@ -14,82 +14,55 @@
     [TestClass]
     public class ControllerTests
     {
+        static private readonly Model Model = new Model();
         private readonly Random rand = new Random();
-        private readonly static Model model = new Model();
-        private readonly Controller controller = new Controller(model);
+        private readonly Controller controller = new Controller(Model);
+
+        private IList<Line> lines;
+        private IList<IList<Point>> points;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            var data = new DataClass("lines.txt", "points.txt");
+            this.lines = data.Lines;
+            this.points = data.Points;
+
+            for (var i = 0; i < this.lines.Count; ++i)
+            {
+                this.controller.HandleCommand(new AddLineCommand(this.lines[i]));
+            }
+        }
 
         [TestMethod]
         public void AddLineCommandTest()
         {
-            const int numberOfLines = 100;
-            var lines = new List<Line>();
-
-            for (var i = 0; i < numberOfLines; ++i)
+            foreach (var line in this.lines)
             {
-                lines.Add(this.GetRandomLine());
-                this.controller.HandleCommand(new AddLineCommand(lines[i]));
-            }
-
-            foreach (var line in lines)
-            {
-                Assert.IsTrue(model.LinesList.Contains(line));
+                Assert.IsTrue(Model.LinesList.Contains(line));
             }
         }
 
         [TestMethod]
         public void RemoveLineCommandTest()
         {
-            const int numberOfLines = 100;
-            var lines = new List<Line>();
-
-            for (var i = 0; i < numberOfLines; ++i)
+            for (var i = 0; i < this.lines.Count; ++i)
             {
-                lines.Add(this.GetRandomLine());
-                this.controller.HandleCommand(new AddLineCommand(lines[i]));
-            }
-
-            for (var i = 0; i < numberOfLines; ++i)
-            {
-                var index = this.rand.Next(lines.Count);
-                var line = lines[index];
-                lines.RemoveAt(index);
-                this.controller.HandleCommand(new RemoveLineCommand(line));
-                Assert.IsFalse(model.LinesList.Contains(line));
+                this.controller.HandleCommand(new RemoveLineCommand(this.lines[i]));
+                Assert.IsFalse(Model.LinesList.Contains(this.lines[i]));
             }
         }
 
         [TestMethod]
         public void SelectLineCommand()
         {
-            // Y = k * X.
-            const int numberOfLines = 100;
-            const int numberOfPointsForEveryLine = 2;
-            var lines = new List<Line>();
-
-            for (var i = 0; i < numberOfLines; ++i)
+            for (var i = 0; i < this.lines.Count; ++i)
             {
-                lines.Add(this.GetRandomLine());
-                this.controller.HandleCommand(new AddLineCommand(lines[i]));
-            }
-
-            for (var i = 0; i < numberOfLines; ++i)
-            {
-                var xDiff = lines[i].EndPoint.X - lines[i].StartPoint.X;
-                var yDiff = lines[i].EndPoint.Y - lines[i].StartPoint.Y;
-                // Creates radious line.
-                var radiousLine = new Line(new Point(0, 0), new Point(xDiff, yDiff));
-
-                for (var j = 0; j < numberOfPointsForEveryLine; ++j)
+                for (var j = 0; j < this.points[i].Count; ++j)
                 {
-                    var xPoint = rand.Next(Math.Min(0, xDiff), Math.Max(0, xDiff));
-                    // Computes Y coordinate as Y = k * X.
-                    var yPoint = (yDiff / xDiff) * xPoint;
-                    // Parallel transfer.
-                    var point = new Point(xPoint + xDiff, yPoint + yDiff);
-
-                    this.controller.HandleCommand(new SelectLineCommand(point));
-                    Assert.IsTrue(model.HasSelectedLine);
-                    model.ClearSelection();
+                    this.controller.HandleCommand(new SelectLineCommand(this.points[i][j]));
+                    Assert.IsTrue(Model.HasSelectedLine);
+                    Model.ClearSelection();
                 }
             }
         }
@@ -97,64 +70,32 @@
         [TestMethod]
         public void MoveLineCommandTest()
         {
-            // Y = k * X.
-            const int numberOfLines = 100;
-            const int numberOfPointsForEveryLine = 100;
-            var lines = new List<Line>();
+            var p1 = new Point(1, 2);
+            var p2 = new Point(5, 6);
+            var newP1 = new Point(2, 2);
+            var newP2 = new Point(7, 8);
 
-            for (var i = 0; i < numberOfLines; ++i)
-            {
-                lines.Add(this.GetRandomLine());
-                this.controller.HandleCommand(new AddLineCommand(lines[i]));
-            }
+            var line = new Line(p1, p2);
 
-            for (var i = 0; i < numberOfLines; ++i)
-            {
-                var xDiff = lines[i].EndPoint.X - lines[i].StartPoint.X;
-                var yDiff = lines[i].EndPoint.Y - lines[i].StartPoint.Y;
-                // Creates radious line.
-                var radiousLine = new Line(new Point(0, 0), new Point(xDiff, yDiff));
+            this.controller.HandleCommand(new MoveLineCommand(line, p1, newP1));
+            this.controller.HandleCommand(new MoveLineCommand(line, p2, newP2));
 
-                for (var j = 0; i < numberOfPointsForEveryLine; ++i)
-                {
-                    var point = this.GetRandomPoint();
-
-                    if (i < 50)
-                    {
-                        this.controller.HandleCommand(new MoveLineCommand(lines[i], lines[i].StartPoint, point));
-                        Assert.AreEqual(point, lines[i].StartPoint);
-                    }
-                    else
-                    {
-                        this.controller.HandleCommand(new MoveLineCommand(lines[i], lines[i].EndPoint, point));
-                        Assert.AreEqual(point, lines[i].EndPoint);
-                    }
-                }
-            }
+            Assert.AreEqual(line.StartPoint, newP1);
+            Assert.AreEqual(line.EndPoint, newP2);
         }
 
         [TestMethod]
         public void UndoTests()
         {
-            const int numberOfLines = 100;
-
-            var lines = new List<Line>();
-
-            for (var i = 0; i < numberOfLines; ++i)
-            {
-                lines.Add(this.GetRandomLine());
-                this.controller.HandleCommand(new AddLineCommand(lines[i]));
-            }
-
             Assert.IsTrue(this.controller.IsUndoAvailable);
 
-            for (var i = 0; i < numberOfLines; ++i)
+            for (var i = 0; i < this.lines.Count; ++i)
             {
                 this.controller.Undo();
 
-                for (var j = numberOfLines - 1 - i; j < numberOfLines; ++j)
+                for (var j = this.lines.Count - 1 - i; j < this.lines.Count; ++j)
                 {
-                    Assert.IsFalse(model.LinesList.Contains(lines[j]));
+                    Assert.IsFalse(Model.LinesList.Contains(this.lines[j]));
                 }
             }
         }
@@ -162,54 +103,24 @@
         [TestMethod]
         public void RedoTest()
         {
-            const int numberOfLines = 100;
-
-            var lines = new List<Line>();
-
-            for (var i = 0; i < numberOfLines; ++i)
-            {
-                lines.Add(this.GetRandomLine());
-                this.controller.HandleCommand(new AddLineCommand(lines[i]));
-            }
-
             Assert.IsFalse(this.controller.IsRedoAvailable);
 
-            for (var i = 0; i < numberOfLines; ++i)
+            for (var i = 0; i < this.lines.Count; ++i)
             {
                 this.controller.Undo();
             }
 
             Assert.IsTrue(this.controller.IsRedoAvailable);
 
-            for (var i = 0; i < numberOfLines; ++i)
+            for (var i = 0; i < this.lines.Count; ++i)
             {
                 this.controller.Redo();
 
                 for (var j = 0; j <= i; ++j)
                 {
-                    Assert.IsTrue(model.LinesList.Contains(lines[j]));
+                    Assert.IsTrue(Model.LinesList.Contains(this.lines[j]));
                 }
             }
-        }
-
-        private Point GetRandomPoint() => new Point(this.rand.Next(100), this.rand.Next(100));
-
-        private Line GetRandomLine()
-        {
-            // Y = k * X.
-            var k = this.rand.Next(100);
-            var x1 = this.rand.Next(100);
-            var x2 = this.rand.Next(100);
-
-            while (x1 == x2)
-            {
-                x2 = this.rand.Next(100);
-            }
-
-            var p1 = new Point(x1, k * x1);
-            var p2 = new Point(x2, k * x2);
-
-            return new Line(p1, p2);
         }
     }
 }

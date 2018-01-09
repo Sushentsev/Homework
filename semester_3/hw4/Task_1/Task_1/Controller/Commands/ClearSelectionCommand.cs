@@ -15,13 +15,13 @@
         /// <summary>
         /// Clears a selection.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         public void Execute(Model.Model model) => model.ClearSelection();
 
         /// <summary>
         /// Unexecutes a command.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         public void UnExecute(Model.Model model) => throw new NotImplementedException();
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Task_1.Controller
 {
+    using System;
     using System.Collections.Generic;
     using Task_1.Controller.Commands;
     using Task_1.Model;
@@ -10,7 +11,7 @@
     public class Controller
     {
         /// <summary>
-        /// Model.
+        /// Current model.
         /// </summary>
         private readonly Model model;
 
@@ -27,18 +28,28 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class.
         /// </summary>
-        /// <param name="model">Model.</param>
+        /// <param name="model">Current model.</param>
         public Controller(Model model) => this.model = model;
+
+        /// <summary>
+        /// Event is raised when undo stack is updated.
+        /// </summary>
+        public event EventHandler<StackChangedArgs> UndoUpdated;
+
+        /// <summary>
+        /// Event is raised when redo stack is updated.
+        /// </summary>
+        public event EventHandler<StackChangedArgs> RedoUpdated;
 
         /// <summary>
         /// Gets a value indicating whether undo stack is available.
         /// </summary>
-        public bool IsUndoAvailable { get => this.undoCommandStack.Count != 0; }
+        public bool IsUndoAvailable => this.undoCommandStack.Count != 0;
 
         /// <summary>
         /// Gets a value indicating whether redo stack is available.
         /// </summary>
-        public bool IsRedoAvailable { get => this.redoCommandStack.Count != 0; }
+        public bool IsRedoAvailable => this.redoCommandStack.Count != 0;
 
         /// <summary>
         /// Handles a command.
@@ -51,6 +62,8 @@
             if (command.HasUndo)
             {
                 this.undoCommandStack.Push(command);
+                this.UndoUpdated?.Invoke(this, new StackChangedArgs(true));
+                this.redoCommandStack.Clear();
             }
         }
 
@@ -64,7 +77,13 @@
                 var command = this.undoCommandStack.Pop();
                 command.UnExecute(this.model);
                 this.redoCommandStack.Push(command);
-            }        
+                this.RedoUpdated?.Invoke(this, new StackChangedArgs(true));
+
+                if (!this.IsUndoAvailable)
+                {
+                    this.UndoUpdated?.Invoke(this, new StackChangedArgs(false));
+                }
+            }
         }
 
         /// <summary>
@@ -77,6 +96,12 @@
                 var command = this.redoCommandStack.Pop();
                 command.Execute(this.model);
                 this.undoCommandStack.Push(command);
+                this.UndoUpdated?.Invoke(this, new StackChangedArgs(true));
+
+                if (!this.IsRedoAvailable)
+                {
+                    this.RedoUpdated?.Invoke(this, new StackChangedArgs(false));
+                }
             }            
         }
     }

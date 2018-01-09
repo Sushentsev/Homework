@@ -1,8 +1,8 @@
 ﻿namespace Task_1.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Windows.Forms;
 
     /// <summary>
     /// Model class.
@@ -15,9 +15,14 @@
         public Model() => this.LinesList = new List<Line>();
 
         /// <summary>
-        /// List of lines.
+        ///  Event is raised when selected line is updated.
         /// </summary>
-        public List<Line> LinesList { get; private set; }
+        public event EventHandler<SelectionChangedArgs> SelectionChanged;
+
+        /// <summary>
+        /// Gets the list of lines.
+        /// </summary>
+        public IList<Line> LinesList { get; }
 
         /// <summary>
         /// Gets a selected line.
@@ -27,7 +32,7 @@
         /// <summary>
         /// Gets a value indicating whether model has selected line.
         /// </summary>
-        public bool HasSelectedLine { get => this.SelectedLine != null; }
+        public bool HasSelectedLine => this.SelectedLine != null;
 
         /// <summary>
         /// Adds new line to list.
@@ -43,12 +48,16 @@
         /// Removes line from list.
         /// </summary>
         /// <param name="line">Line for removing.</param>
-        public void RemoveLine(Line line) => this.LinesList.Remove(line);
+        public void RemoveLine(Line line)
+        {
+            this.ClearSelection();
+            this.LinesList.Remove(line);
+        }
 
         /// <summary>
         /// Tries to select a line.
         /// </summary>
-        /// <param name="point">Point.</param>
+        /// <param name="point">Current point.</param>
         public void TryToSelectLine(Point point)
         {
             this.ClearSelection();
@@ -59,6 +68,7 @@
                 {
                     this.SelectedLine = line;
                     this.SelectedLine.IsSelected = true;
+                    this.SelectionChanged?.Invoke(this, new SelectionChangedArgs(true));
                     return;
                 }
             }
@@ -73,6 +83,7 @@
             {
                 this.SelectedLine.IsSelected = false;
                 this.SelectedLine = null;
+                this.SelectionChanged?.Invoke(this, new SelectionChangedArgs(false));
             }     
         }
 
@@ -83,17 +94,5 @@
         /// <param name="oldPoint">Old vertex.</param>
         /// <param name="newPoint">New vertex.</param>
         public void MoveLine(Line movingLine, Point oldPoint, Point newPoint) => movingLine.MoveLine(oldPoint, newPoint);
-
-        /// <summary>
-        /// Draws all lines.
-        /// </summary>
-        /// <param name="e">Data for painting.</param>
-        public void DrawLines(PaintEventArgs e)
-        {
-            foreach (var line in this.LinesList)
-            {
-                line.Draw(e);
-            }
-        }
     }
 }
