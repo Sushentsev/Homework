@@ -70,8 +70,8 @@
             var b = this.EndPoint;
             var p = point;
 
-            var vector1 = new int[] { p.X - a.X, p.Y - a.Y };
-            var vector2 = new int[] { b.X - a.X, b.Y - a.Y };
+            var vector1 = new[] { p.X - a.X, p.Y - a.Y };
+            var vector2 = new[] { b.X - a.X, b.Y - a.Y };
 
             var value1 = Math.Pow(vector2[0], 2) + Math.Pow(vector2[1], 2);
             var value2 = (vector1[0] * vector2[0]) + (vector1[1] * vector2[1]);
