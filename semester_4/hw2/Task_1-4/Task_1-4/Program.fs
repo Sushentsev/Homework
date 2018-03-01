@@ -1,11 +1,11 @@
 ﻿let rec product n = 
-    if n < 10 then n else (n % 10) * product (n / 10)
+    if abs(n) < 10 then abs(n) else (abs(n) % 10) * product (n / 10)
 
 let findPosition ls n =
     let rec position ls pos =
         match ls with
-        | [] -> -1
-        | h :: t -> if h = n then pos else position t (pos + 1)
+        | [] -> None
+        | h :: t -> if h = n then Some(pos) else position t (pos + 1)
     position ls 0
 
 let isPalindrome str =
