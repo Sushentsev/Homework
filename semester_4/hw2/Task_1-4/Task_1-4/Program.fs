@@ -21,12 +21,6 @@ let rec mergeSort ls =
         | [a] -> (a :: left, right)
         | a :: b :: tail -> split tail (a :: left, b :: right)
 
-    let rec merge (left, right) = 
-        match (left, right) with
-        | (left, []) -> left
-        | ([], right) -> right
-        | (hl :: tl, hr :: tr) -> if hl < hr then hl :: merge (tl, right) else hr :: merge (left, tr)
-
     let merge (left, right) =
         let rec merge' (left, right) acc = 
             match (left, right) with
