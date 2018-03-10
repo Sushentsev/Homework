@@ -20,11 +20,22 @@ let rec mergeSort ls =
         | [] -> (left, right)
         | [a] -> (a :: left, right)
         | a :: b :: tail -> split tail (a :: left, b :: right)
+
     let rec merge (left, right) = 
         match (left, right) with
         | (left, []) -> left
         | ([], right) -> right
         | (hl :: tl, hr :: tr) -> if hl < hr then hl :: merge (tl, right) else hr :: merge (left, tr)
+
+    let merge (left, right) =
+        let rec merge' (left, right) acc = 
+            match (left, right) with
+            | ([], []) -> acc
+            | (hl :: tl, []) -> merge' (tl, []) (hl :: acc)
+            | ([], hr :: tr) -> merge' ([], tr) (hr :: acc)
+            | (hl :: tl, hr :: tr) -> if hl < hr then merge' (tl, right) (hl :: acc) else merge' (left, tr) (hr :: acc)
+        List.rev (merge' (left, right) [])
+
     match ls with
     | [] -> ls
     | [a] -> ls
