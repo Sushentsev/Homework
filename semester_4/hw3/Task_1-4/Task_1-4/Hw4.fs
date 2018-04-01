@@ -2,11 +2,11 @@
 
 module Task1 =
 
-    let evenNumbersMap = List.map (fun x -> (x + 1) % 2) >> List.sum 
+    let evenNumbersMap ls = ls |> List.map (fun x -> (x + 1) % 2) |> List.sum 
 
-    let evenNumbersFilter = List.filter (fun x -> x % 2 = 0) >> List.length
+    let evenNumbersFilter ls = ls |> List.filter (fun x -> x % 2 = 0) |> List.length
 
-    let evenNumbersFold = List.fold (fun x acc -> acc + (x + 1) % 2) 0
+    let evenNumbersFold ls = ls |> List.fold (fun acc x -> acc + (x + 1) % 2) 0
 
 module Task2 = 
 
@@ -35,3 +35,12 @@ module Task3 =
         | Sub(l, r) -> eval(l) - eval(r)
         | Mul(l, r) -> eval(l) * eval(r)
         | Div(l, r) -> eval(l) / eval(r)
+
+module Task4 =
+
+    let primeSeq =
+        let isPrime n = 
+            let rec isPrime' i =
+                (n % i <> 0 && isPrime'(i + 1)) || (i > n / 2)
+            isPrime' 2
+        Seq.initInfinite(fun i -> i + 2) |> Seq.filter isPrime

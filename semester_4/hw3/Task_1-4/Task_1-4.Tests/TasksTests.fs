@@ -3,62 +3,31 @@ open FsUnit
 open Homework3.Task1
 open Homework3.Task2
 open Homework3.Task3
+open Homework3.Task4
 
-module Task1 = 
 
-    module MapFunc = 
+module Task1_Tests = 
+ 
+        let validData = 
+            [
+                TestCaseData([]).Returns(0)
+                TestCaseData([for x in 1..100 -> 2 * x]).Returns(100)
+                TestCaseData([for x in 1..100 -> 2 * x + 1]).Returns(0)
+                TestCaseData([1..100]).Returns(50)
+            ]
 
-        [<Test>]
-        let ``Amount of even numbers in empty list should be 0`` () =
-            evenNumbersMap [] |> should equal 0
-        
-        [<Test>]
-        let ``Amount of even numbers in [2; 4; ... ; 200]  should be 100`` () =
-            evenNumbersMap [for x in 1..100 -> 2 * x] |> should equal 100
+        [<TestCaseSource("validData")>]
+        let ``MapFunc test`` s =
+            evenNumbersMap s
 
-        [<Test>]
-        let ``Amount of even numbers in [3; 5; ... ; 201]  should be 0`` () =
-            evenNumbersMap [for x in 1..100 -> 2 * x + 1] |> should equal 0
+        [<TestCaseSource("validData")>]
+        let ``FilterFunc test`` s =
+            evenNumbersFilter s
 
-        [<Test>]
-        let ``Amount of even numbers in [1..100]  should be 50`` () =
-            evenNumbersMap [1..100] |> should equal 50
+        [<TestCaseSource("validData")>]
+        let ``FoldFunc test`` s =
+            evenNumbersFold s
 
-    module FilterFunc = 
-
-        [<Test>]
-        let ``Amount of even numbers in empty list should be 0`` () =
-            evenNumbersFilter [] |> should equal 0
-        
-        [<Test>]
-        let ``Amount of even numbers in [2; 4; ... ; 200]  should be 100`` () =
-            evenNumbersFilter [for x in 1..100 -> 2 * x] |> should equal 100
-
-        [<Test>]
-        let ``Amount of even numbers in [3; 5; ... ; 201]  should be 0`` () =
-            evenNumbersFilter [for x in 1..100 -> 2 * x + 1] |> should equal 0
-
-        [<Test>]
-        let ``Amount of even numbers in [1..100]  should be 50`` () =
-            evenNumbersFilter [1..100] |> should equal 50
-
-    module FoldFunc = 
-
-        [<Test>]
-        let ``Amount of even numbers in empty list should be 0`` () =
-            evenNumbersFold [] |> should equal 0
-        
-        [<Test>]
-        let ``Amount of even numbers in [2; 4; ... ; 200]  should be 100`` () =
-            evenNumbersFold [for x in 1..100 -> 2 * x] |> should equal 100
-
-        [<Test>]
-        let ``Amount of even numbers in [3; 5; ... ; 201]  should be 0`` () =
-            evenNumbersFold [for x in 1..100 -> 2 * x + 1] |> should equal 0
-
-        [<Test>]
-        let ``Amount of even numbers in [1..100]  should be 50`` () =
-            evenNumbersFold [1..100] |> should equal 50
 
 module Task2_Tests = 
 
@@ -91,3 +60,17 @@ module Task3_Tests =
     let ``Eval of 1.0 / 0.0 should be infinity`` () = 
         let tree = Div(Value(1.0), Value(0.0))
         eval tree |> should equal infinity
+
+ module Task4_Tests = 
+    
+    [<Test>]
+    let ``1st prime number should be 2`` () = 
+        primeSeq |> Seq.item 0 |> should equal 2
+
+    [<Test>]
+    let ``5th prime number should be 11`` () = 
+        primeSeq  |> Seq.item 4 |> should equal 2
+
+    [<Test>]
+    let ``10th prime number should be 29`` () = 
+        primeSeq  |> Seq.item 4 |> should equal 29
