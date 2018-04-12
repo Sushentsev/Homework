@@ -10,13 +10,13 @@
         /// <summary>
         /// Generating random number.
         /// </summary>
-        private Random random;
+        private readonly Random random;
 
         /// <summary>
         /// Probability of infection.
         /// Integer number from [0; 100].
         /// </summary>
-        private int probabitityOfInfection;
+        private readonly int probabitityOfInfection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Computer"/> class.
