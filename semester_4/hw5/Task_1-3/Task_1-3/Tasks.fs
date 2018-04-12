@@ -15,6 +15,18 @@ module Task1 =
             | [] -> ls.IsEmpty
         isBalanced' (str |> Seq.toList, [])
 
+module Task2 = 
+
+    let func x l = List.map (fun y -> y * x) l
+
+    let func'1 x: int list -> int list = List.map (fun y -> y * x)
+
+    let func'2 x: int list -> int list = List.map (fun y -> ((*) x) y)
+    
+    let func'3 x: int list -> int list = List.map ((*) x)
+
+    let func'4: int -> int list -> int list = List.map << (*)
+
 module Task3 = 
 
     open System
@@ -107,16 +119,16 @@ module Task3 =
 
     let commands = 
         [|
-            "1. Exit";
-            "2. Add new record (name and phone)";
-            "3. Find phone by name";
-            "4. Find name by phone";
-            "5. Print data";
-            "6. Save current data to file";
-            "7. Load data from file";
+            (1, "Exit");
+            (2, "Add new record (name and phone)");
+            (3, "Find phone by name");
+            (4, "Find name by phone");
+            (5, "Print data");
+            (6, "Save current data to file");
+            (7, "Load data from file");
         |]
     
     let launch = 
         printfn "Available commands:"
-        commands |> Array.iter (printfn "%s")
+        commands |> Array.iter (fun (number, command) -> printfn "%d. %s" number command)
         handle []
