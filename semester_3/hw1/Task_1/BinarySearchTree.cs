@@ -95,7 +95,6 @@ namespace Task_1
         /// </summary>
         /// <param name="currentNode">Current node</param>
         /// <param name="value">Value for adding</param>
-        /// <returns></returns>
         private bool IsContained(TreeNode currentNode, T value)
         {
             if (currentNode == null)
@@ -188,7 +187,7 @@ namespace Task_1
         /// Finding minimal node
         /// </summary>
         /// <param name="currentNode"></param>
-        /// <returns></returns>
+        /// <returns>Minimal node</returns>
         private TreeNode FindMinNode(TreeNode currentNode)
         {
             currentNode = currentNode.RightChild;

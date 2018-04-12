@@ -82,12 +82,12 @@ namespace Task_1.Tests
         }
 
         [TestMethod]
-        public void EnumaratorTest()
+        public void EnumeratorTest()
         {
             BuildTree();
             var count = 0;
 
-            foreach(var element in tree)
+            foreach (var element in tree)
             {
                 ++count;
             }
