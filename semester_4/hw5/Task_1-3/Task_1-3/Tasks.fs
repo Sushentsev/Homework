@@ -18,6 +18,7 @@ module Task1 =
 module Task3 = 
 
     open System
+    open System.IO
 
     type Record =
         { 
@@ -34,10 +35,29 @@ module Task3 =
     let findByPhone (phone : string) (phoneBook : List<Record>) =
         phoneBook |> List.filter (fun record -> record.Phone = phone)
 
-    let saveToFile (phoneBook : List<Record>) = printfn "Not implemented"
+    let saveToFile (filePath : string) (phoneBook : List<Record>) = 
+        use sw = new StreamWriter(File.OpenWrite(filePath))
+        phoneBook |> List.iter (fun record -> sw.WriteLine(record.Name + " | " + record.Phone))
+        sw.Close()
 
-    let loadFromFile (phoneBook : List<Record>) = printfn "Not implemented"
+    let readData (sr : StreamReader) = 
+        let rec readData' (sr : StreamReader) (phoneBook : List<Record>) = 
+            if (not sr.EndOfStream)
+            then
+                let subString = sr.ReadLine().Split([|" | "|], StringSplitOptions.None)
+                readData' sr ({ Name = subString.[0]; Phone = subString.[1]; } :: phoneBook)
+            else
+                sr.Close()
+                phoneBook
+        readData' sr []
 
+    let loadFromFile (filePath : string) = 
+        if (File.Exists filePath)
+        then
+            use sr = new StreamReader(File.OpenRead(filePath))
+            readData sr
+        else
+            []
 
     let rec handle (phoneBook : List<Record>) = 
         printfn "Enter command:"
@@ -67,14 +87,21 @@ module Task3 =
                  then printfn "There is no such person"
                  else filteredBook |> List.iter (fun record -> printfn "%s" record.Name)
                  handle phoneBook
-        | "5" -> if (phoneBook |> List.length) = 0
+        | "5" -> printfn "Your PhoneBook:"
+                 if (phoneBook |> List.length) = 0
                  then printfn "PhoneBook is empty!"
-                 else phoneBook |> List.iter (fun record -> printfn "%s %s" record.Name record.Phone)
+                 else phoneBook |> List.iter (fun record -> printfn "%s | %s" record.Name record.Phone)
                  handle phoneBook
-        | "6" -> printfn "Not implemented"
-                 handle phoneBook   
-        | "7" -> printfn "Not implemented"
-                 handle phoneBook  
+        | "6" -> printfn "Enter file path:"
+                 let filePath = Console.ReadLine()
+                 saveToFile filePath phoneBook
+                 printfn "Data was successfully saved!"
+                 handle phoneBook
+        | "7" -> printfn "Enter file path:"
+                 let filePath = Console.ReadLine()
+                 let loadedPhoneBook = loadFromFile filePath
+                 printfn "Data was successfully loaded!"
+                 handle loadedPhoneBook
         | _ -> printfn "Incorrect command! Try again"
                handle phoneBook
 
