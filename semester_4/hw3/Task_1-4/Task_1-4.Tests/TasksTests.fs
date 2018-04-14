@@ -7,7 +7,7 @@ open Homework3.Task4
 
 module Task1_Tests = 
  
-    let data = 
+    let data () = 
         [
             ([], 0);
             ([for x in 1..100 -> 2 * x], 100);
