@@ -5,29 +5,27 @@ open Homework3.Task2
 open Homework3.Task3
 open Homework3.Task4
 
-
 module Task1_Tests = 
  
-        let validData = 
-            [
-                TestCaseData([]).Returns(0)
-                TestCaseData([for x in 1..100 -> 2 * x]).Returns(100)
-                TestCaseData([for x in 1..100 -> 2 * x + 1]).Returns(0)
-                TestCaseData([1..100]).Returns(50)
-            ]
+    let data = 
+        [
+            ([], 0);
+            ([for x in 1..100 -> 2 * x], 100);
+            ([for x in 1..100 -> 2 * x + 1], 0);
+            ([1..100], 50);
+        ] |> List.map (fun (ls, res) -> TestCaseData(ls).Returns(res))
 
-        [<TestCaseSource("validData")>]
-        let ``MapFunc test`` s =
-            evenNumbersMap s
+    [<TestCaseSource("data")>]
+    let ``MapFunc test`` s =
+        evenNumbersMap s
 
-        [<TestCaseSource("validData")>]
-        let ``FilterFunc test`` s =
-            evenNumbersFilter s
-
-        [<TestCaseSource("validData")>]
-        let ``FoldFunc test`` s =
-            evenNumbersFold s
-
+    [<TestCaseSource("data")>]
+    let ``FilterFunc test`` s =
+        evenNumbersFilter s
+        
+    [<TestCaseSource("data")>]
+    let ``FoldFunc test`` s =
+        evenNumbersFold s
 
 module Task2_Tests = 
 
@@ -61,7 +59,7 @@ module Task3_Tests =
         let tree = Div(Value(1.0), Value(0.0))
         eval tree |> should equal infinity
 
- module Task4_Tests = 
+module Task4_Tests = 
     
     [<Test>]
     let ``1st prime number should be 2`` () = 
@@ -69,8 +67,8 @@ module Task3_Tests =
 
     [<Test>]
     let ``5th prime number should be 11`` () = 
-        primeSeq  |> Seq.item 4 |> should equal 2
+        primeSeq  |> Seq.item 4 |> should equal 11
 
     [<Test>]
     let ``10th prime number should be 29`` () = 
-        primeSeq  |> Seq.item 4 |> should equal 29
+        primeSeq  |> Seq.item 9 |> should equal 29

@@ -39,8 +39,7 @@ module Task3 =
 module Task4 =
 
     let primeSeq =
-        let isPrime n = 
-            let rec isPrime' i =
-                (n % i <> 0 && isPrime'(i + 1)) || (i > n / 2)
-            isPrime' 2
+        let isPrime n =
+            let sqrt' = n |> float |> sqrt |> int
+            [2 .. sqrt'] |> List.forall (fun x -> n % x <> 0)
         Seq.initInfinite(fun i -> i + 2) |> Seq.filter isPrime
