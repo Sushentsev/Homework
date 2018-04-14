@@ -5,7 +5,6 @@ open Homework5.Task1
 open Homework5.Task2
 open Homework5.Task3
 
-[<TestFixture>]
 module Task1_Tests = 
     
     let correctStrings () =
@@ -29,12 +28,12 @@ module Task1_Tests =
         ] |> List.map (fun str -> TestCaseData(str).Returns(false))
 
     [<TestCaseSource("correctStrings")>]
-    let ``True tests`` data = 
-        isBalanced data
+    let ``True test`` str = 
+        isBalanced str
 
     [<TestCaseSource("incorrectStrings")>]
-    let ``False tests`` data = 
-        isBalanced data
+    let ``False test`` str = 
+        isBalanced str
 
 module Task2_Tests = 
     
@@ -57,58 +56,60 @@ module Task2_Tests =
 module Task3_Tests = 
     
     open System
+    open System.IO
 
-    let phoneBook = 
+    let phoneBook ()  = 
         [
             { Name = "Misha"; Phone = "12345"; };
             { Name = "Petr"; Phone = "2345"; };
             { Name = "Sasha"; Phone = "12345"; };
             { Name = "Masha"; Phone = "345"; };
-            { Name = "Sasha"; Phone = "5678"; }
+            { Name = "Sasha"; Phone = "5678"; };
         ]
 
     [<Test>]
     let ``Add new record test`` () = 
-        let updatedPhoneBook = addRecord "Pasha" "02" phoneBook
+        let updatedPhoneBook = addRecord "Pasha" "02" (phoneBook ())
         updatedPhoneBook |> should contain {Name = "Pasha"; Phone = "02";}
         updatedPhoneBook |> should haveLength 6
 
-
     [<Test>]
     let ``Find phone by name test1`` () = 
-        let filteredPhoneBook = findByName "John" phoneBook
+        let filteredPhoneBook = findByName "John" (phoneBook ())
         filteredPhoneBook |> should equal []
     
     [<Test>]
     let ``Find phone by name test2`` () = 
-        let filteredPhoneBook = findByName "Misha" phoneBook
+        let filteredPhoneBook = findByName "Misha" (phoneBook ())
         filteredPhoneBook |> should equal [{ Name = "Misha"; Phone = "12345"; };]
 
     [<Test>]
     let ``Find phone by name test3`` () = 
-        let filteredPhoneBook = findByName "Sasha" phoneBook
+        let filteredPhoneBook = findByName "Sasha" (phoneBook ())
         filteredPhoneBook |> should contain { Name = "Sasha"; Phone = "12345"; }
         filteredPhoneBook |> should contain { Name = "Sasha"; Phone = "5678"; }
         filteredPhoneBook |> should haveLength 2
 
     [<Test>]
     let ``Find name by phone test1`` () = 
-        let filteredPhoneBook = findByName "1" phoneBook
+        let filteredPhoneBook = findByPhone "1" (phoneBook ())
         filteredPhoneBook |> should equal []
     
     [<Test>]
     let ``Find name by phone test2`` () = 
-        let filteredPhoneBook = findByName "2345" phoneBook
+        let filteredPhoneBook = findByPhone "2345" (phoneBook ())
         filteredPhoneBook |> should equal [{ Name = "Petr"; Phone = "2345"; };]
 
     [<Test>]
     let ``Find name by phone test3`` () = 
-        let filteredPhoneBook = findByName "12345" phoneBook
+        let filteredPhoneBook = findByPhone "12345" (phoneBook ())
         filteredPhoneBook |> should contain { Name = "Misha"; Phone = "12345"; }
         filteredPhoneBook |> should contain { Name = "Sasha"; Phone = "12345"; }
         filteredPhoneBook |> should haveLength 2
 
     [<Test>]
     let ``Load from file test`` () = 
-        let loadedPhoneBook = loadFromFile (Environment.CurrentDirectory + "\PB.txt")
-        loadedPhoneBook |> should equal phoneBook
+        let path = System.AppDomain.CurrentDomain.BaseDirectory;
+        let filePath = Path.GetFullPath(Path.Combine(path, @"..\..\")) + "PB.txt";
+        let loadedPhoneBook = loadFromFile filePath
+        loadedPhoneBook |> should equal (phoneBook ())

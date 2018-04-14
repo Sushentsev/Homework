@@ -115,7 +115,6 @@ module Task3 =
                  printfn "Data was successfully loaded!"
                  handle loadedPhoneBook
         | _ -> printfn "Incorrect command! Try again"
-               printfn "%A" phoneBook
                handle phoneBook
 
     let commands = 
