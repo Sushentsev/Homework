@@ -11,17 +11,19 @@ module Task1 =
 
 module Task2 = 
     
-    type Tree<'a> = 
-        | Node of 'a * Tree<'a> * Tree<'a>
-        | Empty
+    let createSquare (n : int) = 
+        let rec printSquare (row : int, column : int) = 
+            match (row, column) with
+            | (x, y) when x = n && y = n -> printfn "*"
+            | (x, y) when y = n -> printfn "*"
+                                   printSquare (x + 1, 1)
+            | (x, y) when (x = 1) || (x = n) || (y = 1) -> printf "*"
+                                                           printSquare (x, y + 1)
+            | (x, y) -> printf " "
+                        printSquare (x, y + 1)
+        printSquare (1, 1)
 
-    let getMinHeight tree = 
-        let rec getMinHeight' tree ls acc = 
-            match tree with
-            | Node(a, left, Empty) -> acc :: ls
-            | Node(a, Empty, right) -> acc :: ls
-            | Node(a, left, right) -> 
-                getMinHeight' left ls (acc + 1) |> ignore
-                getMinHeight' right ls (acc + 1)
-            | _ -> ls
-        getMinHeight' tree [] 0
+module Task3 = 
+
+                
+
