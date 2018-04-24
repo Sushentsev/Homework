@@ -24,6 +24,34 @@ module Task2 =
         printSquare (1, 1)
 
 module Task3 = 
+        
+    type QueueElement<'T> = { Value : 'T; Key : int}
 
-                
+    type Queue<'T>() = 
 
+        let mutable queue = List.empty<QueueElement<'T>>
+        
+        member this.Insert (value : 'T) (key : int) =
+            {Value = value; Key = key} :: queue |> ignore
+        member this.Get () = 
+            match queue.Length with
+            | 0 -> failwith "Queue is empty!"
+            | _ ->  queue |> List.rev |> List.head
+        member this.ExtractMin () = 
+            match queue.Length with
+            | 0 -> failwith "Queue is empty!"
+            | _ -> queue |> List.minBy (fun element -> element.Key) |> (fun element -> element)
+        member this.ExtractMax () = 
+            match queue.Length with
+            | 0 -> failwith "Queue is empty!"
+            | _ -> queue |> List.maxBy (fun element -> element.Key) |> (fun element -> element)
+        member this.DeleteMin () = 
+            match queue.Length with
+            | 0 -> failwith "Queue is empty!"
+            | _ -> let minKey = queue |> List.minBy (fun element -> element.Key) |> (fun element -> element.Key)
+                   queue <- queue |> List.filter (fun element -> element.Key <> minKey)
+        member this.DeleteMax () = 
+            match queue.Length with
+            | 0 -> failwith "Queue is empty!"
+            | _ -> let maxKey = queue |> List.maxBy (fun element -> element.Key) |> (fun element -> element.Key)
+                   queue <- queue |> List.filter (fun element -> element.Key <> maxKey)
