@@ -55,3 +55,5 @@ module Task3 =
             | 0 -> failwith "Queue is empty!"
             | _ -> let maxKey = queue |> List.maxBy (fun element -> element.Key) |> (fun element -> element.Key)
                    queue <- queue |> List.filter (fun element -> element.Key <> maxKey)
+        member this.List
+            with get () = queue

@@ -28,33 +28,33 @@ module Task3_Tests =
 
     [<Test>]
     let ``Insert test`` () = 
-        queue |> should contain { Value = 1; Key = 1 } 
-        queue |> should contain { Value = 1; Key = 1 }
-        queue |> should contain { Value = 1; Key = 1 }
+        queue.List |> should contain { Value = 1; Key = 1 } 
+        queue.List |> should contain { Value = 1; Key = 1 }
+        queue.List |> should contain { Value = 1; Key = 1 }
 
     [<Test>]
     let ``Get test`` () = 
-        queue.Get |> should equal { Value = 1; Key = 1 } 
+        queue.Get () |> should equal { Value = 1; Key = 1 } 
 
     [<Test>]
     let ``ExtractMin test`` () = 
-        queue.ExtractMin |> should equal { Value = 1; Key = 1 } 
+        queue.ExtractMin () |> should equal { Value = 1; Key = 1 } 
 
     [<Test>]
     let ``ExtractMax test`` () = 
-        queue.ExtractMax |> should equal { Value = 3; Key = 3 }
+        queue.ExtractMax () |> should equal { Value = 3; Key = 3 }
 
     [<Test>]
     let ``DeleteMin test`` () = 
         queue.DeleteMin ()
-        queue |> should haveLength 2
-        queue |> should not' (contain { Value = 1; Key = 1 })
+        queue.List |> should haveLength 2
+        queue.List |> should not' (contain { Value = 1; Key = 1 })
 
     [<Test>]
     let ``DeleteMax test`` () = 
         queue.DeleteMax ()
-        queue |> should haveLength 2
-        queue |> should not' (contain { Value = 3; Key = 3 })
+        queue.List |> should haveLength 2
+        queue.List |> should not' (contain { Value = 3; Key = 3 })
 
 
         
