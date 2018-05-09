@@ -5,7 +5,6 @@ open MyTasks.Task2
 open MyTasks.Task3
 open System
 
-
 module Task1_Tests = 
     
     [<Test>]
@@ -17,44 +16,30 @@ module Task1_Tests =
         [(Math.PI) / 2.0; (Math.PI) / 2.0; (Math.PI) / 2.0] |> averageSin |> should equal 1.0
 
 module Task3_Tests = 
+    
+    type Task3_Tests() = 
 
-    let mutable queue = new Queue<int>()
+        let hashFunction (value : string) = String.length value
 
-    [<SetUp>]
-    let ``SetUp``() = 
-        queue.Insert 1 1
-        queue.Insert 2 2
-        queue.Insert 3 3
+        let mutable hashTable = new HashTable<string>(hashFunction)
 
-    [<Test>]
-    let ``Insert test`` () = 
-        queue.List |> should contain { Value = 1; Key = 1 } 
-        queue.List |> should contain { Value = 1; Key = 1 }
-        queue.List |> should contain { Value = 1; Key = 1 }
+        let data = [ "first"; "second"; "third"; "fourth"; "fifth" ]
 
-    [<Test>]
-    let ``Get test`` () = 
-        queue.Get () |> should equal { Value = 1; Key = 1 } 
+        let falseData = [ "one"; "two"; "tree" ]
 
-    [<Test>]
-    let ``ExtractMin test`` () = 
-        queue.ExtractMin () |> should equal { Value = 1; Key = 1 } 
+        [<SetUp>]
+        member this.``SetUp``() = 
+            hashTable <- new HashTable<string>(hashFunction)
+            data |> List.iter hashTable.AddValue
 
-    [<Test>]
-    let ``ExtractMax test`` () = 
-        queue.ExtractMax () |> should equal { Value = 3; Key = 3 }
+        [<Test>]
+        member this.``IsContained test`` () =
+            data |> List.iter (fun element -> hashTable.IsContained element |> should be True)
+            falseData |> List.iter (fun element -> hashTable.IsContained element |> should be False)
 
-    [<Test>]
-    let ``DeleteMin test`` () = 
-        queue.DeleteMin ()
-        queue.List |> should haveLength 2
-        queue.List |> should not' (contain { Value = 1; Key = 1 })
-
-    [<Test>]
-    let ``DeleteMax test`` () = 
-        queue.DeleteMax ()
-        queue.List |> should haveLength 2
-        queue.List |> should not' (contain { Value = 3; Key = 3 })
-
-
-        
+        [<Test>]
+        member this.``RemoveValue test`` () =
+            hashTable.RemoveValue data.[0]
+            let data1 = data |> List.filter (fun element -> element <> data.[0])
+            hashTable.IsContained data.[0] |> should be False
+            data1 |> List.iter (fun element -> hashTable.IsContained element |> should be True)

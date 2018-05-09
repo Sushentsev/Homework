@@ -25,35 +25,21 @@ module Task2 =
 
 module Task3 = 
         
-    type QueueElement<'T> = { Value : 'T; Key : int}
+    type HashTable<'a> when 'a : equality (hashFunction : 'a -> int) = 
 
-    type Queue<'T>() = 
+        let capacity = 128
+        let mutable hashTable = [| for index in 0 .. (capacity - 1) -> List.empty<'a> |]
 
-        let mutable queue = List.empty<QueueElement<'T>>
-        
-        member this.Insert (value : 'T) (key : int) =
-            {Value = value; Key = key} :: queue |> ignore
-        member this.Get () = 
-            match queue.Length with
-            | 0 -> failwith "Queue is empty!"
-            | _ ->  queue |> List.rev |> List.head
-        member this.ExtractMin () = 
-            match queue.Length with
-            | 0 -> failwith "Queue is empty!"
-            | _ -> queue |> List.minBy (fun element -> element.Key) |> (fun element -> element)
-        member this.ExtractMax () = 
-            match queue.Length with
-            | 0 -> failwith "Queue is empty!"
-            | _ -> queue |> List.maxBy (fun element -> element.Key) |> (fun element -> element)
-        member this.DeleteMin () = 
-            match queue.Length with
-            | 0 -> failwith "Queue is empty!"
-            | _ -> let minKey = queue |> List.minBy (fun element -> element.Key) |> (fun element -> element.Key)
-                   queue <- queue |> List.filter (fun element -> element.Key <> minKey)
-        member this.DeleteMax () = 
-            match queue.Length with
-            | 0 -> failwith "Queue is empty!"
-            | _ -> let maxKey = queue |> List.maxBy (fun element -> element.Key) |> (fun element -> element.Key)
-                   queue <- queue |> List.filter (fun element -> element.Key <> maxKey)
-        member this.List
-            with get () = queue
+        member this.AddValue (value : 'a) =
+            let hash = (hashFunction value) % capacity
+            hashTable.[hash] <- value :: hashTable.[hash]
+        member this.IsContained (value : 'a) =
+            let hash = (hashFunction value) % capacity 
+            hashTable.[hash] |> List.contains value
+        member this.RemoveValue (value : 'a) = 
+            if (this.IsContained value)
+            then
+                let hash = (hashFunction value) % capacity
+                hashTable.[hash] <- (hashTable.[hash] |> List.filter (fun element -> element <> value))
+            else    
+                failwith "Value not contained in a table!"
