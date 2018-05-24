@@ -64,7 +64,6 @@
     <Content Include="packages.config" />
     <Content Include="Data\Test1.txt" />
     <Content Include="Data\Test2.txt" />
-    <Content Include="Data\Test3.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
