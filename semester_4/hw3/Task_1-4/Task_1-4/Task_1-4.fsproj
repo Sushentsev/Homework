@@ -56,7 +56,7 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Hw4.fs" />
+    <Compile Include="Hw3.fs" />
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>

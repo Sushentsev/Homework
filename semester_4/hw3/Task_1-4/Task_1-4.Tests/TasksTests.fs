@@ -63,12 +63,12 @@ module Task4_Tests =
     
     [<Test>]
     let ``1st prime number should be 2`` () = 
-        primeSeq |> Seq.item 0 |> should equal 2
+        primeSeq () |> Seq.item 0 |> should equal 2
 
     [<Test>]
     let ``5th prime number should be 11`` () = 
-        primeSeq  |> Seq.item 4 |> should equal 11
+        primeSeq () |> Seq.item 4 |> should equal 11
 
     [<Test>]
     let ``10th prime number should be 29`` () = 
-        primeSeq  |> Seq.item 9 |> should equal 29
+        primeSeq () |> Seq.item 9 |> should equal 29

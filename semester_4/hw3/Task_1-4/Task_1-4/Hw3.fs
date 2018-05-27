@@ -38,7 +38,7 @@ module Task3 =
 
 module Task4 =
 
-    let primeSeq =
+    let primeSeq () =
         let isPrime n =
             let sqrt' = n |> float |> sqrt |> int
             [2 .. sqrt'] |> List.forall (fun x -> n % x <> 0)
