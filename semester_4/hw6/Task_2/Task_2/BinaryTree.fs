@@ -66,11 +66,9 @@ type BinaryTree<'T when 'T : comparison>() =
             let rec addValue (value : 'T) (node : TreeNode<'T>) = 
                 match node with
                 | Empty -> TreeNode(value, Empty, Empty)     
-                | TreeNode(nodeValue, left, right) -> 
-                    match value with
-                    | value when value < nodeValue -> TreeNode(nodeValue, addValue value left, right)
-                    | value when value > nodeValue -> TreeNode(nodeValue, left, addValue value right)
-                    | _ -> failwith "The value is already contained in the tree!"
+                | TreeNode(nodeValue, left, right) when value < nodeValue -> TreeNode(nodeValue, addValue value left, right) 
+                | TreeNode(nodeValue, left, right) when value > nodeValue -> TreeNode(nodeValue, left, addValue value right)
+                | _ -> failwith "The value is already contained in the tree!"
 
             root <- addValue value root
             length <- length + 1
@@ -80,28 +78,24 @@ type BinaryTree<'T when 'T : comparison>() =
             let rec getMinNode (node : TreeNode<'T>) = 
                 match node with
                 | Empty -> failwith "The node is empty!"
-                | TreeNode(_, leftChild, _) -> 
-                    match leftChild with
-                    | Empty -> node
-                    | _ -> getMinNode leftChild
+                | TreeNode(_, leftChild, _) when leftChild = Empty -> node
+                | TreeNode(_, leftChild, _) -> getMinNode leftChild
 
             let rec removeValue (value : 'T) (node : TreeNode<'T>) = 
                 match node with 
                 | Empty -> failwith "The value is not found!"
-                | TreeNode(nodeValue, left, right) -> 
-                    match value with
-                    | value when value < nodeValue -> TreeNode(nodeValue, removeValue value left, right)
-                    | value when value > nodeValue -> TreeNode(nodeValue, left, removeValue value right)
+                | TreeNode(nodeValue, left, right) when value < nodeValue -> TreeNode(nodeValue, removeValue value left, right) 
+                | TreeNode(nodeValue, left, right) when value > nodeValue -> TreeNode(nodeValue, left, removeValue value right)
+                | TreeNode(nodeValue, left, right) ->
+                    match left, right with
+                    | Empty, Empty -> Empty
+                    | Empty, TreeNode(_, _, _) -> right
+                    | TreeNode(_, _, _), Empty -> left
                     | _ -> 
-                        match left, right with
-                        | Empty, Empty -> Empty
-                        | Empty, TreeNode(_, _, _) -> right
-                        | TreeNode(_, _, _), Empty -> left
-                        | _ -> 
-                            let minNode = getMinNode(right)
-                            match minNode with
-                            | TreeNode(minNodeValue, _, _) -> TreeNode(minNodeValue, left, removeValue minNodeValue right)
-                            | Empty -> failwith "The node is empty!"
+                        let minNode = getMinNode(right)
+                        match minNode with
+                        | TreeNode(minNodeValue, _, _) -> TreeNode(minNodeValue, left, removeValue minNodeValue right)
+                        | Empty -> failwith "The node is empty!"
           
             root <- removeValue value root
             length <- length - 1
@@ -111,12 +105,9 @@ type BinaryTree<'T when 'T : comparison>() =
             let rec isContained (value : 'T) (node : TreeNode<'T>) = 
                 match node with
                 | Empty -> false
-                | TreeNode(nodeValue, left, right) -> 
-                    match value with
-                    | value when value < nodeValue -> isContained value left
-                    | value when value > nodeValue -> isContained value right
-                    | _ -> true
-
+                | TreeNode(nodeValue, left, right) when value < nodeValue -> isContained value left
+                | TreeNode(nodeValue, left, right) when value > nodeValue -> isContained value right
+                | _ -> true
             isContained value root
 
         member this.GetLength
