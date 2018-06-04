@@ -11,7 +11,6 @@ type Task1_Tests() =
 
     let testHelper (object : ILazy<int>) = 
         let threadCount = 100
-        let exp = object.Get()
         let results = Array.zeroCreate threadCount
         let threads = [| for index in 0..threadCount - 1 -> new Thread(fun () -> results.[index] <- object.Get()) |]
         threads |> Array.iter (fun thread -> thread.Start())
@@ -26,8 +25,8 @@ type Task1_Tests() =
     member this.``SingleLazy test`` () = 
         let count = 10
         let object = LazyFactory.CreateSingleLazy(fun () -> random.Next())
-        let expected = (object :> ILazy<int>).Get()
         let actualList = [for index in 1..count -> (object :> ILazy<int>).Get()]
+        let expected = (object :> ILazy<int>).Get()
         actualList |> List.iter (should equal expected)
 
     /// <summary>
