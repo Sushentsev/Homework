@@ -28,3 +28,4 @@ type OS(index : int, random : Random) =
 
     member this.GetProbability () = 
         probabilityOfInfection
+ 

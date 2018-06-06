@@ -58,9 +58,9 @@
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
+    <Compile Include="OS.fs" />
     <Compile Include="Computer.fs" />
     <Compile Include="Network.fs" />
-    <Compile Include="OS.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

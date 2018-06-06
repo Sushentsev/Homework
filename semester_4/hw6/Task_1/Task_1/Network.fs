@@ -63,7 +63,7 @@ type Network(computers : IComputer[], graph : bool[][], random : Random) =
         let graph = 
             [| 
                 for line in (lines |> Array.toSeq |> Seq.skip 2) do
-                yield line.Split() |> Array.map (fun item -> Convert.ToBoolean(item))
+                yield line.Split() |> Array.map (fun item -> Convert.ToBoolean(Convert.ToInt32(item)))
             |]
         Network(computers, graph, random)
     
@@ -81,3 +81,4 @@ type Network(computers : IComputer[], graph : bool[][], random : Random) =
         member this.PrintInformation () =
             computers |> Array.iteri (fun index computer -> printfn "Computer %i on %O infection: %b" index computer.OS computer.IsInfected)
         member this.NumberOfInfectedComputers () = numberOfInfectedComputers ()
+
