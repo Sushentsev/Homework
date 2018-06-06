@@ -3,6 +3,7 @@ open FsUnit
 open System.IO
 open Computer
 open Network
+open OS
 
 module Tests = 
     

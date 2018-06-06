@@ -60,6 +60,7 @@
     <Content Include="packages.config" />
     <Compile Include="Computer.fs" />
     <Compile Include="Network.fs" />
+    <Compile Include="OS.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

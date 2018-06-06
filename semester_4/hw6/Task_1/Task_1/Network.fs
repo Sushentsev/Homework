@@ -1,5 +1,6 @@
 ﻿module Network
 open Computer
+open OS
 open System
 open System.IO
 
@@ -57,12 +58,12 @@ type Network(computers : IComputer[], graph : bool[][], random : Random) =
         let random = new Random()
         let lines = File.ReadAllLines filePath
         let count = lines.[0].Split() |> Array.item 0 |> int
-        let os = lines.[1].Split() |> Array.map (int >> enum)
-        let computers = [| for index in 0 .. count - 1 -> new Computer(os.[index], random) :> IComputer |]
+        let os = lines.[1].Split() |> Array.map int
+        let computers = [| for index in 0 .. count - 1 -> new Computer(new OS(os.[index], random), random) :> IComputer |]
         let graph = 
             [| 
                 for line in (lines |> Array.toSeq |> Seq.skip 2) do
-                yield line.Split() |> Array.map (fun x -> if x = "1" then true else false)
+                yield line.Split() |> Array.map (fun item -> Convert.ToBoolean(item))
             |]
         Network(computers, graph, random)
     

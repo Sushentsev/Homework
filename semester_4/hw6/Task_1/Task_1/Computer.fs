@@ -1,15 +1,6 @@
 ﻿module Computer
 open System
-
-/// <summary>
-/// Available types of operating systems.
-/// </summary>
-type OS = 
-    | Windows = 0
-    | Linux = 1
-    | MacOS = 2
-    | Embox = 3
-    | SafeOS = 4
+open OS
 
 /// <summary>
 /// Interface for computer class.
@@ -38,14 +29,7 @@ type IComputer =
 type Computer(OS : OS, random : Random) = 
     
     let mutable isInfected = false
-    let probabitityOfInfection =
-        match OS with
-        | OS.Windows -> random.Next(50, 70)
-        | OS.Linux -> random.Next(10, 25)
-        | OS.MacOS -> random.Next(25, 40)
-        | OS.Embox -> random.Next(0, 10)
-        | OS.SafeOS -> 0
-        | _ -> 100
+    let system = OS
     
     interface IComputer with
         member this.OS = OS
@@ -54,4 +38,4 @@ type Computer(OS : OS, random : Random) =
             and set x = isInfected <- x
         member this.TryToInfect () = 
             let random' = random.Next(1, 100)
-            if random' <= probabitityOfInfection then isInfected <- true
+            if random' <= OS.GetProbability() then isInfected <- true
