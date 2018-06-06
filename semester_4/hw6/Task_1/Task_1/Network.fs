@@ -73,8 +73,10 @@ type Network(computers : IComputer[], graph : bool[][], random : Random) =
         member this.MakeMove () =
             match areAllNotInfected (), areAllInfected () with
             | true, _ -> tryToInfectRandomComputer ()
-            | _, false -> let infectRow row = graph.[row] |> Array.iteri (fun column state -> if (graph.[row].[column]) then computers.[column].TryToInfect ())
-                          computers |> Array.iteri (fun index computer -> if computer.IsInfected then infectRow index)
+            | _, false -> 
+                let oldComputers = computers
+                let infectRow row = graph.[row] |> Array.iteri (fun column state -> if (graph.[row].[column]) then computers.[column].TryToInfect ())
+                computers |> Array.iteri (fun index computer -> if oldComputers.[index].IsInfected then infectRow index)
             | _, _ -> ()
         member this.PrintInformation () =
             computers |> Array.iteri (fun index computer -> printfn "Computer %i on %O infection: %b" index computer.OS computer.IsInfected)
