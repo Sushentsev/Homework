@@ -1,6 +1,6 @@
 ﻿module Computer
-open System
 open OS
+open System
 
 /// <summary>
 /// Interface for computer class.
